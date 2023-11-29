@@ -1,0 +1,25 @@
+<div class="container mt-4" >
+    <h1>Product registration</h1>
+    <div class="card">
+           
+  <form>
+   
+    <div class="form-group">
+      <label >Product Name</label>
+      <input type="text"  [(ngModel)]="productname" [ngModelOptions]="{standalone: true}"   class="form-control" id="productname" name="productname" placeholder="Enter Name">
+    </div>
+    
+    <div class="form-group">
+        <label >Quantity</label>
+        <input type="text" [(ngModel)]="productadresse" [ngModelOptions]="{standalone: true}" class="form-control" id="productadresse" name="productadresse" placeholder="Enter Address">
+      </div>
+  
+      <div class="form-group">
+        <label >Price</label>
+        <input type="text" [(ngModel)]="productmobile" [ngModelOptions]="{standalone: true}" class="form-control" id="productmobile" name="productmobile" placeholder="Enter Mobile">
+      </div>
+  
+      <button type="submit" class="btn btn-primary mt-4"  >Add</button>
+  </form>
+  </div>
+  </div>

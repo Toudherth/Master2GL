@@ -1,0 +1,1258 @@
+[
+{
+"attributes": {
+"exist_parser2langage": {
+"concepts": [
+16,
+17,
+24
+],
+"operator": "exist",
+"relation": "parser2langage",
+"target": "langage"
+}
+},
+"children": [
+58,
+65,
+70,
+84
+],
+"context": "parser",
+"id": 8,
+"objects": [],
+"parents": []
+},
+{
+"attributes": {
+"exist_parser2licence": {
+"concepts": [
+29
+],
+"operator": "exist",
+"relation": "parser2licence",
+"target": "licence"
+}
+},
+"children": [
+9,
+81,
+83,
+96
+],
+"context": "parser",
+"id": 84,
+"objects": [],
+"parents": [
+8
+]
+},
+{
+"attributes": {
+"exist_parser2langage": {
+"concepts": [
+23
+],
+"operator": "exist",
+"relation": "parser2langage",
+"target": "langage"
+}
+},
+"children": [
+56,
+69,
+76,
+83
+],
+"context": "parser",
+"id": 70,
+"objects": [],
+"parents": [
+8
+]
+},
+{
+"attributes": {
+"exist_parser2langage": {
+"concepts": [
+19
+],
+"operator": "exist",
+"relation": "parser2langage",
+"target": "langage"
+}
+},
+"children": [
+13,
+56,
+64,
+81
+],
+"context": "parser",
+"id": 58,
+"objects": [],
+"parents": [
+8
+]
+},
+{
+"attributes": {
+"exist_parser2langage": {
+"concepts": [
+21
+],
+"operator": "exist",
+"relation": "parser2langage",
+"target": "langage"
+}
+},
+"children": [
+9,
+64,
+69
+],
+"context": "parser",
+"id": 65,
+"objects": [],
+"parents": [
+8
+]
+},
+{
+"attributes": {},
+"children": [
+68,
+80,
+82,
+95
+],
+"context": "parser",
+"id": 83,
+"objects": [],
+"parents": [
+70,
+84
+]
+},
+{
+"attributes": {
+"exist_parser2langage": {
+"concepts": [
+28
+],
+"operator": "exist",
+"relation": "parser2langage",
+"target": "langage"
+}
+},
+"children": [
+72,
+75,
+82
+],
+"context": "parser",
+"id": 76,
+"objects": [],
+"parents": [
+70
+]
+},
+{
+"attributes": {},
+"children": [
+57,
+80,
+90
+],
+"context": "parser",
+"id": 81,
+"objects": [],
+"parents": [
+58,
+84
+]
+},
+{
+"attributes": {
+"exist_parser2langage": {
+"concepts": [
+18
+],
+"operator": "exist",
+"relation": "parser2langage",
+"target": "langage"
+}
+},
+"children": [
+63,
+72,
+80
+],
+"context": "parser",
+"id": 56,
+"objects": [],
+"parents": [
+58,
+70
+]
+},
+{
+"attributes": {},
+"children": [
+63,
+67,
+68,
+75
+],
+"context": "parser",
+"id": 69,
+"objects": [],
+"parents": [
+65,
+70
+]
+},
+{
+"attributes": {
+"Grammar code mixed": "Grammar code mixed"
+},
+"children": [
+57,
+68,
+93
+],
+"context": "parser",
+"id": 9,
+"objects": [],
+"parents": [
+65,
+84
+]
+},
+{
+"attributes": {},
+"children": [
+57,
+62,
+63
+],
+"context": "parser",
+"id": 64,
+"objects": [],
+"parents": [
+58,
+65
+]
+},
+{
+"attributes": {
+"exist_parser2licence": {
+"concepts": [
+30
+],
+"operator": "exist",
+"relation": "parser2licence",
+"target": "licence"
+}
+},
+"children": [
+90,
+93,
+95,
+100
+],
+"context": "parser",
+"id": 96,
+"objects": [],
+"parents": [
+84
+]
+},
+{
+"attributes": {},
+"children": [
+74,
+79,
+94
+],
+"context": "parser",
+"id": 82,
+"objects": [],
+"parents": [
+76,
+83
+]
+},
+{
+"attributes": {},
+"children": [
+55,
+79,
+88
+],
+"context": "parser",
+"id": 80,
+"objects": [],
+"parents": [
+56,
+81,
+83
+]
+},
+{
+"attributes": {
+"exist_parser2langage": {
+"concepts": [
+26
+],
+"operator": "exist",
+"relation": "parser2langage",
+"target": "langage"
+}
+},
+"children": [
+11,
+71,
+79
+],
+"context": "parser",
+"id": 72,
+"objects": [],
+"parents": [
+56,
+76
+]
+},
+{
+"attributes": {},
+"children": [
+71,
+73,
+74
+],
+"context": "parser",
+"id": 75,
+"objects": [],
+"parents": [
+69,
+76
+]
+},
+{
+"attributes": {},
+"children": [
+55,
+74,
+92
+],
+"context": "parser",
+"id": 68,
+"objects": [],
+"parents": [
+9,
+69,
+83
+]
+},
+{
+"attributes": {},
+"children": [
+55,
+61,
+71
+],
+"context": "parser",
+"id": 63,
+"objects": [],
+"parents": [
+56,
+64,
+69
+]
+},
+{
+"attributes": {},
+"children": [
+55,
+89
+],
+"context": "parser",
+"id": 57,
+"objects": [],
+"parents": [
+9,
+64,
+81
+]
+},
+{
+"attributes": {
+"exist_parser2licence": {
+"concepts": [
+31
+],
+"operator": "exist",
+"relation": "parser2licence",
+"target": "licence"
+}
+},
+"children": [
+94,
+98,
+99
+],
+"context": "parser",
+"id": 100,
+"objects": [],
+"parents": [
+96
+]
+},
+{
+"attributes": {},
+"children": [
+89,
+92,
+99
+],
+"context": "parser",
+"id": 93,
+"objects": [],
+"parents": [
+9,
+96
+]
+},
+{
+"attributes": {},
+"children": [
+88,
+89,
+98
+],
+"context": "parser",
+"id": 90,
+"objects": [],
+"parents": [
+81,
+96
+]
+},
+{
+"attributes": {},
+"children": [
+88,
+92,
+94
+],
+"context": "parser",
+"id": 95,
+"objects": [],
+"parents": [
+83,
+96
+]
+},
+{
+"attributes": {},
+"children": [
+14,
+87
+],
+"context": "parser",
+"id": 79,
+"objects": [],
+"parents": [
+72,
+80,
+82
+]
+},
+{
+"attributes": {},
+"children": [
+14,
+91
+],
+"context": "parser",
+"id": 74,
+"objects": [],
+"parents": [
+68,
+75,
+82
+]
+},
+{
+"attributes": {},
+"children": [
+14,
+60
+],
+"context": "parser",
+"id": 71,
+"objects": [],
+"parents": [
+63,
+72,
+75
+]
+},
+{
+"attributes": {},
+"children": [
+14,
+86
+],
+"context": "parser",
+"id": 55,
+"objects": [],
+"parents": [
+57,
+63,
+68,
+80
+]
+},
+{
+"attributes": {},
+"children": [
+91,
+97
+],
+"context": "parser",
+"id": 99,
+"objects": [],
+"parents": [
+93,
+100
+]
+},
+{
+"attributes": {},
+"children": [
+78,
+87,
+97
+],
+"context": "parser",
+"id": 98,
+"objects": [],
+"parents": [
+90,
+100
+]
+},
+{
+"attributes": {},
+"children": [
+86,
+97
+],
+"context": "parser",
+"id": 89,
+"objects": [],
+"parents": [
+57,
+90,
+93
+]
+},
+{
+"attributes": {},
+"children": [
+87,
+91
+],
+"context": "parser",
+"id": 94,
+"objects": [],
+"parents": [
+82,
+95,
+100
+]
+},
+{
+"attributes": {},
+"children": [
+66,
+86,
+91
+],
+"context": "parser",
+"id": 92,
+"objects": [],
+"parents": [
+68,
+93,
+95
+]
+},
+{
+"attributes": {},
+"children": [
+86,
+87
+],
+"context": "parser",
+"id": 88,
+"objects": [],
+"parents": [
+80,
+90,
+95
+]
+},
+{
+"attributes": {
+"DevPlatf all": "DevPlatf all"
+},
+"children": [
+11,
+62,
+78
+],
+"context": "parser",
+"id": 13,
+"objects": [],
+"parents": [
+58
+]
+},
+{
+"attributes": {
+"exist_parser2langage": {
+"concepts": [
+22
+],
+"operator": "exist",
+"relation": "parser2langage",
+"target": "langage"
+}
+},
+"children": [
+61,
+66,
+73
+],
+"context": "parser",
+"id": 67,
+"objects": [],
+"parents": [
+69
+]
+},
+{
+"attributes": {
+"DevPlatf JVM": "DevPlatf JVM"
+},
+"children": [
+85,
+101
+],
+"context": "parser",
+"id": 14,
+"objects": [],
+"parents": [
+55,
+71,
+74,
+79
+]
+},
+{
+"attributes": {},
+"children": [
+12,
+85
+],
+"context": "parser",
+"id": 97,
+"objects": [],
+"parents": [
+89,
+98,
+99
+]
+},
+{
+"attributes": {},
+"children": [
+15,
+85
+],
+"context": "parser",
+"id": 91,
+"objects": [],
+"parents": [
+74,
+92,
+94,
+99
+]
+},
+{
+"attributes": {},
+"children": [
+77,
+85
+],
+"context": "parser",
+"id": 87,
+"objects": [],
+"parents": [
+79,
+88,
+94,
+98
+]
+},
+{
+"attributes": {},
+"children": [
+59,
+85
+],
+"context": "parser",
+"id": 86,
+"objects": [],
+"parents": [
+55,
+88,
+89,
+92
+]
+},
+{
+"attributes": {},
+"children": [
+12,
+77
+],
+"context": "parser",
+"id": 78,
+"objects": [],
+"parents": [
+13,
+98
+]
+},
+{
+"attributes": {
+"Grammar code separate": "Grammar code separate"
+},
+"children": [
+60,
+77
+],
+"context": "parser",
+"id": 11,
+"objects": [],
+"parents": [
+13,
+72
+]
+},
+{
+"attributes": {
+"exist_parser2langage": {
+"concepts": [
+27
+],
+"operator": "exist",
+"relation": "parser2langage",
+"target": "langage"
+}
+},
+"children": [
+15,
+60
+],
+"context": "parser",
+"id": 73,
+"objects": [],
+"parents": [
+67,
+75
+]
+},
+{
+"attributes": {},
+"children": [
+12,
+60
+],
+"context": "parser",
+"id": 62,
+"objects": [],
+"parents": [
+13,
+64
+]
+},
+{
+"attributes": {
+"exist_parser2langage": {
+"concepts": [
+20
+],
+"operator": "exist",
+"relation": "parser2langage",
+"target": "langage"
+}
+},
+"children": [
+59,
+60
+],
+"context": "parser",
+"id": 61,
+"objects": [],
+"parents": [
+63,
+67
+]
+},
+{
+"attributes": {},
+"children": [
+15,
+59
+],
+"context": "parser",
+"id": 66,
+"objects": [],
+"parents": [
+67,
+92
+]
+},
+{
+"attributes": {
+"exist_parser2licence": {
+"concepts": [
+33
+],
+"operator": "exist",
+"relation": "parser2licence",
+"target": "licence"
+}
+},
+"children": [
+10
+],
+"context": "parser",
+"id": 101,
+"objects": [
+"JFlex"
+],
+"parents": [
+14
+]
+},
+{
+"attributes": {},
+"children": [
+10
+],
+"context": "parser",
+"id": 85,
+"objects": [
+"CookCC"
+],
+"parents": [
+14,
+86,
+87,
+91,
+97
+]
+},
+{
+"attributes": {},
+"children": [
+10
+],
+"context": "parser",
+"id": 77,
+"objects": [
+"AustenX"
+],
+"parents": [
+11,
+78,
+87
+]
+},
+{
+"attributes": {
+"exist_parser2langage": {
+"concepts": [
+25
+],
+"operator": "exist",
+"relation": "parser2langage",
+"target": "langage"
+}
+},
+"children": [
+10
+],
+"context": "parser",
+"id": 60,
+"objects": [
+"Dolphin"
+],
+"parents": [
+11,
+61,
+62,
+71,
+73
+]
+},
+{
+"attributes": {},
+"children": [
+10
+],
+"context": "parser",
+"id": 59,
+"objects": [
+"lex"
+],
+"parents": [
+61,
+66,
+86
+]
+},
+{
+"attributes": {
+"DevPlatf Eiffel": "DevPlatf Eiffel"
+},
+"children": [
+10
+],
+"context": "parser",
+"id": 15,
+"objects": [
+"gelex"
+],
+"parents": [
+66,
+73,
+91
+]
+},
+{
+"attributes": {},
+"children": [
+10
+],
+"context": "parser",
+"id": 12,
+"objects": [
+"Alex"
+],
+"parents": [
+62,
+78,
+97
+]
+},
+{
+"attributes": {
+"DevPlatf .NET CLR": "DevPlatf .NET CLR",
+"exist_parser2licence": {
+"concepts": [
+32
+],
+"operator": "exist",
+"relation": "parser2licence",
+"target": "licence"
+}
+},
+"children": [],
+"context": "parser",
+"id": 10,
+"objects": [],
+"parents": [
+12,
+15,
+59,
+60,
+77,
+85,
+101
+]
+},
+{
+"attributes": {},
+"children": [
+17,
+24
+],
+"context": "langage",
+"id": 16,
+"objects": [],
+"parents": []
+},
+{
+"attributes": {
+"Generic": "Generic"
+},
+"children": [
+19,
+23
+],
+"context": "langage",
+"id": 24,
+"objects": [],
+"parents": [
+16
+]
+},
+{
+"attributes": {
+"Imperative": "Imperative"
+},
+"children": [
+21,
+23
+],
+"context": "langage",
+"id": 17,
+"objects": [],
+"parents": [
+16
+]
+},
+{
+"attributes": {},
+"children": [
+18,
+22,
+28
+],
+"context": "langage",
+"id": 23,
+"objects": [],
+"parents": [
+17,
+24
+]
+},
+{
+"attributes": {
+"Procedural": "Procedural"
+},
+"children": [
+22
+],
+"context": "langage",
+"id": 21,
+"objects": [
+"C"
+],
+"parents": [
+17
+]
+},
+{
+"attributes": {
+"Functional": "Functional"
+},
+"children": [
+18
+],
+"context": "langage",
+"id": 19,
+"objects": [
+"Haskell"
+],
+"parents": [
+24
+]
+},
+{
+"attributes": {
+"Reflective": "Reflective"
+},
+"children": [
+26,
+27
+],
+"context": "langage",
+"id": 28,
+"objects": [],
+"parents": [
+23
+]
+},
+{
+"attributes": {},
+"children": [
+20,
+27
+],
+"context": "langage",
+"id": 22,
+"objects": [],
+"parents": [
+21,
+23
+]
+},
+{
+"attributes": {
+"Object-oriented": "Object-oriented"
+},
+"children": [
+20,
+26
+],
+"context": "langage",
+"id": 18,
+"objects": [],
+"parents": [
+19,
+23
+]
+},
+{
+"attributes": {},
+"children": [
+25
+],
+"context": "langage",
+"id": 27,
+"objects": [
+"Go"
+],
+"parents": [
+22,
+28
+]
+},
+{
+"attributes": {},
+"children": [
+25
+],
+"context": "langage",
+"id": 26,
+"objects": [
+"Eiffel"
+],
+"parents": [
+18,
+28
+]
+},
+{
+"attributes": {},
+"children": [
+25
+],
+"context": "langage",
+"id": 20,
+"objects": [
+"C++"
+],
+"parents": [
+18,
+22
+]
+},
+{
+"attributes": {},
+"children": [],
+"context": "langage",
+"id": 25,
+"objects": [
+"Java",
+"C#"
+],
+"parents": [
+20,
+26,
+27
+]
+},
+{
+"attributes": {},
+"children": [
+30,
+33
+],
+"context": "licence",
+"id": 29,
+"objects": [],
+"parents": []
+},
+{
+"attributes": {
+"Linking": "Linking"
+},
+"children": [
+31
+],
+"context": "licence",
+"id": 30,
+"objects": [
+"CDDL"
+],
+"parents": [
+29
+]
+},
+{
+"attributes": {
+"Patent grant": "Patent grant"
+},
+"children": [
+32
+],
+"context": "licence",
+"id": 33,
+"objects": [
+"GNU GPL"
+],
+"parents": [
+29
+]
+},
+{
+"attributes": {
+"Distribution": "Distribution",
+"Modification": "Modification",
+"Private use": "Private use",
+"Sublicensing": "Sublicensing"
+},
+"children": [
+32
+],
+"context": "licence",
+"id": 31,
+"objects": [
+"BSD",
+"MIT"
+],
+"parents": [
+30
+]
+},
+{
+"attributes": {},
+"children": [],
+"context": "licence",
+"id": 32,
+"objects": [],
+"parents": [
+31,
+33
+]
+}
+]

@@ -1,9 +1,30 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+import 'view/login_view.dart';
+import 'view/register_view.dart';
+
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
+
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Your App Title',
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => LoginView(),
+        '/register': (context) => RegisterView(),
+      },
+    );
+  }
+}
+
+/*
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -11,7 +32,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'ArduinoFlutter',
       theme: ThemeData(
 
 
@@ -20,10 +41,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'ArduinoFlutter'),
     );
   }
 }
+*/
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});

@@ -1,0 +1,8 @@
+Name    ;Grammar code mixed ;Grammar code separate ;DevPlatf all ;DevPlatf .NET CLR ;DevPlatf JVM ;DevPlatf Eiffel 
+Alex    ;                 1 ;                    0 ;           1 ;                0 ;           0 ;              0              
+AustenX ;                 0 ;                    1 ;           1 ;                0 ;           0 ;              0              
+CookCC  ;                 1 ;                    0 ;           0 ;                0 ;           1 ;              0              
+Dolphin ;                 0 ;                    1 ;           1 ;                0 ;           0 ;              0              
+gelex   ;                 1 ;                    0 ;           0 ;                0 ;           0 ;              1              
+JFlex   ;                 1 ;                    0 ;           0 ;                0 ;           1 ;              0              
+lex     ;                 1 ;                    0 ;           0 ;                0 ;           0 ;              0              

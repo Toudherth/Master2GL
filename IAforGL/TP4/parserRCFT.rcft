@@ -1,0 +1,53 @@
+FormalContext parser
+||Grammar code mixed|Grammar code separate|DevPlatf all|DevPlatf .NET CLR|DevPlatf JVM|DevPlatf Eiffel|
+|Alex|x||x||||
+|AustenX||x|x||||
+|CookCC|x||||x||
+|Dolphin||x|x||||
+|gelex|x|||||x|
+|JFlex|x||||x||
+|lex|x||||||
+
+FormalContext langage
+||Imperative|Object-oriented|Functional|Procedural|Generic|Reflective|
+|Haskell|||x||x||
+|Java|x|x|x|x|x|x|
+|C#|x|x|x|x|x|x|
+|C++|x|x|x|x|x||
+|C|x|||x|||
+|Eiffel|x|x|x||x|x|
+|Go|x|||x|x|x|
+
+FormalContext licence
+||Linking|Distribution|Modification|Patent grant|Private use|Sublicensing|
+|BSD|x|x|x||x|x|
+|GNU GPL||||x|||
+|MIT|x|x|x||x|x|
+|CDDL|x||||||
+
+RelationalContext parser2langage
+source parser
+target langage
+scaling exist
+||Haskell|Java|C#|C++|C|Eiffel|Go|
+|Alex|x||||x|||
+|AustenX||||||x||
+|CookCC|||||x|x||
+|Dolphin|||x|||||
+|gelex|||||x||x|
+|JFlex|||||x|x||
+|lex||||x|x|||
+
+RelationalContext parser2licence
+source parser
+target licence
+scaling exist
+||BSD |GNU GPL |MIT |CDDL |
+|Alex    |x||||
+|AustenX |x||||
+|CookCC  |x||||
+|Dolphin |||||
+|gelex   |||x||
+|JFlex   ||x|||
+|lex     ||||x|
+

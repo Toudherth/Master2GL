@@ -1,0 +1,13 @@
+parser: step=1 nb.concepts=8 nb.attrib rel.=0
+langage: step=1 nb.concepts=13 nb.attrib rel.=0
+licence: step=1 nb.concepts=5 nb.attrib rel.=0
+time:32 ms
+parser: step=2 nb.concepts=55 nb.attrib rel.=18
+langage: step=2 nb.concepts=13 nb.attrib rel.=0
+licence: step=2 nb.concepts=5 nb.attrib rel.=0
+time:14 ms
+parser: step=3 nb.concepts=55 nb.attrib rel.=18
+langage: step=3 nb.concepts=13 nb.attrib rel.=0
+licence: step=3 nb.concepts=5 nb.attrib rel.=0
+time:25 ms
+total time: 107

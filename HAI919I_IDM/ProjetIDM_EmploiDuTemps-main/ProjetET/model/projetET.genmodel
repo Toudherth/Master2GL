@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/ProjetET/src-gen" creationIcons="false" editDirectory="/ProjetET.edit/src-gen"
+    editorDirectory="/ProjetET.editor/src-gen" modelPluginID="ProjetET" modelName="ProjetET"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" codeFormatting="true"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="17.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>projetET.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="ProjetET" disposableProviderFactory="true" ecorePackage="projetET.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="projetET.ecore#//TypeCours">
+      <genEnumLiterals ecoreEnumLiteral="projetET.ecore#//TypeCours/Cours"/>
+      <genEnumLiterals ecoreEnumLiteral="projetET.ecore#//TypeCours/TD"/>
+      <genEnumLiterals ecoreEnumLiteral="projetET.ecore#//TypeCours/TP"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="projetET.ecore#//Options">
+      <genEnumLiterals ecoreEnumLiteral="projetET.ecore#//Options/GL"/>
+      <genEnumLiterals ecoreEnumLiteral="projetET.ecore#//Options/IASD"/>
+      <genEnumLiterals ecoreEnumLiteral="projetET.ecore#//Options/ALGO"/>
+      <genEnumLiterals ecoreEnumLiteral="projetET.ecore#//Options/ICO"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="projetET.ecore#//Campus">
+      <genEnumLiterals ecoreEnumLiteral="projetET.ecore#//Campus/Triolet"/>
+      <genEnumLiterals ecoreEnumLiteral="projetET.ecore#//Campus/FaculteMedecine"/>
+      <genEnumLiterals ecoreEnumLiteral="projetET.ecore#//Campus/Richar"/>
+    </genEnums>
+    <genClasses ecoreClass="projetET.ecore#//Jour">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//Jour/idJour"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//Jour/dateJour"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//Jour/mois"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//Jour/annee"/>
+    </genClasses>
+    <genClasses ecoreClass="projetET.ecore#//creneauHoraire">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//creneauHoraire/idCreneau"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//creneauHoraire/heureDebut"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//creneauHoraire/heureFin"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//creneauHoraire/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//creneauHoraire/option"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//creneauHoraire/campus"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference projetET.ecore#//creneauHoraire/salle"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference projetET.ecore#//creneauHoraire/enseignant"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference projetET.ecore#//creneauHoraire/ue"/>
+    </genClasses>
+    <genClasses ecoreClass="projetET.ecore#//JourFerier"/>
+    <genClasses ecoreClass="projetET.ecore#//EmploiTemps">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//EmploiTemps/idET"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//EmploiTemps/anneeAcademique"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference projetET.ecore#//EmploiTemps/jour"/>
+    </genClasses>
+    <genClasses ecoreClass="projetET.ecore#//JourFerier.1"/>
+    <genClasses ecoreClass="projetET.ecore#//JourFerier.2"/>
+    <genClasses ecoreClass="projetET.ecore#//JourSemaine">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference projetET.ecore#//JourSemaine/creneauhoraires"/>
+    </genClasses>
+    <genClasses ecoreClass="projetET.ecore#//UE">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference projetET.ecore#//UE/creneauhoraire"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//UE/idUE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//UE/nomUE"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference projetET.ecore#//UE/enseignant"/>
+    </genClasses>
+    <genClasses ecoreClass="projetET.ecore#//JourFerier.3"/>
+    <genClasses ecoreClass="projetET.ecore#//Enseignant">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference projetET.ecore#//Enseignant/creneauhoraire"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//Enseignant/idEnseignant"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//Enseignant/nom"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//Enseignant/prenom"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference projetET.ecore#//Enseignant/ue"/>
+    </genClasses>
+    <genClasses ecoreClass="projetET.ecore#//Salle">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference projetET.ecore#//Salle/creneauhoraire"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//Salle/idSalle"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//Salle/numeroSalle"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//Salle/compus"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute projetET.ecore#//Salle/batiment"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

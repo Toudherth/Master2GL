@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="projetET" nsURI="http://www.example.org/projetET" nsPrefix="projetET">
+  <eClassifiers xsi:type="ecore:EClass" name="Jour">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="idJour" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dateJour" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mois" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="annee" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="creneauHoraire">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="idCreneau" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="heureDebut" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="heureFin" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//TypeCours"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="option" eType="#//Options"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="campus" eType="#//Campus"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="salle" lowerBound="1" upperBound="-1"
+        eType="#//Salle" eOpposite="#//Salle/creneauhoraire"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enseignant" lowerBound="1"
+        upperBound="-1" eType="#//Enseignant" eOpposite="#//Enseignant/creneauhoraire"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ue" upperBound="-1" eType="#//UE"
+        eOpposite="#//UE/creneauhoraire"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JourFerier" eSuperTypes="#//Jour"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EmploiTemps">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="idET" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="anneeAcademique" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="jour" lowerBound="1" upperBound="-1"
+        eType="#//Jour" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TypeCours" instanceClassName="">
+    <eLiterals name="Cours"/>
+    <eLiterals name="TD" value="1"/>
+    <eLiterals name="TP" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Options">
+    <eLiterals name="GL"/>
+    <eLiterals name="IASD" value="1"/>
+    <eLiterals name="ALGO" value="2"/>
+    <eLiterals name="ICO" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Campus">
+    <eLiterals name="Triolet"/>
+    <eLiterals name="FaculteMedecine" value="1"/>
+    <eLiterals name="Richar" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JourFerier"/>
+  <eClassifiers xsi:type="ecore:EClass" name="JourFerier"/>
+  <eClassifiers xsi:type="ecore:EClass" name="JourSemaine" eSuperTypes="#//Jour">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="creneauhoraires" upperBound="-1"
+        eType="#//creneauHoraire" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UE">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="creneauhoraire" upperBound="-1"
+        eType="#//creneauHoraire" eOpposite="#//creneauHoraire/ue"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="idUE" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nomUE" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enseignant" lowerBound="1"
+        upperBound="-1" eType="#//Enseignant" eOpposite="#//Enseignant/ue"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JourFerier"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Enseignant">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="creneauhoraire" upperBound="-1"
+        eType="#//creneauHoraire" eOpposite="#//creneauHoraire/enseignant"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="idEnseignant" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="prenom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ue" lowerBound="1" upperBound="-1"
+        eType="#//UE" eOpposite="#//UE/enseignant"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Salle">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="creneauhoraire" upperBound="-1"
+        eType="#//creneauHoraire" eOpposite="#//creneauHoraire/salle"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="idSalle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numeroSalle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="compus" eType="#//Campus"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="batiment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+</ecore:EPackage>

@@ -1,0 +1,673 @@
+@org.springframework.boot.autoconfigure.SpringBootApplication
+public class DemoApplication {
+    public static void main(java.lang.String[] args) {
+        org.springframework.boot.SpringApplication.run(com.example.demo.DemoApplication.class, args);
+    }
+}
+-------------------------------------------------------
+@org.springframework.boot.test.context.SpringBootTest
+class DemoApplicationTests {
+    @org.junit.jupiter.api.Test
+    void contextLoads() {
+    }
+}
+-------------------------------------------------------
+/* @Test
+public void testListAllNoStudents() {
+// Création d'un mock pour le repository
+StudentRepository studentRepositoryMock = mock(StudentRepository.class);
+when(studentRepositoryMock.findAll()).thenReturn(new ArrayList<>());
+
+// Création du service avec le mock du repository
+StudentService studentService = new StudentService(studentRepositoryMock);
+
+// Appel de la méthode du service
+Iterable<Student> result = studentService.listAll();
+
+// Vérification du résultat
+assertNotNull(result);
+assertFalse(result.iterator().hasNext()); // Aucun étudiant ne devrait être présent
+}
+
+@Test
+public void testListAllWithStudents() {
+// Création de données de test
+List<Student> mockStudents = new ArrayList<>();
+mockStudents.add(new Student("1", "John Doe", "123 Main St", "1234567890",null));
+mockStudents.add(new Student("2", "Jane Smith", "456 Oak St", "9876543210",null));
+
+// Création d'un mock pour le repository
+StudentRepository studentRepositoryMock = mock(StudentRepository.class);
+when(studentRepositoryMock.findAll()).thenReturn(mockStudents);
+System.out.println(studentRepositoryMock);
+
+// Création du service avec le mock du repository
+StudentService studentService = new StudentService(studentRepositoryMock);
+
+// Appel de la méthode du service
+Iterable<Student> result = studentService.listAll();
+
+// Vérification du résultat
+assertNotNull(result);
+assertTrue(result.iterator().hasNext()); // Des étudiants devraient être présents
+assertEquals(2, ((List<Student>) result).size()); // Vérifie le nombre d'étudiants
+}
+ */
+public class StudentServiceTest {}
+-------------------------------------------------------
+@org.springframework.web.bind.annotation.RestController
+@org.springframework.web.bind.annotation.CrossOrigin(origins = "*")
+@org.springframework.web.bind.annotation.RequestMapping("/products")
+public class ProductController {
+    @org.springframework.beans.factory.annotation.Autowired
+    private com.example.demo.service.ProductService productService;
+
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger("PRODUCT");
+
+    @org.springframework.web.bind.annotation.GetMapping("/getall")
+    public java.lang.Iterable<com.example.demo.entity.Product> getProducts() {
+        logger.info("User ID: " + userId + ", Operation: Read, Method: getProducts");
+        java.lang.Iterable<com.example.demo.entity.Product> products = productService.listAll();
+        return products;
+    }
+
+    @org.springframework.web.bind.annotation.GetMapping("/{productId}")
+    public org.springframework.http.ResponseEntity<?> getProductById(@org.springframework.web.bind.annotation.PathVariable
+    java.lang.String productId) {
+        logger.info("User ID: " + userId + ", Operation: Read, Method: getProductById");
+        try {
+            com.example.demo.controller.ProductController.logger.info("Received request to get product with ID: {}", productId);
+            com.example.demo.entity.Product product = productService.getProductById(productId);
+            return org.springframework.http.ResponseEntity.ok(product);
+        } catch (java.lang.Exception e) {
+            com.example.demo.controller.ProductController.logger.error("Error in getting product with ID: {}", productId, e);
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @org.springframework.web.bind.annotation.PostMapping("/save")
+    public org.springframework.http.ResponseEntity<exception.Result> saveProduct(@org.springframework.web.bind.annotation.RequestBody
+    com.example.demo.entity.Product product) {
+        com.example.demo.controller.ProductController.logger.info("Received request to save product: {}", product);
+        try {
+            exception.Result result = productService.saveProduct(product);
+            if (result.isSuccess()) {
+                com.example.demo.controller.ProductController.logger.info("Product saved successfully: {}", product);
+                return org.springframework.http.ResponseEntity.ok(result);
+            } else {
+                com.example.demo.controller.ProductController.logger.error("Failed to save product: {}", result.getMessage());
+                return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+            }
+        } catch (java.lang.Exception e) {
+            com.example.demo.controller.ProductController.logger.error("Failed to save product due to duplication: {}", e.getMessage());
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.CONFLICT).body(new exception.Result(false, "Le produit avec le même nom existe déjà."));
+        }
+    }
+
+    @org.springframework.web.bind.annotation.PutMapping("/update/{productId}")
+    public org.springframework.http.ResponseEntity<exception.Result> updateProduct(@org.springframework.web.bind.annotation.PathVariable
+    java.lang.String productId, @org.springframework.web.bind.annotation.RequestBody
+    com.example.demo.entity.Product updatedProduct) {
+        exception.Result result = productService.updateProduct(productId, updatedProduct);
+        // Vérifiez le statut de la mise à jour et renvoyez la réponse correspondante
+        if (result.isSuccess()) {
+            return org.springframework.http.ResponseEntity.ok(result);
+        } else {
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).body(result);
+        }
+    }
+
+    @org.springframework.web.bind.annotation.DeleteMapping("/{productId}")
+    public org.springframework.http.ResponseEntity<?> deleteProduct(@org.springframework.web.bind.annotation.PathVariable
+    java.lang.String productId) {
+        try {
+            com.example.demo.controller.ProductController.logger.info("Received request to delete product with ID: {}", productId);
+            productService.deleteProduct(productId);
+            return org.springframework.http.ResponseEntity.ok(("Product with ID " + productId) + " deleted successfully");
+        } catch (java.lang.Exception e) {
+            com.example.demo.controller.ProductController.logger.error("Error in deleting product with ID: {}", productId, e);
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+}
+-------------------------------------------------------
+@org.springframework.web.bind.annotation.RestController
+@org.springframework.web.bind.annotation.CrossOrigin(origins = "*")
+@org.springframework.web.bind.annotation.RequestMapping("/student")
+public class StudentController {}
+-------------------------------------------------------
+@org.springframework.web.bind.annotation.RestController
+@org.springframework.web.bind.annotation.CrossOrigin(origins = "*")
+@org.springframework.web.bind.annotation.RequestMapping("/users")
+public class UserController {
+    @org.springframework.beans.factory.annotation.Autowired
+    private com.example.demo.service.UserService userService;
+
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(com.example.demo.controller.UserController.class);
+
+    @org.springframework.web.bind.annotation.PostMapping("/add")
+    public org.springframework.http.ResponseEntity<?> addUser(@org.springframework.web.bind.annotation.RequestBody
+    com.example.demo.entity.User user) {
+        com.example.demo.controller.UserController.logger.info("Request to add a new user: {}", user);
+        try {
+            com.example.demo.entity.User savedUser = userService.addUser(user);
+            return org.springframework.http.ResponseEntity.ok(savedUser);
+        } catch (java.lang.Exception e) {
+            com.example.demo.controller.UserController.logger.error("Failed to add user: {}", e.getMessage());
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.CONFLICT).body(e.getMessage());
+        }
+    }
+
+    @org.springframework.web.bind.annotation.PostMapping("/authenticate")
+    public org.springframework.http.ResponseEntity<com.example.demo.entity.User> authenticateUser(@org.springframework.web.bind.annotation.RequestBody
+    java.util.Map<java.lang.String, java.lang.String> credentials) {
+        java.lang.String email = credentials.get("email");
+        java.lang.String password = credentials.get("password");
+        com.example.demo.controller.UserController.logger.info("Requête d'authentification pour l'utilisateur avec l'email: {}", email);
+        try {
+            com.example.demo.entity.User authenticatedUser = userService.authenticateUser(email, password);
+            return org.springframework.http.ResponseEntity.ok(authenticatedUser);
+        } catch (java.lang.Exception e) {
+            com.example.demo.controller.UserController.logger.error("Échec de l'authentification pour l'email: {}", email);
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.UNAUTHORIZED).body(null);
+        }
+    }
+}
+-------------------------------------------------------
+@lombok.Data
+@lombok.NoArgsConstructor
+@lombok.AllArgsConstructor
+@org.springframework.data.mongodb.core.mapping.Document(collection = "products")
+public class Product {
+    @org.springframework.data.annotation.Id
+    private java.lang.String productId;
+
+    private java.lang.String name;
+
+    private double price;
+
+    private java.lang.String expirationDate;
+}
+-------------------------------------------------------
+@lombok.Data
+@lombok.NoArgsConstructor
+@lombok.AllArgsConstructor
+@org.springframework.data.mongodb.core.mapping.Document(collection = "users")
+public class User {
+    @org.springframework.data.annotation.Id
+    private java.lang.String userId;
+
+    private java.lang.String name;
+
+    private int age;
+
+    private java.lang.String email;
+
+    private java.lang.String password;
+}
+-------------------------------------------------------
+@lombok.Data
+@lombok.NoArgsConstructor
+@lombok.AllArgsConstructor
+@org.springframework.data.mongodb.core.mapping.Document
+public class UserActivityLog {
+    private java.lang.String userId;
+
+    private java.lang.String action;
+
+    private java.time.LocalDateTime timestamp;
+}
+-------------------------------------------------------
+@org.springframework.stereotype.Repository
+public interface ProductRepository extends org.springframework.data.mongodb.repository.MongoRepository<com.example.demo.entity.Product, java.lang.String> {
+    public abstract com.example.demo.entity.Product findByName(java.lang.String name);
+}
+-------------------------------------------------------
+// Méthodes personnalisées si nécessaire
+public interface UserActivityLogRepository extends org.springframework.data.mongodb.repository.MongoRepository<com.example.demo.entity.UserActivityLog, java.lang.String> {}
+-------------------------------------------------------
+@org.springframework.stereotype.Repository
+public interface UserRepository extends org.springframework.data.mongodb.repository.MongoRepository<com.example.demo.entity.User, java.lang.String> {
+    public abstract java.util.Optional<com.example.demo.entity.User> findByEmail(java.lang.String email);
+}
+-------------------------------------------------------
+@org.springframework.stereotype.Service
+public class ProductService {
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger("PRODUCT");
+
+    private java.util.List<com.example.demo.entity.Product> products;
+
+    private com.example.demo.repository.ProductRepository productRepository;
+
+    @org.springframework.beans.factory.annotation.Autowired
+    public ProductService(com.example.demo.repository.ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
+    public java.lang.Iterable<com.example.demo.entity.Product> listAll() {
+        products = productRepository.findAll();
+        if (products.isEmpty()) {
+            com.example.demo.service.ProductService.logger.info("Aucun étudiant trouvé.");
+        } else {
+            com.example.demo.service.ProductService.logger.info("Liste de tous les étudiants récupérée.");
+        }
+        return products;
+    }
+
+    public exception.Result saveProduct(com.example.demo.entity.Product product) {
+        if (product.getName() != null) {
+            // Vérifier si le nom du produit existe déjà
+            com.example.demo.entity.Product existingProduct = productRepository.findByName(product.getName());
+            if (existingProduct == null) {
+                // Aucun produit avec le même nom n'existe, vous pouvez l'ajouter
+                com.example.demo.service.ProductService.logger.info("Saving product: {}", product);
+                try {
+                    com.example.demo.entity.Product addedProduct = productRepository.save(product);
+                    com.example.demo.service.ProductService.logger.info("Product added successfully: {}", addedProduct);
+                    return new exception.Result(true, "Produit sauvegardé avec succès");
+                } catch (java.lang.Exception e) {
+                    com.example.demo.service.ProductService.logger.error("Erreur lors de la sauvegarde du produit", e);
+                    return new exception.Result(false, "Une erreur s'est produite lors de la sauvegarde du produit");
+                }
+            } else {
+                // Le produit existe déjà avec le même nom, lancez une exception
+                com.example.demo.service.ProductService.logger.error("Product with name {} already exists. Unable to save.", product.getName());
+                throw new java.lang.RuntimeException("Le produit avec le même nom existe déjà.");
+            }
+        } else {
+            com.example.demo.service.ProductService.logger.warn("Tentative d'ajout d'un produit avec des détails incomplets : {}", product);
+            return new exception.Result(false, "Les détails du produit ne sont pas complets. Le produit n'a pas été ajouté.");
+        }
+    }
+
+    public exception.Result updateProduct(java.lang.String productId, com.example.demo.entity.Product updatedProduct) {
+        com.example.demo.service.ProductService.logger.info("Updating product by ID: {}", productId);
+        // Vérifiez si le produit existe avant de le mettre à jour
+        if (productRepository.existsById(productId)) {
+            updatedProduct.setProductId(productId);
+            productRepository.save(updatedProduct);
+            com.example.demo.service.ProductService.logger.info("Product updated successfully");
+            return new exception.Result(true, "Produit mis à jour avec succès");
+        } else {
+            com.example.demo.service.ProductService.logger.warn("Product not found with ID: {}. Unable to update.", productId);
+            return new exception.Result(false, "Produit non trouvé avec l'ID : " + productId);
+        }
+    }
+
+    public com.example.demo.entity.Product getProductById(java.lang.String productId) throws java.lang.Exception {
+        com.example.demo.service.ProductService.logger.info("User ID: {}, Operation: Read, Method: getProductById");// , userId);
+
+        // logger.info("Fetching product with ID: {}", productId);
+        return productRepository.findById(productId).orElseThrow(() -> {
+            com.example.demo.service.ProductService.logger.error("Product not found with ID: {}", productId);
+            return new java.lang.Exception(("Product with ID " + productId) + " not found.");
+        });
+    }
+
+    public void deleteProduct(java.lang.String productId) throws java.lang.Exception {
+        com.example.demo.service.ProductService.logger.info("Attempting to delete product with ID: {}", productId);
+        if (!productRepository.existsById(productId)) {
+            com.example.demo.service.ProductService.logger.error("Delete failed: Product with ID {} not found", productId);
+            throw new java.lang.Exception(("Product with ID " + productId) + " not found.");
+        }
+        productRepository.deleteById(productId);
+        com.example.demo.service.ProductService.logger.info("Product with ID {} deleted successfully", productId);
+    }
+}
+-------------------------------------------------------
+@org.springframework.stereotype.Service
+public class UserActivityLogService {
+    @org.springframework.beans.factory.annotation.Autowired
+    private com.example.demo.repository.UserActivityLogRepository logRepository;
+
+    public void logUserActivity(java.lang.String userId, java.lang.String action) {
+        com.example.demo.entity.UserActivityLog log = new com.example.demo.entity.UserActivityLog();
+        log.setUserId(userId);
+        log.setAction(action);
+        log.setTimestamp(java.time.LocalDateTime.now());
+        logRepository.save(log);
+    }
+}
+-------------------------------------------------------
+@org.springframework.stereotype.Service
+public class UserService {
+    @org.springframework.beans.factory.annotation.Autowired
+    private com.example.demo.repository.UserRepository userRepository;
+
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(com.example.demo.service.UserService.class);
+
+    public com.example.demo.entity.User addUser(com.example.demo.entity.User user) throws java.lang.Exception {
+        com.example.demo.service.UserService.logger.info("Adding a new user: {}", user);
+        // Check if user already exists
+        java.util.Optional<com.example.demo.entity.User> existingUser = userRepository.findByEmail(user.getEmail());
+        if (existingUser.isPresent()) {
+            com.example.demo.service.UserService.logger.error("User already exists with email: {}", user.getEmail());
+            throw new java.lang.Exception("User already exists with email: " + user.getEmail());
+        }
+        return userRepository.save(user);
+    }
+
+    public com.example.demo.entity.User authenticateUser(java.lang.String email, java.lang.String password) {
+        com.example.demo.service.UserService.logger.trace("Authenticating user with email: {}", email);
+        return userRepository.findByEmail(email).filter(( user) -> user.getPassword().equals(password)).orElseThrow(() -> {
+            com.example.demo.service.UserService.logger.trace("Authentication failed for user with email: {}", email);
+            try {
+                throw new javax.naming.AuthenticationException("Invalid credentials");
+            } catch (javax.naming.AuthenticationException e) {
+                throw new java.lang.RuntimeException(e);
+            }
+        });
+    }
+}
+-------------------------------------------------------
+public class ReadLoggingProcessor extends spoon.processing.AbstractProcessor<spoon.reflect.declaration.CtMethod<?>> {
+    @java.lang.Override
+    public boolean isToBeProcessed(spoon.reflect.declaration.CtMethod<?> method) {
+        // Vérifiez si la méthode a un parent de type CtClass et que le nom est "ProductController"
+        spoon.reflect.declaration.CtClass<?> parentClass = method.getParent(spoon.reflect.declaration.CtClass.class);
+        return (parentClass != null) && parentClass.getSimpleName().equals("ProductController");
+    }
+
+    @java.lang.Override
+    public void process(spoon.reflect.declaration.CtMethod<?> method) {
+        // Identifiez les méthodes de lecture dans ProductController
+        if (isReadOperation(method)) {
+            // Construisez et ajoutez une déclaration de logging
+            spoon.reflect.code.CtCodeSnippetStatement logStatement = getFactory().createCodeSnippetStatement(("logger.info(\"User ID: \" + userId + \", Operation: Read, Method: " + method.getSimpleName()) + "\")");
+            method.getBody().insertBegin(logStatement);
+        }
+    }
+
+    private boolean isReadOperation(spoon.reflect.declaration.CtMethod<?> method) {
+        // Logique pour déterminer si la méthode est une opération de lecture
+        java.lang.String methodName = method.getSimpleName();
+        return (methodName.startsWith("get") || methodName.startsWith("find")) || methodName.startsWith("list");
+    }
+}
+-------------------------------------------------------
+public class SpoonRunner {
+    public static void main(java.lang.String[] args) {
+        spoon.Launcher launcher = new spoon.Launcher();
+        launcher.addInputResource("/home/toudherth/Master2GL/HAI913I_Evolution_Logiciel/TP3_Logging/SpringmongoBackend/src");
+        java.lang.System.out.println(" je suis passer ");
+        launcher.addProcessor(new com.example.demo.spoonparsers.ReadLoggingProcessor());
+        launcher.run();
+        // le fichier de resultat
+        spoon.reflect.CtModel model = launcher.getModel();
+        java.io.File outputFile = new java.io.File("resources/sortie.txt");
+        try (final java.io.PrintWriter out = new java.io.PrintWriter(new java.io.FileWriter(outputFile))) {
+            for (spoon.reflect.declaration.CtType<?> type : model.getAllTypes()) {
+                // Utilisez PrettyPrinter pour obtenir une représentation sous forme de chaîne du code source
+                spoon.reflect.visitor.PrettyPrinter prettyPrinter = launcher.getEnvironment().createPrettyPrinter();
+                java.lang.String code = prettyPrinter.printElement(type);
+                out.println(code);
+                out.println("-------------------------------------------------------");
+            }
+        } catch (java.io.IOException e) {
+            throw new java.lang.RuntimeException(e);
+        }
+    }
+}
+-------------------------------------------------------
+public class Result {
+    private boolean success;
+
+    private java.lang.String message;
+
+    // constructeurs, getters, setters...
+    public Result(boolean success, java.lang.String message) {
+        this.success = success;
+        this.message = message;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public java.lang.String getMessage() {
+        return message;
+    }
+
+    public void setMessage(java.lang.String message) {
+        this.message = message;
+    }
+
+    // serialisation
+    @java.lang.Override
+    public java.lang.String toString() {
+        return ((((("Result{" + "success=") + success) + ", message='") + message) + '\'') + '}';
+    }
+}
+-------------------------------------------------------
+@org.springframework.web.bind.annotation.RestController
+@org.springframework.web.bind.annotation.CrossOrigin(origins = "*")
+@org.springframework.web.bind.annotation.RequestMapping("/products")
+public class ProductController {
+    @org.springframework.beans.factory.annotation.Autowired
+    private com.example.demo.service.ProductService productService;
+
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger("PRODUCT");
+
+    @org.springframework.web.bind.annotation.GetMapping("/getall")
+    public java.lang.Iterable<com.example.demo.entity.Product> getProducts() {
+        logger.info("User ID: " + userId + ", Operation: Read, Method: getProducts");
+        java.lang.Iterable<com.example.demo.entity.Product> products = productService.listAll();
+        return products;
+    }
+
+    @org.springframework.web.bind.annotation.GetMapping("/{productId}")
+    public org.springframework.http.ResponseEntity<?> getProductById(@org.springframework.web.bind.annotation.PathVariable
+    java.lang.String productId) {
+        logger.info("User ID: " + userId + ", Operation: Read, Method: getProductById");
+        try {
+            com.example.demo.controller.ProductController.logger.info("Received request to get product with ID: {}", productId);
+            com.example.demo.entity.Product product = productService.getProductById(productId);
+            return org.springframework.http.ResponseEntity.ok(product);
+        } catch (java.lang.Exception e) {
+            com.example.demo.controller.ProductController.logger.error("Error in getting product with ID: {}", productId, e);
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @org.springframework.web.bind.annotation.PostMapping("/save")
+    public org.springframework.http.ResponseEntity<exception.Result> saveProduct(@org.springframework.web.bind.annotation.RequestBody
+    com.example.demo.entity.Product product) {
+        com.example.demo.controller.ProductController.logger.info("Received request to save product: {}", product);
+        try {
+            exception.Result result = productService.saveProduct(product);
+            if (result.isSuccess()) {
+                com.example.demo.controller.ProductController.logger.info("Product saved successfully: {}", product);
+                return org.springframework.http.ResponseEntity.ok(result);
+            } else {
+                com.example.demo.controller.ProductController.logger.error("Failed to save product: {}", result.getMessage());
+                return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+            }
+        } catch (java.lang.Exception e) {
+            com.example.demo.controller.ProductController.logger.error("Failed to save product due to duplication: {}", e.getMessage());
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.CONFLICT).body(new exception.Result(false, "Le produit avec le même nom existe déjà."));
+        }
+    }
+
+    @org.springframework.web.bind.annotation.PutMapping("/update/{productId}")
+    public org.springframework.http.ResponseEntity<exception.Result> updateProduct(@org.springframework.web.bind.annotation.PathVariable
+    java.lang.String productId, @org.springframework.web.bind.annotation.RequestBody
+    com.example.demo.entity.Product updatedProduct) {
+        exception.Result result = productService.updateProduct(productId, updatedProduct);
+        // Vérifiez le statut de la mise à jour et renvoyez la réponse correspondante
+        if (result.isSuccess()) {
+            return org.springframework.http.ResponseEntity.ok(result);
+        } else {
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).body(result);
+        }
+    }
+
+    @org.springframework.web.bind.annotation.DeleteMapping("/{productId}")
+    public org.springframework.http.ResponseEntity<?> deleteProduct(@org.springframework.web.bind.annotation.PathVariable
+    java.lang.String productId) {
+        try {
+            com.example.demo.controller.ProductController.logger.info("Received request to delete product with ID: {}", productId);
+            productService.deleteProduct(productId);
+            return org.springframework.http.ResponseEntity.ok(("Product with ID " + productId) + " deleted successfully");
+        } catch (java.lang.Exception e) {
+            com.example.demo.controller.ProductController.logger.error("Error in deleting product with ID: {}", productId, e);
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+}
+-------------------------------------------------------
+@org.springframework.web.bind.annotation.RestController
+@org.springframework.web.bind.annotation.CrossOrigin(origins = "*")
+@org.springframework.web.bind.annotation.RequestMapping("/products")
+public class ProductController {
+    @org.springframework.beans.factory.annotation.Autowired
+    private com.example.demo.service.ProductService productService;
+
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger("PRODUCT");
+
+    @org.springframework.web.bind.annotation.GetMapping("/getall")
+    public java.lang.Iterable<com.example.demo.entity.Product> getProducts() {
+        logger.info("User ID: " + userId + ", Operation: Read, Method: getProducts");
+        java.lang.Iterable<com.example.demo.entity.Product> products = productService.listAll();
+        return products;
+    }
+
+    @org.springframework.web.bind.annotation.GetMapping("/{productId}")
+    public org.springframework.http.ResponseEntity<?> getProductById(@org.springframework.web.bind.annotation.PathVariable
+    java.lang.String productId) {
+        logger.info("User ID: " + userId + ", Operation: Read, Method: getProductById");
+        try {
+            com.example.demo.controller.ProductController.logger.info("Received request to get product with ID: {}", productId);
+            com.example.demo.entity.Product product = productService.getProductById(productId);
+            return org.springframework.http.ResponseEntity.ok(product);
+        } catch (java.lang.Exception e) {
+            com.example.demo.controller.ProductController.logger.error("Error in getting product with ID: {}", productId, e);
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @org.springframework.web.bind.annotation.PostMapping("/save")
+    public org.springframework.http.ResponseEntity<exception.Result> saveProduct(@org.springframework.web.bind.annotation.RequestBody
+    com.example.demo.entity.Product product) {
+        com.example.demo.controller.ProductController.logger.info("Received request to save product: {}", product);
+        try {
+            exception.Result result = productService.saveProduct(product);
+            if (result.isSuccess()) {
+                com.example.demo.controller.ProductController.logger.info("Product saved successfully: {}", product);
+                return org.springframework.http.ResponseEntity.ok(result);
+            } else {
+                com.example.demo.controller.ProductController.logger.error("Failed to save product: {}", result.getMessage());
+                return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+            }
+        } catch (java.lang.Exception e) {
+            com.example.demo.controller.ProductController.logger.error("Failed to save product due to duplication: {}", e.getMessage());
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.CONFLICT).body(new exception.Result(false, "Le produit avec le même nom existe déjà."));
+        }
+    }
+
+    @org.springframework.web.bind.annotation.PutMapping("/update/{productId}")
+    public org.springframework.http.ResponseEntity<exception.Result> updateProduct(@org.springframework.web.bind.annotation.PathVariable
+    java.lang.String productId, @org.springframework.web.bind.annotation.RequestBody
+    com.example.demo.entity.Product updatedProduct) {
+        exception.Result result = productService.updateProduct(productId, updatedProduct);
+        // Vérifiez le statut de la mise à jour et renvoyez la réponse correspondante
+        if (result.isSuccess()) {
+            return org.springframework.http.ResponseEntity.ok(result);
+        } else {
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).body(result);
+        }
+    }
+
+    @org.springframework.web.bind.annotation.DeleteMapping("/{productId}")
+    public org.springframework.http.ResponseEntity<?> deleteProduct(@org.springframework.web.bind.annotation.PathVariable
+    java.lang.String productId) {
+        try {
+            com.example.demo.controller.ProductController.logger.info("Received request to delete product with ID: {}", productId);
+            productService.deleteProduct(productId);
+            return org.springframework.http.ResponseEntity.ok(("Product with ID " + productId) + " deleted successfully");
+        } catch (java.lang.Exception e) {
+            com.example.demo.controller.ProductController.logger.error("Error in deleting product with ID: {}", productId, e);
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+}
+-------------------------------------------------------
+@org.springframework.web.bind.annotation.RestController
+@org.springframework.web.bind.annotation.CrossOrigin(origins = "*")
+@org.springframework.web.bind.annotation.RequestMapping("/products")
+public class ProductController {
+    @org.springframework.beans.factory.annotation.Autowired
+    private com.example.demo.service.ProductService productService;
+
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger("PRODUCT");
+
+    @org.springframework.web.bind.annotation.GetMapping("/getall")
+    public java.lang.Iterable<com.example.demo.entity.Product> getProducts() {
+        logger.info("User ID: " + userId + ", Operation: Read, Method: getProducts");
+        java.lang.Iterable<com.example.demo.entity.Product> products = productService.listAll();
+        return products;
+    }
+
+    @org.springframework.web.bind.annotation.GetMapping("/{productId}")
+    public org.springframework.http.ResponseEntity<?> getProductById(@org.springframework.web.bind.annotation.PathVariable
+    java.lang.String productId) {
+        logger.info("User ID: " + userId + ", Operation: Read, Method: getProductById");
+        try {
+            com.example.demo.controller.ProductController.logger.info("Received request to get product with ID: {}", productId);
+            com.example.demo.entity.Product product = productService.getProductById(productId);
+            return org.springframework.http.ResponseEntity.ok(product);
+        } catch (java.lang.Exception e) {
+            com.example.demo.controller.ProductController.logger.error("Error in getting product with ID: {}", productId, e);
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @org.springframework.web.bind.annotation.PostMapping("/save")
+    public org.springframework.http.ResponseEntity<exception.Result> saveProduct(@org.springframework.web.bind.annotation.RequestBody
+    com.example.demo.entity.Product product) {
+        com.example.demo.controller.ProductController.logger.info("Received request to save product: {}", product);
+        try {
+            exception.Result result = productService.saveProduct(product);
+            if (result.isSuccess()) {
+                com.example.demo.controller.ProductController.logger.info("Product saved successfully: {}", product);
+                return org.springframework.http.ResponseEntity.ok(result);
+            } else {
+                com.example.demo.controller.ProductController.logger.error("Failed to save product: {}", result.getMessage());
+                return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+            }
+        } catch (java.lang.Exception e) {
+            com.example.demo.controller.ProductController.logger.error("Failed to save product due to duplication: {}", e.getMessage());
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.CONFLICT).body(new exception.Result(false, "Le produit avec le même nom existe déjà."));
+        }
+    }
+
+    @org.springframework.web.bind.annotation.PutMapping("/update/{productId}")
+    public org.springframework.http.ResponseEntity<exception.Result> updateProduct(@org.springframework.web.bind.annotation.PathVariable
+    java.lang.String productId, @org.springframework.web.bind.annotation.RequestBody
+    com.example.demo.entity.Product updatedProduct) {
+        exception.Result result = productService.updateProduct(productId, updatedProduct);
+        // Vérifiez le statut de la mise à jour et renvoyez la réponse correspondante
+        if (result.isSuccess()) {
+            return org.springframework.http.ResponseEntity.ok(result);
+        } else {
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).body(result);
+        }
+    }
+
+    @org.springframework.web.bind.annotation.DeleteMapping("/{productId}")
+    public org.springframework.http.ResponseEntity<?> deleteProduct(@org.springframework.web.bind.annotation.PathVariable
+    java.lang.String productId) {
+        try {
+            com.example.demo.controller.ProductController.logger.info("Received request to delete product with ID: {}", productId);
+            productService.deleteProduct(productId);
+            return org.springframework.http.ResponseEntity.ok(("Product with ID " + productId) + " deleted successfully");
+        } catch (java.lang.Exception e) {
+            com.example.demo.controller.ProductController.logger.error("Error in deleting product with ID: {}", productId, e);
+            return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+}
+-------------------------------------------------------

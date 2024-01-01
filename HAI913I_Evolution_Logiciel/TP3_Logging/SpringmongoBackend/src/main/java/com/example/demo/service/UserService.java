@@ -25,7 +25,6 @@ public class UserService {
         // Check if user already exists
         Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
         if (existingUser.isPresent()) {
-            //logger.error("User already exists with email: {}", user.getEmail());
             throw new Exception("User already exists with email: " + user.getEmail());
         }
 
@@ -33,11 +32,9 @@ public class UserService {
     }
 
     public User authenticateUser(String email, String password) {
-       // logger.trace("Authenticating user with email: {}", email);
         return userRepository.findByEmail(email)
                 .filter(user -> user.getPassword().equals(password))
                 .orElseThrow(() -> {
-                    //logger.trace("Authentication failed for user with email: {}", email);
                     try {
                         throw new AuthenticationException("Invalid credentials");
                     } catch (AuthenticationException e) {

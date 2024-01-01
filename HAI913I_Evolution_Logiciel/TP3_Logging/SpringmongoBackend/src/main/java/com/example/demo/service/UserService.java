@@ -43,4 +43,9 @@ public class UserService {
                 });
     }
 
+
+    public void deconnexion() {
+        this.userRepository = null;
+    }
+
 }

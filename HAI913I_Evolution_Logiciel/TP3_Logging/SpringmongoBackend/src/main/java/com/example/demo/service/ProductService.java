@@ -3,7 +3,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Product;
 import com.example.demo.repository.ProductRepository;
-import exception.Result;
+import com.example.demo.exception.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

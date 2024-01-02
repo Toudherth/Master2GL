@@ -7,6 +7,20 @@ import spoon.reflect.declaration.CtType;
 import java.io.PrintWriter;
 
 
+
+public class SpoonRunner {
+
+    public static void main(String[] args) {
+        Launcher launcher = new Launcher();
+        launcher.getEnvironment().setAutoImports(true);
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.addInputResource("src/main/java/com/example/demo/controller/ProductController.java");
+        launcher.addProcessor(new LoggingProcessor());
+        launcher.run();
+    }
+}
+
+/*
 public class SpoonRunner {
 
     public static void main(String[] args) {

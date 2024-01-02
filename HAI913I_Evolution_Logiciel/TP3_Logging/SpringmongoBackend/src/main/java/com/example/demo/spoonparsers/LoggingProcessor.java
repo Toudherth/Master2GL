@@ -23,7 +23,7 @@ public class LoggingProcessor extends AbstractProcessor<CtMethod<?>> {
     public void process(CtMethod<?> method) {
         CtClass<?> parentClass = method.getParent(CtClass.class);
         if (parentClass != null && parentClass.getSimpleName().equals("ProductController")) {
-            addPriceLoggerFieldIfAbsent(parentClass);
+            //addPriceLoggerFieldIfAbsent(parentClass);
 
             String methodName = method.getSimpleName();
             if (methodName.equals("addUser") || methodName.equals("authenticateUser") || methodName.equals("logoutUser")) {

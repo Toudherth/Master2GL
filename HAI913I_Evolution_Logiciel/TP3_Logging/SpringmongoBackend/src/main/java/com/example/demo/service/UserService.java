@@ -13,15 +13,13 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-
-    @Autowired
     private UserRepository userRepository;
-
-    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User addUser(User user) throws Exception {
-        //logger.info("Adding a new user: {}", user);
-
         // Check if user already exists
         Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
         if (existingUser.isPresent()) {
@@ -43,9 +41,5 @@ public class UserService {
                 });
     }
 
-
-    public void deconnexion() {
-        this.userRepository = null;
-    }
 
 }

@@ -1,0 +1,158 @@
+2024-01-02 22:49:36,110 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:54] UserID: 658fe6aa72ab2f6fdb6e127a, Operation: Read, Method: getProducts
+2024-01-02 22:49:44,811 INFO [http-nio-8080-exec-2] readLogger [ProductController.java:54] UserID: 658fe6aa72ab2f6fdb6e127a, Operation: Read, Method: getProducts
+2024-01-03 13:02:57,478 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:68] UserID: 658fe6aa72ab2f6fdb6e127a, Operation: Read, Method: getProductById, Product: Andives, Price: 2.0
+2024-01-03 14:25:49,295 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:66] UserID: 658fe6aa72ab2f6fdb6e127a, Operation: Read, Method: getProductById, Product: Andives, Price: 2.0
+2024-01-03 16:16:08,003 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:10,917 INFO [http-nio-8080-exec-6] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:11,900 INFO [http-nio-8080-exec-7] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:12,636 INFO [http-nio-8080-exec-8] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:15,964 INFO [http-nio-8080-exec-9] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:16,339 INFO [http-nio-8080-exec-10] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:16,762 INFO [http-nio-8080-exec-2] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:17,282 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:32,195 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:32,994 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:33,570 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:34,134 INFO [http-nio-8080-exec-6] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:39,877 INFO [http-nio-8080-exec-7] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:40,453 INFO [http-nio-8080-exec-8] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:40,793 INFO [http-nio-8080-exec-9] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:41,165 INFO [http-nio-8080-exec-10] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:41,436 INFO [http-nio-8080-exec-2] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:41,741 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:42,010 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:49,386 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:49,663 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:49,991 INFO [http-nio-8080-exec-6] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:50,277 INFO [http-nio-8080-exec-7] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:50,713 INFO [http-nio-8080-exec-8] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:51,021 INFO [http-nio-8080-exec-9] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:51,458 INFO [http-nio-8080-exec-10] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:51,837 INFO [http-nio-8080-exec-2] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:53,038 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:53,366 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:53,692 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:54,032 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:54,344 INFO [http-nio-8080-exec-6] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:54,688 INFO [http-nio-8080-exec-7] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:55,033 INFO [http-nio-8080-exec-8] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:55,345 INFO [http-nio-8080-exec-9] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:55,643 INFO [http-nio-8080-exec-10] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:56,021 INFO [http-nio-8080-exec-2] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:56,379 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:56,736 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:57,305 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:57,649 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:57,968 INFO [http-nio-8080-exec-6] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:58,350 INFO [http-nio-8080-exec-7] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:58,661 INFO [http-nio-8080-exec-8] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:59,063 INFO [http-nio-8080-exec-9] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:59,439 INFO [http-nio-8080-exec-10] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:16:59,786 INFO [http-nio-8080-exec-2] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:00,137 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:00,433 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:00,791 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:01,150 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:01,681 INFO [http-nio-8080-exec-6] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:02,007 INFO [http-nio-8080-exec-7] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:02,526 INFO [http-nio-8080-exec-8] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:02,901 INFO [http-nio-8080-exec-9] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:03,360 INFO [http-nio-8080-exec-10] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:04,362 INFO [http-nio-8080-exec-2] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:04,918 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:12,277 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:12,624 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:13,020 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:13,567 INFO [http-nio-8080-exec-6] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:14,040 INFO [http-nio-8080-exec-7] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:14,448 INFO [http-nio-8080-exec-8] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:14,778 INFO [http-nio-8080-exec-9] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:15,312 INFO [http-nio-8080-exec-10] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:17:15,702 INFO [http-nio-8080-exec-2] readLogger [ProductController.java:52] UserID: 65956eb952f4d900d2ac7703, Operation: Read, Method: getProducts
+2024-01-03 16:36:13,478 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 6595706452f4d900d2ac7704, Operation: Read, Method: getProducts
+2024-01-03 16:43:08,955 INFO [http-nio-8080-exec-10] readLogger [ProductController.java:66] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProductById, Product: Ordinateur, Price: 180.0
+2024-01-03 16:43:28,828 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:66] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProductById, Product: Ordinateur, Price: 180.0
+2024-01-03 16:44:51,316 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:66] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProductById, Product: Porte, Price: 150.99
+2024-01-03 16:47:13,911 INFO [http-nio-8080-exec-10] readLogger [ProductController.java:52] UserID: 658fe67272ab2f6fdb6e1279, Operation: Read, Method: getProducts
+2024-01-03 16:47:14,565 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:52] UserID: 658fe67272ab2f6fdb6e1279, Operation: Read, Method: getProducts
+2024-01-03 16:47:15,185 INFO [http-nio-8080-exec-2] readLogger [ProductController.java:52] UserID: 658fe67272ab2f6fdb6e1279, Operation: Read, Method: getProducts
+2024-01-03 16:47:15,574 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:52] UserID: 658fe67272ab2f6fdb6e1279, Operation: Read, Method: getProducts
+2024-01-03 16:47:16,304 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:52] UserID: 658fe67272ab2f6fdb6e1279, Operation: Read, Method: getProducts
+2024-01-03 16:47:16,681 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 658fe67272ab2f6fdb6e1279, Operation: Read, Method: getProducts
+2024-01-03 16:48:04,051 INFO [http-nio-8080-exec-10] readLogger [ProductController.java:52] UserID: 658fe67272ab2f6fdb6e1279, Operation: Read, Method: getProducts
+2024-01-03 17:20:43,967 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:52] UserID: 65956d34be5d4add9cd0eedc, Operation: Read, Method: getProducts
+2024-01-03 17:20:55,598 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:52] UserID: 65956d34be5d4add9cd0eedc, Operation: Read, Method: getProducts
+2024-01-03 17:20:57,346 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:52] UserID: 65956d34be5d4add9cd0eedc, Operation: Read, Method: getProducts
+2024-01-03 17:20:57,773 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 65956d34be5d4add9cd0eedc, Operation: Read, Method: getProducts
+2024-01-03 17:20:58,315 INFO [http-nio-8080-exec-6] readLogger [ProductController.java:52] UserID: 65956d34be5d4add9cd0eedc, Operation: Read, Method: getProducts
+2024-01-03 17:23:18,704 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:52] UserID: 65956d34be5d4add9cd0eedc, Operation: Read, Method: getProducts
+2024-01-03 17:24:18,719 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 65956d34be5d4add9cd0eedc, Operation: Read, Method: getProducts
+2024-01-03 17:25:27,263 INFO [http-nio-8080-exec-8] readLogger [ProductController.java:52] UserID: 6595709252f4d900d2ac7705, Operation: Read, Method: getProducts
+2024-01-03 17:25:28,119 INFO [http-nio-8080-exec-9] readLogger [ProductController.java:52] UserID: 6595709252f4d900d2ac7705, Operation: Read, Method: getProducts
+2024-01-03 17:25:28,574 INFO [http-nio-8080-exec-10] readLogger [ProductController.java:52] UserID: 6595709252f4d900d2ac7705, Operation: Read, Method: getProducts
+2024-01-03 17:25:29,045 INFO [http-nio-8080-exec-2] readLogger [ProductController.java:52] UserID: 6595709252f4d900d2ac7705, Operation: Read, Method: getProducts
+2024-01-03 17:25:29,471 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:52] UserID: 6595709252f4d900d2ac7705, Operation: Read, Method: getProducts
+2024-01-03 17:25:29,921 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:52] UserID: 6595709252f4d900d2ac7705, Operation: Read, Method: getProducts
+2024-01-03 17:25:38,138 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 6595709252f4d900d2ac7705, Operation: Read, Method: getProducts
+2024-01-03 17:26:47,630 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:52] UserID: 6595709252f4d900d2ac7705, Operation: Read, Method: getProducts
+2024-01-03 17:26:59,120 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:52] UserID: 6595709252f4d900d2ac7705, Operation: Read, Method: getProducts
+2024-01-03 17:27:34,607 INFO [http-nio-8080-exec-8] readLogger [ProductController.java:52] UserID: 659570b852f4d900d2ac7706, Operation: Read, Method: getProducts
+2024-01-03 17:27:38,244 INFO [http-nio-8080-exec-9] readLogger [ProductController.java:52] UserID: 659570b852f4d900d2ac7706, Operation: Read, Method: getProducts
+2024-01-03 17:28:36,164 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 659570b852f4d900d2ac7706, Operation: Read, Method: getProducts
+2024-01-03 17:30:21,729 INFO [http-nio-8080-exec-9] readLogger [ProductController.java:52] UserID: 659570b852f4d900d2ac7706, Operation: Read, Method: getProducts
+2024-01-03 17:32:05,431 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:52] UserID: 659570b852f4d900d2ac7706, Operation: Read, Method: getProducts
+2024-01-03 17:32:41,581 INFO [http-nio-8080-exec-6] readLogger [ProductController.java:52] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProducts
+2024-01-03 17:32:42,168 INFO [http-nio-8080-exec-7] readLogger [ProductController.java:52] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProducts
+2024-01-03 17:32:42,818 INFO [http-nio-8080-exec-8] readLogger [ProductController.java:52] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProducts
+2024-01-03 17:33:19,633 INFO [http-nio-8080-exec-2] readLogger [ProductController.java:66] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProductById, Product: Ecouteurs, Price: 19.99
+2024-01-03 17:33:31,623 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:66] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProductById, Product: Ecouteurs, Price: 9.99
+2024-01-03 17:33:43,970 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:52] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProducts
+2024-01-03 17:33:45,161 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProducts
+2024-01-03 17:33:45,702 INFO [http-nio-8080-exec-6] readLogger [ProductController.java:52] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProducts
+2024-01-03 17:33:46,279 INFO [http-nio-8080-exec-7] readLogger [ProductController.java:52] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProducts
+2024-01-03 17:34:34,849 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:52] UserID: 6595710b52f4d900d2ac7708, Operation: Read, Method: getProducts
+2024-01-03 17:34:35,471 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:52] UserID: 6595710b52f4d900d2ac7708, Operation: Read, Method: getProducts
+2024-01-03 17:35:39,949 INFO [http-nio-8080-exec-10] readLogger [ProductController.java:52] UserID: 6595710b52f4d900d2ac7708, Operation: Read, Method: getProducts
+2024-01-03 17:40:41,526 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 6595710b52f4d900d2ac7708, Operation: Read, Method: getProducts
+2024-01-03 17:41:57,927 INFO [http-nio-8080-exec-7] readLogger [ProductController.java:52] UserID: 6595710b52f4d900d2ac7708, Operation: Read, Method: getProducts
+2024-01-03 17:42:35,882 INFO [http-nio-8080-exec-10] readLogger [ProductController.java:52] UserID: 6595710b52f4d900d2ac7708, Operation: Read, Method: getProducts
+2024-01-03 17:45:43,159 INFO [http-nio-8080-exec-7] readLogger [ProductController.java:52] UserID: 6595710b52f4d900d2ac7708, Operation: Read, Method: getProducts
+2024-01-03 17:47:55,637 INFO [http-nio-8080-exec-10] readLogger [ProductController.java:52] UserID: 6595710b52f4d900d2ac7708, Operation: Read, Method: getProducts
+2024-01-03 17:48:45,346 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:66] UserID: 6595710b52f4d900d2ac7708, Operation: Read, Method: getProductById, Product: Feuilles, Price: 5.0
+2024-01-03 17:51:43,881 INFO [http-nio-8080-exec-2] readLogger [ProductController.java:66] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProductById, Product: Feuilles, Price: 5.0
+2024-01-03 17:51:49,713 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:52] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProducts
+2024-01-03 17:53:09,532 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:52] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProducts
+2024-01-03 17:53:10,357 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:52] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProducts
+2024-01-03 17:53:10,978 INFO [http-nio-8080-exec-6] readLogger [ProductController.java:52] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProducts
+2024-01-03 17:54:34,772 INFO [http-nio-8080-exec-9] readLogger [ProductController.java:52] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProducts
+2024-01-03 17:54:45,638 INFO [http-nio-8080-exec-10] readLogger [ProductController.java:66] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProductById, Product: Blouson, Price: 30.99
+2024-01-03 17:56:00,705 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:52] UserID: 659570d852f4d900d2ac7707, Operation: Read, Method: getProducts
+2024-01-03 17:56:49,333 INFO [http-nio-8080-exec-7] readLogger [ProductController.java:52] UserID: 6595709252f4d900d2ac7705, Operation: Read, Method: getProducts
+2024-01-03 17:56:50,248 INFO [http-nio-8080-exec-8] readLogger [ProductController.java:52] UserID: 6595709252f4d900d2ac7705, Operation: Read, Method: getProducts
+2024-01-03 17:57:39,700 INFO [http-nio-8080-exec-2] readLogger [ProductController.java:52] UserID: 6595709252f4d900d2ac7705, Operation: Read, Method: getProducts
+2024-01-03 17:57:44,131 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:66] UserID: 6595709252f4d900d2ac7705, Operation: Read, Method: getProductById, Product: Blouson, Price: 50.99
+2024-01-03 17:58:36,489 INFO [http-nio-8080-exec-7] readLogger [ProductController.java:52] UserID: 6595706452f4d900d2ac7704, Operation: Read, Method: getProducts
+2024-01-03 17:58:37,802 INFO [http-nio-8080-exec-8] readLogger [ProductController.java:52] UserID: 6595706452f4d900d2ac7704, Operation: Read, Method: getProducts
+2024-01-03 17:58:38,473 INFO [http-nio-8080-exec-9] readLogger [ProductController.java:52] UserID: 6595706452f4d900d2ac7704, Operation: Read, Method: getProducts
+2024-01-03 17:59:41,939 INFO [http-nio-8080-exec-8] readLogger [ProductController.java:52] UserID: 6595706452f4d900d2ac7704, Operation: Read, Method: getProducts
+2024-01-03 17:59:42,699 INFO [http-nio-8080-exec-9] readLogger [ProductController.java:52] UserID: 6595706452f4d900d2ac7704, Operation: Read, Method: getProducts
+2024-01-03 17:59:43,416 INFO [http-nio-8080-exec-10] readLogger [ProductController.java:52] UserID: 6595706452f4d900d2ac7704, Operation: Read, Method: getProducts
+2024-01-03 17:59:46,769 INFO [http-nio-8080-exec-2] readLogger [ProductController.java:66] UserID: 6595706452f4d900d2ac7704, Operation: Read, Method: getProductById, Product: Ordinateur, Price: 180.99
+2024-01-03 17:59:47,418 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:66] UserID: 6595706452f4d900d2ac7704, Operation: Read, Method: getProductById, Product: Ordinateur, Price: 180.99
+2024-01-03 18:00:41,616 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProducts
+2024-01-03 18:00:42,315 INFO [http-nio-8080-exec-7] readLogger [ProductController.java:52] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProducts
+2024-01-03 18:00:42,969 INFO [http-nio-8080-exec-8] readLogger [ProductController.java:52] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProducts
+2024-01-03 18:01:06,339 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:66] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProductById, Product: Trotinette, Price: 200.99
+2024-01-03 18:01:10,158 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:52] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProducts
+2024-01-03 18:02:11,812 INFO [http-nio-8080-exec-6] readLogger [ProductController.java:52] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProducts
+2024-01-03 18:02:12,567 INFO [http-nio-8080-exec-5] readLogger [ProductController.java:52] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProducts
+2024-01-03 18:02:13,317 INFO [http-nio-8080-exec-7] readLogger [ProductController.java:52] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProducts
+2024-01-03 18:02:14,010 INFO [http-nio-8080-exec-8] readLogger [ProductController.java:52] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProducts
+2024-01-03 18:02:17,385 INFO [http-nio-8080-exec-9] readLogger [ProductController.java:66] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProductById, Product: Ordinateur, Price: 380.99
+2024-01-03 18:02:57,873 INFO [http-nio-8080-exec-1] readLogger [ProductController.java:52] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProducts
+2024-01-03 18:02:58,621 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:52] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProducts
+2024-01-03 18:02:59,309 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:52] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProducts
+2024-01-03 22:00:43,265 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:55] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProducts
+2024-01-03 22:00:45,308 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:55] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProducts
+2024-01-03 22:20:07,656 INFO [http-nio-8080-exec-3] readLogger [ProductController.java:54] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProducts
+2024-01-03 22:20:10,221 INFO [http-nio-8080-exec-4] readLogger [ProductController.java:54] UserID: 65956dbbbe5d4add9cd0eedd, Operation: Read, Method: getProducts

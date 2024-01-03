@@ -6,7 +6,8 @@ import com.example.demo.service.ProductService;
 import com.example.demo.service.UserActivityLogService;
 import com.example.demo.service.UserService;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,15 +25,19 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 @RequestMapping("/product")
 public class ProductController {
-    private static User user = new User();
+    private static Logger priceLogger = LoggerFactory.getLogger("priceLogger");
 
-    private static Logger logger = LoggerFactory.getLogger(ProductController.class);
+    private static Logger writeLogger = LoggerFactory.getLogger("writeLogger");
+
+    private static Logger readLogger = LoggerFactory.getLogger("readLogger");
 
     private ProductService productService;
 
     private UserService userService;
 
     private final UserActivityLogService userActivityLogService;
+
+    private static User user;
 
     /**
      * * Constructor (injection dependences)
@@ -44,13 +49,14 @@ public class ProductController {
         this.userActivityLogService = userActivityLogService;
     }
 
+    // TODO : controller of products
     /**
      * * Read data *
      */
     @GetMapping("/products")
     public Iterable<Product> getProducts() {
-        if(user.getUserId() != null && !user.getUserId().isEmpty()) { userActivityLogService.logUserActivity(user.getUserId(), "Viewed most expensive product"); };
-        logger.info("UserID: " + user.getUserId() + ", Operation: Read, Method: getProducts");;
+        readLogger.info("UserID: " + user.getUserId() + ", Operation: Read, Method: getProducts");;
+        readLogger.info(("UserID: " + user.getUserId()) + ", Operation: Read, Method: getProducts");
         Iterable<Product> products = productService.listAll();
         return products;
     }
@@ -59,17 +65,17 @@ public class ProductController {
     @GetMapping("/products/{productId}")
     public ResponseEntity<?> getProductById(@PathVariable
     String productId) throws Exception {
-        if(user.getUserId() != null && !user.getUserId().isEmpty()) { userActivityLogService.logUserActivity(user.getUserId(), "Viewed most expensive product"); };
-        logger.info("UserID: " + user.getUserId() + ", Operation: Read, Method: getProductById");;
-        if(user.getUserId() != null && !user.getUserId().isEmpty()) {    String actionMessage = "Viewed Product: " + product.getName() + " at Price: " + product.getPrice();    userActivityLogService.logUserActivity(user.getUserId(), actionMessage);    logger.info("UserID: " + user.getUserId() + ", Operation: Read, Method: getProductById, Product: " + product.getName() + ", Price: " + product.getPrice());    userActivityLogService.logUserActivity(this.user.getUserId(), actionMessage);};
         Product product = productService.getProductById(productId);
         if (product != null) {
             boolean isMostExpensive = productService.isProductTheMostExpensive(productId);
-            // Logique supplémentaire ou renvoyer les informations au client
+            Logger currentLogger = isMostExpensive ? priceLogger : readLogger;
+            if (user != null)
+                currentLogger.info("UserID: " + user.getUserId() + ", Operation: Read, Method: getProductById, Product: " + product.getName() + ", Price: " + product.getPrice());
+
             return ResponseEntity.ok(product);
-        } else {
+        } else
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produit non trouvé");
-        }
+
     }
 
     /**
@@ -78,8 +84,8 @@ public class ProductController {
     @PostMapping("/products")
     public ResponseEntity<Result> saveProduct(@RequestBody
     Product product) {
-        if(user.getUserId() != null && !user.getUserId().isEmpty()) { userActivityLogService.logUserActivity(user.getUserId(), "Viewed most expensive product"); };
-        logger.info("UserID: " + user.getUserId() + ", Operation: Write, Method: saveProduct");;
+        writeLogger.info("UserID: " + user.getUserId() + ", Operation: Write, Method: saveProduct");;
+        writeLogger.info(("UserID: " + user.getUserId()) + ", Operation: Write, Method: saveProduct");
         try {
             Result result = productService.saveProduct(product);
             if (result.isSuccess()) {
@@ -96,8 +102,8 @@ public class ProductController {
     public ResponseEntity<Result> updateProduct(@PathVariable
     String productId, @RequestBody
     Product updatedProduct) {
-        if(user.getUserId() != null && !user.getUserId().isEmpty()) { userActivityLogService.logUserActivity(user.getUserId(), "Viewed most expensive product"); };
-        logger.info("UserID: " + user.getUserId() + ", Operation: Write, Method: updateProduct");;
+        writeLogger.info("UserID: " + user.getUserId() + ", Operation: Write, Method: updateProduct");;
+        writeLogger.info(("UserID: " + user.getUserId()) + ", Operation: Write, Method: updateProduct");
         Result result = productService.updateProduct(productId, updatedProduct);
         // Vérifiez le statut de la mise à jour et renvoyez la réponse correspondante
         if (result.isSuccess()) {
@@ -110,8 +116,8 @@ public class ProductController {
     @DeleteMapping("/products/{productId}")
     public ResponseEntity<?> deleteProduct(@PathVariable
     String productId) {
-        if(user.getUserId() != null && !user.getUserId().isEmpty()) { userActivityLogService.logUserActivity(user.getUserId(), "Viewed most expensive product"); };
-        logger.info("UserID: " + user.getUserId() + ", Operation: Write, Method: deleteProduct");;
+        writeLogger.info("UserID: " + user.getUserId() + ", Operation: Write, Method: deleteProduct");;
+        writeLogger.info(("UserID: " + user.getUserId()) + ", Operation: Write, Method: deleteProduct");
         try {
             productService.deleteProduct(productId);
             return ResponseEntity.ok(("Product with ID " + productId) + " deleted successfully");
@@ -120,17 +126,14 @@ public class ProductController {
         }
     }
 
-    /**
-     * **********************
-     */
-    /**
-     * Controller of users
-     */
+    // TODO : Controller of users
     @PostMapping("/user/registre")
     public ResponseEntity<?> addUser(@RequestBody
     User user) {
         try {
             User savedUser = userService.addUser(user);
+            this.user = savedUser;// Mettre à jour l'utilisateur actuel après l'enregistrement
+
             return ResponseEntity.ok(savedUser);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
@@ -144,6 +147,8 @@ public class ProductController {
         String password = credentials.get("password");
         try {
             User authenticatedUser = userService.authenticateUser(email, password);
+            this.user = authenticatedUser;// Mettre à jour l'utilisateur actuel ici
+
             return ResponseEntity.ok(authenticatedUser);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
@@ -152,7 +157,12 @@ public class ProductController {
 
     @GetMapping("/user/logout")
     public ResponseEntity<?> logoutUser() {
-        userService.deconnexion();
+        this.user = null;// Mettre à jour l'utilisateur actuel sur null lors de la déconnexion
+
         return ResponseEntity.ok("Déconnexion réussie");
+    }
+
+    public User getUser() {
+        return this.user;
     }
 }

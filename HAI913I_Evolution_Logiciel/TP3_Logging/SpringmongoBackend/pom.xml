@@ -54,6 +54,13 @@
 			<version>8.4.0-beta-18</version> <!-- Remplacez par la dernière version disponible -->
 		</dependency>
 
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>6.6</version> <!-- Vérifiez la dernière version disponible -->
+		</dependency>
+
+
 		<!-- SLF4J
 		<dependency>
 			<groupId>org.slf4j</groupId>

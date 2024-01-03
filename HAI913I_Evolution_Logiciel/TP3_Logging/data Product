@@ -1,0 +1,169 @@
+[
+  {
+    _id: ObjectId('658d1d4f1312f0084765d5c4'),
+    name: 'ProduitTest2',
+    price: 19.99,
+    expirationDate: '2023-12-31',
+    _class: 'com.example.demo.entity.Product'
+  },
+  {
+    _id: ObjectId('659098d3c59f690d6c0537e2'),
+    name: 'ProduitTest3',
+    price: 29.99,
+    expirationDate: '2024-01-21',
+    _class: 'com.example.demo.entity.Product'
+  },
+  {
+    _id: ObjectId('65948830e85d6ea3e7afd524'),
+    name: 'Viande',
+    price: 15,
+    expirationDate: '2024-12-02'
+  },
+  {
+    _id: ObjectId('65948857e85d6ea3e7afd525'),
+    name: 'Concombre',
+    price: 10,
+    expirationDate: '2024-12-02'
+  },
+  {
+    _id: ObjectId('6594887fe85d6ea3e7afd526'),
+    name: 'Lttre',
+    price: 1,
+    expirationDate: '2024-12-02'
+  },
+  {
+    _id: ObjectId('65948891e85d6ea3e7afd527'),
+    name: 'Ordinateur',
+    price: 180,
+    expirationDate: '2024-12-02'
+  },
+  {
+    _id: ObjectId('659488ace85d6ea3e7afd528'),
+    name: 'Lampe',
+    price: 11,
+    expirationDate: '2024-12-02'
+  },
+  {
+    _id: ObjectId('659488c0e85d6ea3e7afd529'),
+    name: 'Andives',
+    price: 2,
+    expirationDate: '2024-12-02'
+  },
+  {
+    _id: ObjectId('659488cfe85d6ea3e7afd52a'),
+    name: 'Tomates',
+    price: 3,
+    expirationDate: '2024-12-02'
+  },
+  {
+    _id: ObjectId('659488e1e85d6ea3e7afd52b'),
+    name: 'Patates',
+    price: 2,
+    expirationDate: '2024-12-02'
+  },
+  {
+    _id: ObjectId('659488eee85d6ea3e7afd52c'),
+    name: 'Pommes',
+    price: 1,
+    expirationDate: '2024-12-02'
+  },
+  {
+    _id: ObjectId('659488fae85d6ea3e7afd52d'),
+    name: 'Riz',
+    price: 2,
+    expirationDate: '2024-12-02'
+  },
+  {
+    _id: ObjectId('6594890ae85d6ea3e7afd52e'),
+    name: 'Poivrons',
+    price: 5,
+    expirationDate: '2024-12-02'
+  },
+  {
+    _id: ObjectId('6594891fe85d6ea3e7afd52f'),
+    name: 'Feuilles',
+    price: 5,
+    expirationDate: '2024-12-02'
+  },
+  {
+    _id: ObjectId('6594892ee85d6ea3e7afd530'),
+    name: 'Cable',
+    price: 1,
+    expirationDate: '2024-12-02'
+  },
+  {
+    _id: ObjectId('659578ca52f4d900d2ac7709'),
+    name: 'Chaussete',
+    price: 8.99,
+    expirationDate: '2024-01-12',
+    _class: 'com.example.demo.entity.Product'
+  },
+  {
+    _id: ObjectId('6595791d52f4d900d2ac770a'),
+    name: 'Chaussure',
+    price: 29.99,
+    expirationDate: '2025-01-12',
+    _class: 'com.example.demo.entity.Product'
+  },
+  {
+    _id: ObjectId('6595794052f4d900d2ac770b'),
+    name: 'Etagère',
+    price: 49.99,
+    expirationDate: '2025-01-12',
+    _class: 'com.example.demo.entity.Product'
+  },
+  {
+    _id: ObjectId('6595794d52f4d900d2ac770c'),
+    name: 'micro-onde',
+    price: 100.99,
+    expirationDate: '2025-01-12',
+    _class: 'com.example.demo.entity.Product'
+  },
+  {
+    _id: ObjectId('6595796152f4d900d2ac770d'),
+    name: 'Porte',
+    price: 150.99,
+    expirationDate: '2025-05-15',
+    _class: 'com.example.demo.entity.Product'
+  }
+]
+
+
+[
+  {
+    _id: ObjectId('6595797952f4d900d2ac770e'),
+    name: 'Poignet de porte',
+    price: 10.99,
+    expirationDate: '2025-01-12',
+    _class: 'com.example.demo.entity.Product'
+  },
+  {
+    _id: ObjectId('6595798d52f4d900d2ac770f'),
+    name: 'Serrure',
+    price: 10.99,
+    expirationDate: '2025-01-12',
+    _class: 'com.example.demo.entity.Product'
+  },
+  {
+    _id: ObjectId('659579a152f4d900d2ac7710'),
+    name: 'Blouson',
+    price: 30.99,
+    expirationDate: '2025-01-12',
+    _class: 'com.example.demo.entity.Product'
+  },
+  {
+    _id: ObjectId('659579df52f4d900d2ac7711'),
+    name: 'Trotinette',
+    price: 200,
+    expirationDate: '2025-01-12',
+    _class: 'com.example.demo.entity.Product'
+  },
+  {
+    _id: ObjectId('6595818cac29fe2d47a743ca'),
+    name: 'Tablette',
+    price: 500,
+    expirationDate: '2025-01-12',
+    _class: 'com.example.demo.entity.Product'
+  }
+]
+

@@ -6,6 +6,8 @@ import com.example.demo.entity.User;
 import spoon.processing.AbstractProcessor;
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtCodeSnippetStatement;
+import spoon.reflect.code.CtIf;
+import spoon.reflect.code.CtStatement;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtField;
 import spoon.reflect.declaration.CtMethod;
@@ -17,124 +19,134 @@ import java.util.logging.Logger;
 
 public class LoggingProcessor extends AbstractProcessor<CtMethod<?>> {
 
-
-
     @Override
     public void process(CtMethod<?> method) {
         CtClass<?> parentClass = method.getParent(CtClass.class);
-        if (parentClass != null && parentClass.getSimpleName().equals("ProductController")) {
-            //addPriceLoggerFieldIfAbsent(parentClass);
-
+        if (parentClass != null && "ProductController".equals(parentClass.getSimpleName())) {
             String methodName = method.getSimpleName();
-            if (methodName.equals("addUser") || methodName.equals("authenticateUser") || methodName.equals("logoutUser")) {
-                return;
+
+            // Ignorer les méthodes spécifiques du contrôleur utilisateur
+            if (isUserMethod(methodName)) {
+                return; // Ignorer cette méthode
             }
-            if (methodName.equals("getProductById")) {
-               // addPriceLoggingToGetProductById(method);
-                addProductActivityLogStatement(method);
+
+            addLoggerFieldsIfAbsent(parentClass);
+            if (isGetProductByIdMethod(method)) {
+                replaceGetProductByIdMethod(method);
+            } else {
+                handleMethodLogging(method, parentClass);
             }
-            // Traiter les autres méthodes comme avant
-
-            addLoggerFieldIfAbsent(parentClass);
-
-            addUserFieldIfAbsent(parentClass);
-
-            // Ajout des déclarations de log dans chaque méthode
-            String operationType = determineOperationType(method);
-            String logStatement = String.format("logger.info(\"UserID: \" + user.getUserId() + \", Operation: %s, Method: %s\");", operationType, methodName);
-            String activityLogStatement = "if(user.getUserId() != null && !user.getUserId().isEmpty()) { userActivityLogService.logUserActivity(user.getUserId(), \"Viewed most expensive product\"); }";
-
-            addLogStatementsToMethod(method, logStatement, activityLogStatement);
         }
     }
 
-
-    private void addPriceLoggerFieldIfAbsent(CtClass<?> parentClass) {
-        CtTypeReference<Logger> typeLogger = getFactory().createCtTypeReference(Logger.class);
-        if (!parentClass.getFields().stream().anyMatch(field -> "price".equals(field.getSimpleName()))) {
-            CtField<Logger> priceLogger = getFactory().createCtField("price", typeLogger, "LoggerFactory.getLogger(\"Price\")", ModifierKind.PRIVATE, ModifierKind.STATIC);
-            parentClass.addFieldAtTop(priceLogger);
+        private void addLoggerFieldsIfAbsent(CtClass<?> parentClass) {
+            addLoggerField(parentClass, "readLogger", "readLogger");
+            addLoggerField(parentClass, "writeLogger", "writeLogger");
+            addLoggerField(parentClass, "priceLogger", "priceLogger");
         }
-    }
 
-    private void addProductTraceLogStatement(CtMethod<?> method) {
-        String traceLogTemplate = "if (this.user != null) { " +
-                "productActivityService.logProductActivity(this.user.getUserId(), " +
-                "productRepository.findById(productId).orElse(null).getName(), " +
-                "productRepository.findById(productId).orElse(null).getPrice()); }";
-        CtCodeSnippetStatement snippet = getFactory().createCodeSnippetStatement(traceLogTemplate);
-        method.getBody().insertBegin(snippet);
-    }
-    private void addProductActivityLogStatement(CtMethod<?> method) {
-        String logTemplate =  "if(user.getUserId() != null && !user.getUserId().isEmpty()) {"
-                + "    String actionMessage = \"Viewed Product: \" + product.getName() + \" at Price: \" + product.getPrice();"
-                + "    userActivityLogService.logUserActivity(user.getUserId(), actionMessage);"
-                + "    logger.info(\"UserID: \" + user.getUserId() + \", Operation: Read, Method: getProductById, Product: \" + product.getName() + \", Price: \" + product.getPrice());"
-                + "    userActivityLogService.logUserActivity(this.user.getUserId(), actionMessage);"
-                + "}";
-
-        CtCodeSnippetStatement snippet = getFactory().createCodeSnippetStatement(logTemplate);
-        method.getBody().insertBegin(snippet);
-    }
-
-
-
-    private void addLogStatementsToMethod(CtMethod<?> method, String logStatement, String activityLogStatement) {
-        CtCodeSnippetStatement logSnippet = getFactory().createCodeSnippetStatement(logStatement);
-        CtCodeSnippetStatement activityLogSnippet = getFactory().createCodeSnippetStatement(activityLogStatement);
-
-        CtBlock<?> body = method.getBody();
-        if (body != null) {
-            body.insertBegin(logSnippet);
-            body.insertBegin(activityLogSnippet);
+        private void addLoggerField(CtClass<?> parentClass, String fieldName, String loggerName) {
+            CtTypeReference<org.slf4j.Logger> typeLogger = getFactory().createCtTypeReference(org.slf4j.Logger.class);
+            if (!parentClass.getFields().stream().anyMatch(field -> field.getSimpleName().equals(fieldName))) {
+                CtField<org.slf4j.Logger> loggerField = getFactory().createCtField(
+                        fieldName, typeLogger, "org.slf4j.LoggerFactory.getLogger(\"" + loggerName + "\")",
+                        ModifierKind.PRIVATE, ModifierKind.STATIC
+                );
+                parentClass.addFieldAtTop(loggerField);
+            }
         }
+
+    private void replaceGetProductByIdMethod(CtMethod<?> method) {
+        CtStatement getProductStatement = getFactory().createCodeSnippetStatement("Product product = productService.getProductById(productId)");
+
+        CtIf ifStatement = getFactory().createIf();
+        ifStatement.setCondition(getFactory().createCodeSnippetExpression("product != null"));
+
+        CtBlock<?> thenBlock = getFactory().createBlock();
+        thenBlock.addStatement(getFactory().createCodeSnippetStatement("boolean isMostExpensive = productService.isProductTheMostExpensive(productId)"));
+        thenBlock.addStatement(getFactory().createCodeSnippetStatement("Logger currentLogger = isMostExpensive ? priceLogger : readLogger"));
+
+        CtIf innerIfStatement = getFactory().createIf();
+        innerIfStatement.setCondition(getFactory().createCodeSnippetExpression("user != null"));
+        innerIfStatement.setThenStatement(getFactory().createCodeSnippetStatement("currentLogger.info(\"UserID: \" + user.getUserId() + \", Operation: Read, Method: getProductById, Product: \" + product.getName() + \", Price: \" + product.getPrice())"));
+        thenBlock.addStatement(innerIfStatement);
+
+        thenBlock.addStatement(getFactory().createCodeSnippetStatement("return ResponseEntity.ok(product)"));
+        ifStatement.setThenStatement(thenBlock);
+
+        ifStatement.setElseStatement(getFactory().createCodeSnippetStatement("return ResponseEntity.status(HttpStatus.NOT_FOUND).body(\"Produit non trouvé\")"));
+
+        CtBlock<?> newBody = getFactory().createBlock();
+        newBody.addStatement(getProductStatement);
+        newBody.addStatement(ifStatement);
+
+        method.setBody(newBody);
     }
 
-    private void addLogStatement(CtMethod<?> method, String logStatement) {
-        CtCodeSnippetStatement snippet = getFactory().createCodeSnippetStatement(logStatement);
-        method.getBody().insertBegin(snippet);
-    }
 
-    private boolean isWriteOperation(CtMethod<?> method) {
-        String methodName = method.getSimpleName();
-        return methodName.startsWith("save") || methodName.startsWith("update") || methodName.startsWith("delete");
-    }
-
-    private boolean isExpensiveProductSearch(CtMethod<?> method) {
-        String methodName = method.getSimpleName();
-        return methodName.contains("ExpensiveProductSearch") || methodName.contains("MaxPriceQuery");
-    }
-
-    private boolean isReadOperation(CtMethod<?> method) {
-        String methodName = method.getSimpleName();
-        return methodName.startsWith("get") || methodName.startsWith("find") || methodName.startsWith("list");
-    }
-
-    private void addLoggerFieldIfAbsent(CtClass<?> parentClass) {
-        CtTypeReference<Logger> typeLogger = getFactory().createCtTypeReference(Logger.class);
-        if (!parentClass.getFields().stream().anyMatch(field -> "logger".equals(field.getSimpleName()))) {
-            CtField<Logger> logger = getFactory().createCtField("logger", typeLogger, "LoggerFactory.getLogger(ProductController.class)", ModifierKind.PRIVATE, ModifierKind.STATIC);
-            parentClass.addFieldAtTop(logger);
+    private boolean isGetProductByIdMethod(CtMethod<?> method) {
+            return "getProductById".equals(method.getSimpleName()) &&
+                    method.getParameters().size() == 1 &&
+                    method.getParameters().get(0).getType().getSimpleName().equals("String");
         }
+
+        private void handleMethodLogging(CtMethod<?> method, CtClass<?> parentClass) {
+            String loggerName = determineLoggerName(method);
+            String logStatement = String.format("%s.info(\"UserID: \" + user.getUserId() + \", Operation: %s, Method: %s\");",
+                    loggerName, determineOperationType(method), method.getSimpleName());
+            addLogStatement(method, logStatement);
+        }
+
+        private String determineLoggerName(CtMethod<?> method) {
+            if (isReadOperation(method)) {
+                return "readLogger";
+            } else if (isWriteOperation(method)) {
+                return "writeLogger";
+            } else if (isExpensiveProductSearch(method)) {
+                return "priceLogger";
+            }
+            return "logger"; // Fallback au logger général
+        }
+
+        private boolean isWriteOperation(CtMethod<?> method) {
+            String methodName = method.getSimpleName();
+            return methodName.startsWith("save") || methodName.startsWith("update") || methodName.startsWith("delete");
+        }
+
+        private boolean isExpensiveProductSearch(CtMethod<?> method) {
+            String methodName = method.getSimpleName();
+            return methodName.contains("ExpensiveProductSearch") || methodName.contains("MaxPriceQuery");
+        }
+
+        private boolean isReadOperation(CtMethod<?> method) {
+            String methodName = method.getSimpleName();
+            return methodName.startsWith("get") || methodName.startsWith("find") || methodName.startsWith("list");
+        }
+
+        private void addLogStatement(CtMethod<?> method, String logStatement) {
+            CtCodeSnippetStatement snippet = getFactory().createCodeSnippetStatement(logStatement);
+            method.getBody().insertBegin(snippet);
+        }
+
+        private String determineOperationType(CtMethod<?> method) {
+            String methodName = method.getSimpleName();
+            if (isReadOperation(method)) {
+                return "Read";
+            } else if (isWriteOperation(method)) {
+                return "Write";
+            } else if (isExpensiveProductSearch(method)) {
+                return "Expensive Product Search";
+            }
+            return "Unknown";
+        }
+
+        // exclure les methodes de user pour les logs
+    private boolean isUserMethod(String methodName) {
+        return "addUser".equals(methodName) ||
+                "authenticateUser".equals(methodName) ||
+                "getUser".equals(methodName) ||
+                "logoutUser".equals(methodName);
     }
 
-    private void addUserFieldIfAbsent(CtClass<?> parentClass) {
-        CtTypeReference<User> typeUser = getFactory().createCtTypeReference(User.class);
-        if (!parentClass.getFields().stream().anyMatch(field -> "user".equals(field.getSimpleName()))) {
-            CtField<User> userField = getFactory().createCtField("user", typeUser, "new User()", ModifierKind.PRIVATE, ModifierKind.STATIC);
-            parentClass.addFieldAtTop(userField);
-        }
-    }
 
-    private String determineOperationType(CtMethod<?> method) {
-        String methodName = method.getSimpleName();
-        if (methodName.startsWith("get") || methodName.startsWith("find") || methodName.startsWith("list")) {
-            return "Read";
-        } else if (methodName.startsWith("save") || methodName.startsWith("update") || methodName.startsWith("delete")) {
-            return "Write";
-        } else if (methodName.contains("ExpensiveProductSearch") || methodName.contains("MaxPriceQuery")) {
-            return "Expensive Product Search";
-        }
-        return "Unknown";
-    }
 }

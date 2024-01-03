@@ -1,20 +1,13 @@
 package com.example.demo.service;
 
-
 import com.example.demo.entity.Product;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.exception.Result;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class ProductService {
-    private static final Logger logger = LoggerFactory.getLogger("PRODUCT");
-    private List<Product> products;
 
     private ProductRepository productRepository;
     @Autowired
@@ -22,25 +15,14 @@ public class ProductService {
         this.productRepository =productRepository;
     }
 
-
-    // expensive product price
-    public Product getMostExpensiveProduct() {
-        return productRepository.findTopByOrderByPriceDesc();
-    }
-
     public boolean isProductTheMostExpensive(String productId) {
         Product mostExpensiveProduct = productRepository.findTopByOrderByPriceDesc();
         if (mostExpensiveProduct != null) {
             Product currentProduct = productRepository.findById(productId).orElse(null);
-          /*  double prix = currentProduct.getPrice();
-            if (mostExpensiveProduct.getPrice()== prix) {
-                return false;
-            }*/
             return currentProduct != null && currentProduct.getPrice() ==mostExpensiveProduct.getPrice();
         }
         return false;
     }
-
 
     public Iterable<Product> listAll() {
         Iterable<Product> products = productRepository.findAll();
@@ -49,8 +31,6 @@ public class ProductService {
         }
         return products;
     }
-
-
 
     public Result saveProduct(Product product) {
         if (product.getName() != null) {
@@ -96,7 +76,6 @@ public class ProductService {
         }
         productRepository.deleteById(productId);
     }
-
 
 }
 

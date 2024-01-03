@@ -8,19 +8,8 @@ import java.io.PrintWriter;
 
 
 
-public class SpoonRunner {
 
-    public static void main(String[] args) {
-        Launcher launcher = new Launcher();
-        launcher.getEnvironment().setAutoImports(true);
-        launcher.getEnvironment().setCommentEnabled(true);
-        launcher.addInputResource("src/main/java/com/example/demo/controller/ProductController.java");
-        launcher.addProcessor(new LoggingProcessor());
-        launcher.run();
-    }
-}
 
-/*
 public class SpoonRunner {
 
     public static void main(String[] args) {
@@ -60,13 +49,17 @@ public class SpoonRunner {
 }
 /*
 
+public class SpoonRunner {
 
-  public class SpoonRunner {
-      public static void main(String[] args) {
-          Launcher launcher = new Launcher();
-          launcher.addInputResource("/home/toudherth/Master2GL/HAI913I_Evolution_Logiciel/TP3_Logging/SpringmongoBackend/src/main/java/com/example/demo");
- 
-          launcher.addProcessor(new LoggingProcessor());
-          launcher.run();
-      }
-  }*/
+    public static void main(String[] args) {
+        Launcher launcher = new Launcher();
+        launcher.getEnvironment().setAutoImports(true);
+        launcher.getEnvironment().setCommentEnabled(true);
+        launcher.addInputResource("src/main/java/com/example/demo/controller/ProductController.java");
+        launcher.addProcessor(new LoggingProcessor());
+        launcher.run();
+    }
+}
+
+
+ */

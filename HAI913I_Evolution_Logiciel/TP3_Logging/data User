@@ -1,0 +1,79 @@
+[
+  {
+    name: 'John Doe',
+    age: 25,
+    email: 'john.doe@example.com',
+    password: 'password123',
+  },
+  {
+    _id: ObjectId('658fe6aa72ab2f6fdb6e127a'),
+    name: 'douda',
+    age: 25,
+    email: 'douda@gmail.com',
+    password: '000',
+    _class: 'com.example.demo.entity.User'
+  },
+  {
+    _id: ObjectId('65956d34be5d4add9cd0eedc'),
+    name: 'Baptiste',
+    age: 18,
+    email: 'baptiste@gmail.com',
+    password: '123'
+  },
+  {
+    _id: ObjectId('65956dbbbe5d4add9cd0eedd'),
+    name: 'Martin',
+    age: 22,
+    email: 'martin@gmail.com',
+    password: '123'
+  },
+  {
+    _id: ObjectId('65956eb952f4d900d2ac7703'),
+    name: 'Lucie',
+    age: 25,
+    email: 'lucie@gmail.com',
+    password: '000',
+    _class: 'com.example.demo.entity.User'
+  },
+  {
+    _id: ObjectId('6595706452f4d900d2ac7704'),
+    name: 'Celine',
+    age: 40,
+    email: 'celine@gmail.com',
+    password: '000',
+    _class: 'com.example.demo.entity.User'
+  },
+  {
+    _id: ObjectId('6595709252f4d900d2ac7705'),
+    name: 'Thierry',
+    age: 33,
+    email: 'thierry@gmail.com',
+    password: '000',
+    _class: 'com.example.demo.entity.User'
+  },
+  {
+    _id: ObjectId('659570b852f4d900d2ac7706'),
+    name: 'Gaetan',
+    age: 23,
+    email: 'gaetan@gmail.com',
+    password: '000',
+    _class: 'com.example.demo.entity.User'
+  },
+  {
+    _id: ObjectId('659570d852f4d900d2ac7707'),
+    name: 'Lea',
+    age: 26,
+    email: 'lea@gmail.com',
+    password: '000',
+    _class: 'com.example.demo.entity.User'
+  },
+  {
+    _id: ObjectId('6595710b52f4d900d2ac7708'),
+    name: 'Marie-Lou',
+    age: 23,
+    email: 'marielou@gmail.com',
+    password: '000',
+    _class: 'com.example.demo.entity.User'
+  }
+]
+

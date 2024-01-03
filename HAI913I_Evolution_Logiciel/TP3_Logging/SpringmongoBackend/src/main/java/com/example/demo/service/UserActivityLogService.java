@@ -15,12 +15,10 @@ public class UserActivityLogService {
     @Autowired
     private UserActivityLogRepository logRepository;
 
-
-    private static final Logger logger = LoggerFactory.getLogger(UserActivityLogService.class);
-
     public void logUserActivity(String userId, String action) {
-        logger.info("User ID: {} has performed the action: {}", userId, action);
-        // Ici, vous pourriez également stocker l'activité dans MongoDB
+
+        System.out.println("User ID: "+userId+" has performed the action:"+ action);
+        // Ajouter les methodes a la bdd
         UserActivityLog log = new UserActivityLog();
         log.setUserId(userId);
         log.setAction(action);

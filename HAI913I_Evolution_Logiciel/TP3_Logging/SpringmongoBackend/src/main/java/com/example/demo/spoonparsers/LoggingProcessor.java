@@ -34,7 +34,8 @@ public class LoggingProcessor extends AbstractProcessor<CtMethod<?>> {
             if (isGetProductByIdMethod(method)) {
                 replaceGetProductByIdMethod(method);
             } else {
-                handleMethodLogging(method, parentClass);
+                //handleMethodLogging(method, parentClass);
+                handleReadWriteMethodLogging(method);
             }
         }
     }
@@ -55,7 +56,6 @@ public class LoggingProcessor extends AbstractProcessor<CtMethod<?>> {
                 parentClass.addFieldAtTop(loggerField);
             }
         }
-
     private void replaceGetProductByIdMethod(CtMethod<?> method) {
         CtStatement getProductStatement = getFactory().createCodeSnippetStatement("Product product = productService.getProductById(productId)");
 
@@ -68,7 +68,11 @@ public class LoggingProcessor extends AbstractProcessor<CtMethod<?>> {
 
         CtIf innerIfStatement = getFactory().createIf();
         innerIfStatement.setCondition(getFactory().createCodeSnippetExpression("user != null"));
-        innerIfStatement.setThenStatement(getFactory().createCodeSnippetStatement("currentLogger.info(\"UserID: \" + user.getUserId() + \", Operation: Read, Method: getProductById, Product: \" + product.getName() + \", Price: \" + product.getPrice())"));
+        // Mise à jour pour générer un log au format JSON
+        innerIfStatement.setThenStatement(getFactory().createCodeSnippetStatement(
+                "currentLogger.info(\"\\\"message\\\": \\\"getProductById\\\", \\\"User\\\": \\\"\" + user.getName() + \"\\\", \\\"UserID\\\": \\\"\" + user.getUserId() + \"\\\", \\\"Product\\\": \\\"\" + product.getName() + \"\\\", \\\"ProductID\\\": \\\"\" + product.getProductId() + \"\\\", \\\"Price\\\": \" + product.getPrice() + \"\")"
+        ));
+
         thenBlock.addStatement(innerIfStatement);
 
         thenBlock.addStatement(getFactory().createCodeSnippetStatement("return ResponseEntity.ok(product)"));
@@ -84,18 +88,29 @@ public class LoggingProcessor extends AbstractProcessor<CtMethod<?>> {
     }
 
 
+
     private boolean isGetProductByIdMethod(CtMethod<?> method) {
             return "getProductById".equals(method.getSimpleName()) &&
                     method.getParameters().size() == 1 &&
                     method.getParameters().get(0).getType().getSimpleName().equals("String");
         }
 
-        private void handleMethodLogging(CtMethod<?> method, CtClass<?> parentClass) {
-            String loggerName = determineLoggerName(method);
-            String logStatement = String.format("%s.info(\"UserID: \" + user.getUserId() + \", Operation: %s, Method: %s\");",
-                    loggerName, determineOperationType(method), method.getSimpleName());
-            addLogStatement(method, logStatement);
-        }
+    private void handleMethodLogging(CtMethod<?> method, CtClass<?> parentClass) {
+        String loggerName = determineLoggerName(method);
+        String logStatement = String.format(
+                "%s.trace(\"{\\\"message\\\": \\\"%s\\\", \\\"User\\\": \\\"\" + user.getName() + \"\\\", \\\"UserID\\\": \" + user.getUserId() + \", \\\"Product\\\": \\\"\" + product.getName() + \"\\\", \\\"ProductID\\\": \" + product.getId() + \", \\\"Price\\\": \" + product.getPrice() + \"}\");",
+                loggerName, method.getSimpleName()
+        );
+        addLogStatement(method, logStatement);
+    }
+    private void handleReadWriteMethodLogging(CtMethod<?> method) {
+        String loggerName = determineLoggerName(method);
+        String logStatement = String.format(
+                "%s.info(\"\\\"message\\\": \\\"%s\\\", \\\"User\\\": \\\"\" + user.getName() + \"\\\", \\\"UserID\\\": \\\"\" + user.getUserId() + \"\\\"\");",
+                loggerName, method.getSimpleName()
+        );
+        addLogStatement(method, logStatement);
+    }
 
         private String determineLoggerName(CtMethod<?> method) {
             if (isReadOperation(method)) {

@@ -1,0 +1,59 @@
+.
+├── docker-compose.yaml
+├── log
+│   └── app.log
+├── logs
+│   ├── price.log
+│   ├── read.log
+│   └── write.log
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+├── spooned
+│   └── com
+│       └── example
+│           └── demo
+│               └── controller
+│                   └── ProductController.java
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── com
+│   │   │       └── example
+│   │   │           └── demo
+│   │   │               ├── builder
+│   │   │               │   └── UserProfileBuilder.java
+│   │   │               ├── controller
+│   │   │               │   ├── ProductController.java
+│   │   │               │   └── ProfileController.java
+│   │   │               ├── DemoApplication.java
+│   │   │               ├── entity
+│   │   │               │   ├── Product.java
+│   │   │               │   ├── User.java
+│   │   │               │   └── UserProfile.java
+│   │   │               ├── exception
+│   │   │               │   └── Result.java
+│   │   │               ├── repository
+│   │   │               │   ├── ProductRepository.java
+│   │   │               │   └── UserRepository.java
+│   │   │               ├── service
+│   │   │               │   ├── AnalyseLogService.java
+│   │   │               │   ├── ProductService.java
+│   │   │               │   └── UserService.java
+│   │   │               └── spoonparsers
+│   │   │                   ├── LoggingProcessor.java
+│   │   │                   └── SpoonRunner.java
+│   │   └── resources
+│   │       ├── application.properties
+│   │       └── logback.xml
+│   ├── sortie.txt
+│   └── test
+│       └── java
+│           └── com
+│               └── example
+│                   └── demo
+│                       ├── DemoApplicationTests.java
+│                       └── StudentServiceTest.java
+└── structure.txt
+
+26 directories, 30 files

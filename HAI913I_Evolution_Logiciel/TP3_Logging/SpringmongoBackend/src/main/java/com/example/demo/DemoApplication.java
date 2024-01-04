@@ -1,19 +1,37 @@
 package com.example.demo;
 
+import com.example.demo.service.AnalyseLogService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
 
+	@Autowired
+	private AnalyseLogService analyseLogService;
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
+
 	}
 
 
-	@Override
-	public void run(String... args) throws Exception {
+	@Bean
+	public ApplicationRunner applicationRunner() {
+		return args -> {
+			//analyseLogService.parseAllLogs(); // Assurez-vous que cette méthode existe
+			//analyseLogService.saveUserActionsToDatabase();
+		};
+	}
+
+
+	//@Override
+	public void run2(String... args) throws Exception {
 		if (args.length > 0) {
 			switch (args[0]) {
 				case "get":
@@ -42,4 +60,8 @@ public class DemoApplication implements CommandLineRunner {
 		System.out.println("Exécution de la méthode ADD.");
 	}
 
+	@Override
+	public void run(String... args) throws Exception {
+
+	}
 }

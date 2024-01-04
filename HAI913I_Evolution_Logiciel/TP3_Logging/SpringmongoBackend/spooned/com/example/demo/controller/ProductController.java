@@ -3,11 +3,9 @@ import com.example.demo.entity.Product;
 import com.example.demo.entity.User;
 import com.example.demo.exception.Result;
 import com.example.demo.service.ProductService;
-import com.example.demo.service.UserActivityLogService;
 import com.example.demo.service.UserService;
 import java.util.Map;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +23,11 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 @RequestMapping("/product")
 public class ProductController {
-    private static Logger priceLogger = LoggerFactory.getLogger("priceLogger");
+    private static Logger priceLogger = org.slf4j.LoggerFactory.getLogger("priceLogger");
 
-    private static Logger writeLogger = LoggerFactory.getLogger("writeLogger");
+    private static Logger writeLogger = org.slf4j.LoggerFactory.getLogger("writeLogger");
 
-    private static Logger readLogger = LoggerFactory.getLogger("readLogger");
+    private static Logger readLogger = org.slf4j.LoggerFactory.getLogger("readLogger");
 
     private ProductService productService;
 
@@ -55,8 +53,7 @@ public class ProductController {
      */
     @GetMapping("/products")
     public Iterable<Product> getProducts() {
-        readLogger.info("UserID: " + user.getUserId() + ", Operation: Read, Method: getProducts");;
-        readLogger.info(("UserID: " + user.getUserId()) + ", Operation: Read, Method: getProducts");
+        readLogger.info("\"message\": \"getProducts\", \"User\": \"" + user.getName() + "\", \"UserID\": \"" + user.getUserId() + "\"");;
         Iterable<Product> products = productService.listAll();
         return products;
     }
@@ -70,7 +67,7 @@ public class ProductController {
             boolean isMostExpensive = productService.isProductTheMostExpensive(productId);
             Logger currentLogger = isMostExpensive ? priceLogger : readLogger;
             if (user != null)
-                currentLogger.info("UserID: " + user.getUserId() + ", Operation: Read, Method: getProductById, Product: " + product.getName() + ", Price: " + product.getPrice());
+                currentLogger.info("\"message\": \"getProductById\", \"User\": \"" + user.getName() + "\", \"UserID\": \"" + user.getUserId() + "\", \"Product\": \"" + product.getName() + "\", \"ProductID\": \"" + product.getId() + "\", \"Price\": " + product.getPrice() + "");
 
             return ResponseEntity.ok(product);
         } else
@@ -84,8 +81,7 @@ public class ProductController {
     @PostMapping("/products")
     public ResponseEntity<Result> saveProduct(@RequestBody
     Product product) {
-        writeLogger.info("UserID: " + user.getUserId() + ", Operation: Write, Method: saveProduct");;
-        writeLogger.info(("UserID: " + user.getUserId()) + ", Operation: Write, Method: saveProduct");
+        writeLogger.info("\"message\": \"saveProduct\", \"User\": \"" + user.getName() + "\", \"UserID\": \"" + user.getUserId() + "\"");;
         try {
             Result result = productService.saveProduct(product);
             if (result.isSuccess()) {
@@ -102,8 +98,7 @@ public class ProductController {
     public ResponseEntity<Result> updateProduct(@PathVariable
     String productId, @RequestBody
     Product updatedProduct) {
-        writeLogger.info("UserID: " + user.getUserId() + ", Operation: Write, Method: updateProduct");;
-        writeLogger.info(("UserID: " + user.getUserId()) + ", Operation: Write, Method: updateProduct");
+        writeLogger.info("\"message\": \"updateProduct\", \"User\": \"" + user.getName() + "\", \"UserID\": \"" + user.getUserId() + "\"");;
         Result result = productService.updateProduct(productId, updatedProduct);
         // Vérifiez le statut de la mise à jour et renvoyez la réponse correspondante
         if (result.isSuccess()) {
@@ -116,8 +111,7 @@ public class ProductController {
     @DeleteMapping("/products/{productId}")
     public ResponseEntity<?> deleteProduct(@PathVariable
     String productId) {
-        writeLogger.info("UserID: " + user.getUserId() + ", Operation: Write, Method: deleteProduct");;
-        writeLogger.info(("UserID: " + user.getUserId()) + ", Operation: Write, Method: deleteProduct");
+        writeLogger.info("\"message\": \"deleteProduct\", \"User\": \"" + user.getName() + "\", \"UserID\": \"" + user.getUserId() + "\"");;
         try {
             productService.deleteProduct(productId);
             return ResponseEntity.ok(("Product with ID " + productId) + " deleted successfully");

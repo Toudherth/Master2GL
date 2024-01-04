@@ -4,7 +4,7 @@
     <appender name="READ_LOG" class="ch.qos.logback.core.FileAppender">
         <file>logs/read.log</file>
         <encoder>
-            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+            <pattern>{"timestamp": "%date{yyyy-MM-dd'T'HH:mm:ss.SSS}", "level": "%level", "logger": "%logger",  "file": "%file", %msg}\n</pattern>
         </encoder>
     </appender>
 
@@ -12,7 +12,7 @@
     <appender name="WRITE_LOG" class="ch.qos.logback.core.FileAppender">
         <file>logs/write.log</file>
         <encoder>
-            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+            <pattern>{"timestamp": "%date{yyyy-MM-dd'T'HH:mm:ss.SSS}", "level": "%level", "logger": "%logger",  "file": "%file", %msg}\n</pattern>
         </encoder>
     </appender>
 
@@ -20,7 +20,7 @@
     <appender name="PRICE_LOG" class="ch.qos.logback.core.FileAppender">
         <file>logs/price.log</file>
         <encoder>
-            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+            <pattern>{"timestamp": "%date{yyyy-MM-dd'T'HH:mm:ss.SSS}", "level": "%level", "logger": "%logger",  "file": "%file", %msg}\n</pattern>
         </encoder>
     </appender>
 

@@ -13,17 +13,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
+  sqflite: ^2.3.0
+  path: ^1.8.3
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  firebase_core: ^2.24.0
-
-
   flutter_lints: ^2.0.0
+  # Retirez firebase_core des dev_dependencies s'il ne s'agit pas d'une dépendance de développement
+  firebase_core: ^2.24.0 # Utilisez la dernière version si nécessaire
+
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -33,3 +34,94 @@ flutter:
 
 
   uses-material-design: true
+
+
+  assets:
+    - assets/page-1/images/sun.png
+    - assets/page-1/images/icon-cog.png
+    - assets/page-1/images/sun-EmZ.png
+    - assets/page-1/images/union.png
+    - assets/page-1/images/sun-znX.png
+    - assets/page-1/images/rectangle-25.png
+    - assets/page-1/images/cell.png
+    - assets/page-1/images/auto-group-bqp1.png
+    - assets/page-1/images/icon-cog-BXR.png
+    - assets/page-1/images/wifi.png
+    - assets/page-1/images/sun-Cts.png
+    - assets/page-1/images/sun-MCf.png
+    - assets/page-1/images/auto-group-yd4f.png
+    - assets/page-1/images/battery.png
+    - assets/page-1/images/tab-bar.png
+    - assets/page-1/images/wifi-L1q.png
+    - assets/page-1/images/chevron-up.png
+    - assets/page-1/images/wifi-t9q.png
+    - assets/page-1/images/auto-group-fmdm.png
+    - assets/page-1/images/wifi-TbZ.png
+    - assets/page-1/images/cell-1sy.png
+    - assets/page-1/images/sun-DBy.png
+    - assets/page-1/images/auto-group-qcjf.png
+    - assets/page-1/images/cell-Qf5.png
+    - assets/page-1/images/icon-envelope-closed.png
+    - assets/page-1/images/sun-pd1.png
+    - assets/page-1/images/cell-t51.png
+    - assets/page-1/images/icon-person.png
+    - assets/page-1/images/sun-xt3.png
+    - assets/page-1/images/moon-symbol.png
+    - assets/page-1/images/auto-group-knzq.png
+    - assets/page-1/images/battery-wNT.png
+    - assets/page-1/images/sun-V39.png
+    - assets/page-1/images/sun-rn7.png
+    - assets/page-1/images/sun-Sf5.png
+    - assets/page-1/images/icon-envelope-closed-Lm1.png
+    - assets/page-1/images/union-ej5.png
+    - assets/page-1/images/cell-eMh.png
+    - assets/page-1/images/icon-lock-locked.png
+    - assets/page-1/images/chevron-up-JJw.png
+    - assets/page-1/images/sun-qX1.png
+    - assets/page-1/images/battery-Y1R.png
+    - assets/page-1/images/icon-lock-locked-1d5.png
+    - assets/page-1/images/cell-s9M.png
+    - assets/page-1/images/sun-TQP.png
+    - assets/page-1/images/battery-cYB.png
+    - assets/page-1/images/sun-7Yo.png
+    - assets/page-1/images/sun-Y1q.png
+    - assets/page-1/images/union-R5d.png
+    - assets/page-1/images/battery-S59.png
+    - assets/page-1/images/sun-4pb.png
+    - assets/page-1/images/wifi-Rf9.png
+    - assets/page-1/images/wifi-yc7.png
+    - assets/page-1/images/pexels-photo-105002-1.png
+    - assets/page-1/images/auto-group-hcfm.png
+    - assets/page-1/images/auto-group-f2dh.png
+    - assets/page-1/images/sun-RMu.png
+    - assets/page-1/images/cloudy.png
+    - assets/page-1/images/pexels-photo-105002-1-fXZ.png
+    - assets/page-1/images/wifi-vR1.png
+    - assets/page-1/images/auto-group-kdtz.png
+    - assets/page-1/images/pexels-photo-105002-1-yco.png
+    - assets/page-1/images/battery-Ufu.png
+    - assets/page-1/images/cell-627.png
+    - assets/page-1/images/pexels-photo-105002-1-9GP.png
+    - assets/page-1/images/sun-fj1.png
+    - assets/page-1/images/rectangle-23.png
+    - assets/page-1/images/rectangle-24.png
+    - assets/page-1/images/icon-cog-6af.png
+    - assets/page-1/images/ellipse-bg.png
+    - assets/page-1/images/wifi-KMu.png
+    - assets/page-1/images/icon-person-CfD.png
+    - assets/page-1/images/battery-Mko.png
+    - assets/page-1/images/icon-cog-nFD.png
+    - assets/page-1/images/icon-cog-DdM.png
+    - assets/page-1/images/rectangle.png
+    - assets/page-1/images/icon-home.png
+    - assets/page-1/images/wifi-HrT.png
+    - assets/page-1/images/battery-EZq.png
+    - assets/page-1/images/cell-yfq.png
+    - assets/page-1/images/auto-group-hqtr.png
+    - assets/page-1/images/icon-cog-gE7.png
+    - assets/page-1/images/cell-iQK.png
+    - assets/page-1/images/auto-group-snv9.png
+    - assets/page-1/images/battery-h1V.png
+    - assets/page-1/images/rectangle-h47.png
+    - assets/page-1/images/sun-qJs.png
+    - assets/page-1/images/crescent-moon-bg.png

@@ -1,8 +1,66 @@
-import 'package:flutter/material.dart';
+// main.dart
 
 import 'package:flutter/material.dart';
-import 'view/login_view.dart';
-import 'view/register_view.dart';
+import 'package:projetflutter/view/logged_out.dart'; // Assurez-vous que ce chemin est correct
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Votre Application',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        // Utilisez un TextTheme standard ou définissez le vôtre sans GoogleFonts
+        textTheme: TextTheme(
+          bodyText1: TextStyle(fontFamily: 'VotrePolice'), // Remplacez 'VotrePolice' par votre police
+
+          // ... autres styles ...
+        ),
+      ),
+      home: Scene(), // Assurez-vous que la classe Scene est définie quelque part dans votre projet
+    );
+  }
+}
+
+
+
+
+/*import 'package:flutter/material.dart';
+import 'package:projetflutter/helper/database_helper.dart';
+import 'package:projetflutter/service/database_service.dart';
+import 'package:projetflutter/view/temperature_screen.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final DatabaseHelper databaseHelper = DatabaseHelper.instance;
+    final DatabaseService databaseService = DatabaseService(databaseHelper);
+
+    return MaterialApp(
+      title: 'Temperature Monitor',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: TemperatureScreen(databaseService: databaseService),
+    );
+  }
+}
+
+*/
+/*
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:projetflutter/view/login_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -112,4 +170,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-}
+}*/

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
-class Temperature extends StatefulWidget {
+class TemperatureList extends StatefulWidget {
   @override
-  _TemperatureState createState() => _TemperatureState();
+  _TemperatureListState createState() => _TemperatureListState();
 }
 
-class _TemperatureState extends State<Temperature> {
+class _TemperatureListState extends State<TemperatureList> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -31,8 +31,9 @@ class _TemperatureState extends State<Temperature> {
       ),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+
         child: Container(
-          color: Colors.black.withOpacity(0.3),
+          color: Colors.black.withOpacity(0.4),
           child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
@@ -46,22 +47,7 @@ class _TemperatureState extends State<Temperature> {
 
             body: Stack(
               children: [
-                // Background image
-                Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/page-1/images/pexels-photo-105002-1-9GP.png'), // Update with your image path
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                // Blurred overlay
-                BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                  child: Container(
 
-                  ),
-                ),
                 // Content
                 SafeArea(
                   child: Stack(
@@ -111,25 +97,82 @@ class _TemperatureState extends State<Temperature> {
                       ),
                       // Positioned history card 1
 
-                      // Interface spécifique positionnée en bas
                       Positioned(
-                        bottom: 0, // Positionner en bas
+                        bottom: 0,
                         left: 0,
                         right: 0,
                         child: Container(
                           width: double.infinity,
                           height: 270,
                           decoration: BoxDecoration(
-                            color: Color(0xFFDCD7D7), // Changez la couleur selon vos besoins
+                            color: Color(0xFFDCD7D7),
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(80),
                               topRight: Radius.circular(80),
                             ),
                           ),
-                          // ... Le contenu de votre 'frame4' ...
+                          child: Column(
+                            children: [
+                              SizedBox(height: 16),
+                              Center(
+                                child: Icon(
+                                  Icons.keyboard_arrow_up,
+                                  color: Colors.black,
+                                  size: 34,
+                                ),
+                              ),
+                              SizedBox(height: 16),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 24),
+                                  child: Text(
+                                    'History',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 16),
+                              Expanded(
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 5, // Le nombre d'éléments dans la liste
+                                  itemBuilder: (BuildContext context, int index) {
+                                    return Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            '30°',
+                                            style: TextStyle(
+                                              // Utilisez le style que vous préférez ici
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              color: Color(0xff000000),
+                                            ),
+                                          ),
+                                          SizedBox(width: 8), // Espace entre le texte et l'icône
+                                          Image.asset(
+                                            'assets/page-1/images/sun-Y1q.png',
+                                            fit: BoxFit.cover,
+                                            width: 50, // La taille de l'image
+                                            height: 50,
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-
                       ),
+
                     ],
                   ),
 
@@ -166,4 +209,3 @@ class _TemperatureState extends State<Temperature> {
     );
   }
 }
-

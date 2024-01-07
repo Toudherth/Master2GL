@@ -8,6 +8,7 @@ class Scene extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
 
+
     return Scaffold(
       body: Stack(
         children: [
@@ -22,7 +23,7 @@ class Scene extends StatelessWidget {
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
               child: Container(
-                color: Colors.transparent,
+                color: Colors.black.withOpacity(0.4),
               ),
             ),
           ),

@@ -1,8 +1,5 @@
 package com.example.demo.spoonparsers;
 
-
-
-import com.example.demo.entity.User;
 import spoon.processing.AbstractProcessor;
 import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtCodeSnippetStatement;
@@ -13,9 +10,6 @@ import spoon.reflect.declaration.CtField;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.ModifierKind;
 import spoon.reflect.reference.CtTypeReference;
-
-import java.util.logging.Logger;
-
 
 public class LoggingProcessor extends AbstractProcessor<CtMethod<?>> {
 

@@ -33,18 +33,15 @@ public class ProductController {
 
     private UserService userService;
 
-    private final UserActivityLogService userActivityLogService;
-
     private static User user;
 
     /**
      * * Constructor (injection dependences)
      */
     @Autowired
-    public ProductController(ProductService productService, UserService userService, UserActivityLogService userActivityLogService) {
+    public ProductController(ProductService productService, UserService userService) {
         this.productService = productService;
         this.userService = userService;
-        this.userActivityLogService = userActivityLogService;
     }
 
     // TODO : controller of products
@@ -67,7 +64,7 @@ public class ProductController {
             boolean isMostExpensive = productService.isProductTheMostExpensive(productId);
             Logger currentLogger = isMostExpensive ? priceLogger : readLogger;
             if (user != null)
-                currentLogger.info("\"message\": \"getProductById\", \"User\": \"" + user.getName() + "\", \"UserID\": \"" + user.getUserId() + "\", \"Product\": \"" + product.getName() + "\", \"ProductID\": \"" + product.getId() + "\", \"Price\": " + product.getPrice() + "");
+                currentLogger.info("\"message\": \"getProductById\", \"User\": \"" + user.getName() + "\", \"UserID\": \"" + user.getUserId() + "\", \"Product\": \"" + product.getName() + "\", \"ProductID\": \"" + product.getProductId() + "\", \"Price\": " + product.getPrice() + "");
 
             return ResponseEntity.ok(product);
         } else

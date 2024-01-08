@@ -19,12 +19,6 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 @RequestMapping("/product")
 public class ProductController {
-    private static Logger priceLogger = org.slf4j.LoggerFactory.getLogger("priceLogger");
-
-    private static Logger writeLogger = org.slf4j.LoggerFactory.getLogger("writeLogger");
-
-    private static Logger readLogger = org.slf4j.LoggerFactory.getLogger("readLogger");
-
     private ProductService productService;
 
     private UserService userService;
@@ -47,7 +41,6 @@ public class ProductController {
      */
     @GetMapping("/products")
     public Iterable<Product> getProducts() {
-        readLogger.info("\"message\": \"getProducts\", \"User\": \"" + user.getName() + "\", \"UserID\": \"" + user.getUserId() + "\"");;
         Iterable<Product> products = productService.listAll();
         return products;
     }
@@ -59,14 +52,9 @@ public class ProductController {
         Product product = productService.getProductById(productId);
         if (product != null) {
             boolean isMostExpensive = productService.isProductTheMostExpensive(productId);
-            Logger currentLogger = isMostExpensive ? priceLogger : readLogger;
-            if (user != null)
-                currentLogger.info("\"message\": \"getProductById\", \"User\": \"" + user.getName() + "\", \"UserID\": \"" + user.getUserId() + "\", \"Product\": \"" + product.getName() + "\", \"ProductID\": \"" + product.getProductId() + "\", \"Price\": " + product.getPrice() + "");
-
             return ResponseEntity.ok(product);
         } else
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produit non trouvé");
-
     }
 
     /**
@@ -75,7 +63,6 @@ public class ProductController {
     @PostMapping("/products")
     public ResponseEntity<Result> saveProduct(@RequestBody
     Product product) {
-        writeLogger.info("\"message\": \"saveProduct\", \"User\": \"" + user.getName() + "\", \"UserID\": \"" + user.getUserId() + "\"");;
         try {
             Result result = productService.saveProduct(product);
             if (result.isSuccess()) {
@@ -92,7 +79,6 @@ public class ProductController {
     public ResponseEntity<Result> updateProduct(@PathVariable
     String productId, @RequestBody
     Product updatedProduct) {
-        writeLogger.info("\"message\": \"updateProduct\", \"User\": \"" + user.getName() + "\", \"UserID\": \"" + user.getUserId() + "\"");;
         Result result = productService.updateProduct(productId, updatedProduct);
         // Vérifiez le statut de la mise à jour et renvoyez la réponse correspondante
         if (result.isSuccess()) {
@@ -105,7 +91,6 @@ public class ProductController {
     @DeleteMapping("/products/{productId}")
     public ResponseEntity<?> deleteProduct(@PathVariable
     String productId) {
-        writeLogger.info("\"message\": \"deleteProduct\", \"User\": \"" + user.getName() + "\", \"UserID\": \"" + user.getUserId() + "\"");;
         try {
             productService.deleteProduct(productId);
             return ResponseEntity.ok(("Product with ID " + productId) + " deleted successfully");

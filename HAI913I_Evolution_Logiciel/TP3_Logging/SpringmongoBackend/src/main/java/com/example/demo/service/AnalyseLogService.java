@@ -28,6 +28,7 @@ public class AnalyseLogService {
         parseLogFile("logs/price.log", jsonprice);
     }
 
+    // parser les fichiers .log et recuperer des objets json
     private void parseLogFile(String fileName, List<JSONObject> jsonList) throws IOException, ParseException {
         String line;
         BufferedReader br = new BufferedReader(new FileReader(fileName));

@@ -16,6 +16,7 @@ public class LoggingProcessor extends AbstractProcessor<CtMethod<?>> {
     @Override
     public void process(CtMethod<?> method) {
         CtClass<?> parentClass = method.getParent(CtClass.class);
+        // on fait l'instrumentation uniquement pour la classe productcontroller
         if (parentClass != null && "ProductController".equals(parentClass.getSimpleName())) {
             String methodName = method.getSimpleName();
 
@@ -90,14 +91,6 @@ public class LoggingProcessor extends AbstractProcessor<CtMethod<?>> {
                     method.getParameters().get(0).getType().getSimpleName().equals("String");
         }
 
-    private void handleMethodLogging(CtMethod<?> method, CtClass<?> parentClass) {
-        String loggerName = determineLoggerName(method);
-        String logStatement = String.format(
-                "%s.trace(\"{\\\"message\\\": \\\"%s\\\", \\\"User\\\": \\\"\" + user.getName() + \"\\\", \\\"UserID\\\": \" + user.getUserId() + \", \\\"Product\\\": \\\"\" + product.getName() + \"\\\", \\\"ProductID\\\": \" + product.getId() + \", \\\"Price\\\": \" + product.getPrice() + \"}\");",
-                loggerName, method.getSimpleName()
-        );
-        addLogStatement(method, logStatement);
-    }
     private void handleReadWriteMethodLogging(CtMethod<?> method) {
         String loggerName = determineLoggerName(method);
         String logStatement = String.format(
@@ -136,18 +129,6 @@ public class LoggingProcessor extends AbstractProcessor<CtMethod<?>> {
         private void addLogStatement(CtMethod<?> method, String logStatement) {
             CtCodeSnippetStatement snippet = getFactory().createCodeSnippetStatement(logStatement);
             method.getBody().insertBegin(snippet);
-        }
-
-        private String determineOperationType(CtMethod<?> method) {
-            String methodName = method.getSimpleName();
-            if (isReadOperation(method)) {
-                return "Read";
-            } else if (isWriteOperation(method)) {
-                return "Write";
-            } else if (isExpensiveProductSearch(method)) {
-                return "Expensive Product Search";
-            }
-            return "Unknown";
         }
 
         // exclure les methodes de user pour les logs

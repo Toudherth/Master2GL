@@ -9,7 +9,7 @@ public class UserProfileBuilder {
     private String userName;
     private String userId;
     private Map<String, Integer> actionCounts = new HashMap<>();
-    private int totalActions;
+    //private int totalActions;
 
     public UserProfileBuilder setUserName(String userName) {
         this.userName = userName;

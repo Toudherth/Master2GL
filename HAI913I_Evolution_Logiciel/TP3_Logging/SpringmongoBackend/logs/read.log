@@ -135,3 +135,5 @@
 {"timestamp": "2024-01-04T22:29:35.885", "level": "INFO", "logger": "readLogger",  "file": "ProductController.java", "message": "getProducts", "User": "douda", "UserID": "658fe6aa72ab2f6fdb6e127a"}
 {"timestamp": "2024-01-04T22:29:36.439", "level": "INFO", "logger": "readLogger",  "file": "ProductController.java", "message": "getProducts", "User": "douda", "UserID": "658fe6aa72ab2f6fdb6e127a"}
 {"timestamp": "2024-01-04T22:30:34.115", "level": "INFO", "logger": "readLogger",  "file": "ProductController.java", "message": "getProducts", "User": "John Doe", "UserID": "658fe67272ab2f6fdb6e1279"}
+{"timestamp": "2024-01-08T19:32:26.073", "level": "INFO", "logger": "readLogger",  "file": "ProductController.java", "message": "getProducts", "User": "douda", "UserID": "658fe6aa72ab2f6fdb6e127a"}
+{"timestamp": "2024-01-08T22:34:08.188", "level": "INFO", "logger": "readLogger",  "file": "ProductController.java", "message": "getProducts", "User": "Loulou", "UserID": "659c69fe1a807f4080305831"}

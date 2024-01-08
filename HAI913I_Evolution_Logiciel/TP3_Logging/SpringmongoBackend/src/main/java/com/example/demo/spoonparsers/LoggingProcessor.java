@@ -19,16 +19,17 @@ public class LoggingProcessor extends AbstractProcessor<CtMethod<?>> {
         if (parentClass != null && "ProductController".equals(parentClass.getSimpleName())) {
             String methodName = method.getSimpleName();
 
-            // Ignorer les méthodes spécifiques du contrôleur utilisateur
+            // Ignorer les méthodes spécifiques de User (authentification , add user, getUser, deconnexion)
             if (isUserMethod(methodName)) {
                 return; // Ignorer cette méthode
             }
-
             addLoggerFieldsIfAbsent(parentClass);
             if (isGetProductByIdMethod(method)) {
+                // for price logs
                 replaceGetProductByIdMethod(method);
             } else {
                 //handleMethodLogging(method, parentClass);
+                // for write & read methodes
                 handleReadWriteMethodLogging(method);
             }
         }

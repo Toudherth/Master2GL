@@ -1,5 +1,5 @@
 // DatabaseService.dart
-import 'package:projetflutter/entity/Temperature.dart';
+import 'package:projetflutter/models/Temperature.dart';
 import 'package:projetflutter/helper/database_helper.dart';
 
 class DatabaseService {

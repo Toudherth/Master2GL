@@ -1,4 +1,4 @@
-import 'package:projetflutter/entity/user.dart';
+import 'package:projetflutter/models/user.dart';
 
 class AuthService {
   Future<User?> signIn(String email, String password) async {

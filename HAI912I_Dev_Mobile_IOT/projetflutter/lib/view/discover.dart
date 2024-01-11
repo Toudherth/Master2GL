@@ -1,6 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:projetflutter/view/temperature.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:intl/intl.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:projetflutter/bloc/location_bloc.dart';
+import 'package:projetflutter/widgets/sous_section_luminosite.dart';
+import 'package:projetflutter/widgets/sous_section_temperature.dart';
 
 class Discover extends StatefulWidget {
   @override
@@ -8,7 +13,24 @@ class Discover extends StatefulWidget {
 }
 
 class _DiscoverState extends State<Discover> {
+
+  final LocationBloc locationBloc = LocationBloc();
+
+  @override
+  void initState() {
+    super.initState();
+    locationBloc.determinePosition();
+  }
+
+  @override
+  void dispose() {
+    locationBloc.dispose();
+    super.dispose();
+  }
   int _selectedIndex = 0;
+
+  String formattedTime = DateFormat('HH:mm').format(DateTime.now());
+  String formattedDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
 
   void _onItemTapped(int index) {
     setState(() {
@@ -31,7 +53,6 @@ class _DiscoverState extends State<Discover> {
       ),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-
         child: Container(
           color: Colors.black.withOpacity(0.4),
           child: Scaffold(
@@ -44,371 +65,48 @@ class _DiscoverState extends State<Discover> {
               backgroundColor: Colors.transparent,
               elevation: 0,
             ),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
 
 
-            body: Stack(
-              children: [
-
-
-                Padding(
-                  padding: EdgeInsets.only(
-
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Montpellier',
-                        style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white),
-                      ),
-                      SizedBox(height: 10 * fem),
-                      Expanded(
-                        child: Center(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                '22:30',
-                                style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white, fontSize: 40),
-                              ),
-
-                              Text(
-                                  '01/01/2024',
-                                style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white, fontSize: 18),
-                              ),
-
-                              SizedBox(height: 30 * fem), // Ajustez cet espace selon vos besoins
-
-
-                              /** Etape 1 */
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => Temperature()), // Remplacer par votre page de destination
-                                  );
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 16 * fem, horizontal: 25 * fem),
-                                  margin: EdgeInsets.only(left: 10 * fem, right: 10 * fem),
-                                  decoration: BoxDecoration(
-                                    color: Color(0x91ffffff),
-                                    borderRadius: BorderRadius.circular(30 * fem),
-                                  ),
-
-
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Max | Min',
-                                            style: TextStyle(
-                                              fontSize: 16 * fem,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff000000),
-                                            ),
-                                          ),
-                                          SizedBox(height: 4 * fem), // Ajustez cet espace selon vos besoins
-                                          Text(
-                                            '24° | 12°',
-                                            style: TextStyle(
-                                              fontSize: 16 * fem,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff000000),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'TEMPERATURE',
-                                            style: TextStyle(
-                                              fontSize: 14 * fem,
-                                              fontWeight: FontWeight.w900,
-                                              color: Color(0xff736f6f),
-                                            ),
-                                          ),
-                                          SizedBox(height: 8 * fem), // Ajustez cet espace selon vos besoins
-                                          Image.asset(
-                                            'assets/page-1/images/sun-rn7.png',
-                                            width: 35 * fem,
-                                            height: 40 * fem,
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        '30°C',
-                                        style: TextStyle(
-                                          fontSize: 30 * fem,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0xff000000),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-
-                                ),
-                              ),
-
-
-                              SizedBox(height: screenWidth * 0.05),
-
-                              /** Etape 2 */
-
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => Temperature()), // Remplacer par votre page de destination
-                                  );
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 16 * fem, horizontal: 25 * fem),
-                                  margin: EdgeInsets.only(left: 10 * fem, right: 10 * fem),
-                                  decoration: BoxDecoration(
-                                    color: Color(0x91ffffff),
-                                    borderRadius: BorderRadius.circular(30 * fem),
-                                  ),
-
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Luminosité',
-                                            style: TextStyle(
-                                              fontSize: 16 * fem,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff000000),
-                                            ),
-                                          ),
-                                          SizedBox(height: 4 * fem), // Ajustez cet espace selon vos besoins
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                'assets/page-1/images/moon-symbol.png',// Remplacez avec le chemin vers votre icône de lune
-                                                width: 20 * fem, // Ajustez la taille selon vos besoins
-                                                height: 20 * fem,
-                                              ),
-                                              SizedBox(width: 4 * fem),
-                                              Image.asset(
-                                                'assets/page-1/images/sun-fj1.png',// Remplacez avec le chemin vers votre icône de soleil
-                                                width: 20 * fem, // Ajustez la taille selon vos besoins
-                                                height: 20 * fem,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Lumière',
-                                            style: TextStyle(
-                                              fontSize: 14 * fem,
-                                              fontWeight: FontWeight.w900,
-                                              color: Color(0xff736f6f),
-                                            ),
-                                          ),
-                                          SizedBox(height: 8 * fem), // Ajustez cet espace selon vos besoins
-                                          Row(
-                                            children: [
-                                              Icon(Icons.lightbulb_outline, size: 20 * fem), // Icone de la lumière
-                                              SizedBox(width: 4 * fem),
-                                              Text(
-                                                '80%', // Pourcentage de luminosité
-                                                style: TextStyle(
-                                                  fontSize: 14 * fem,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Color(0xff000000),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-
-                                    ],
-                                  ),
-                                ),
-                              ),
-
-
-
-                              SizedBox(height: screenWidth * 0.05),
-
-
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => Temperature()), // Remplacer par votre page de destination
-                                  );
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 16 * fem, horizontal: 25 * fem),
-                                  margin: EdgeInsets.only(left: 10 * fem, right: 10 * fem),
-                                  decoration: BoxDecoration(
-                                    color: Color(0x91ffffff),
-                                    borderRadius: BorderRadius.circular(30 * fem),
-                                  ),
-
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Max | Min',
-                                            style: TextStyle(
-                                              fontSize: 16 * fem,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff000000),
-                                            ),
-                                          ),
-                                          SizedBox(height: 4 * fem), // Ajustez cet espace selon vos besoins
-                                          Text(
-                                            '24° | 12°',
-                                            style: TextStyle(
-                                              fontSize: 16 * fem,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff000000),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'TEMPERATURE',
-                                            style: TextStyle(
-                                              fontSize: 14 * fem,
-                                              fontWeight: FontWeight.w900,
-                                              color: Color(0xff736f6f),
-                                            ),
-                                          ),
-                                          SizedBox(height: 8 * fem), // Ajustez cet espace selon vos besoins
-                                          Image.asset(
-                                            'assets/page-1/images/sun-rn7.png',
-                                            width: 35 * fem,
-                                            height: 40 * fem,
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        '30°C',
-                                        style: TextStyle(
-                                          fontSize: 30 * fem,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0xff000000),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-
-                              SizedBox(height: screenWidth * 0.05),
-
-                              /** Etape 4 */
-
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => Temperature()), // Remplacer par votre page de destination
-                                  );
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 16 * fem, horizontal: 25 * fem),
-                                  margin: EdgeInsets.only(left: 10 * fem, right: 10 * fem),
-                                  decoration: BoxDecoration(
-                                    color: Color(0x91ffffff),
-                                    borderRadius: BorderRadius.circular(30 * fem),
-                                  ),
-
-
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Max | Min',
-                                            style: TextStyle(
-                                              fontSize: 16 * fem,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff000000),
-                                            ),
-                                          ),
-                                          SizedBox(height: 4 * fem), // Ajustez cet espace selon vos besoins
-                                          Text(
-                                            '24° | 12°',
-                                            style: TextStyle(
-                                              fontSize: 16 * fem,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff000000),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'TEMPERATURE',
-                                            style: TextStyle(
-                                              fontSize: 14 * fem,
-                                              fontWeight: FontWeight.w900,
-                                              color: Color(0xff736f6f),
-                                            ),
-                                          ),
-                                          SizedBox(height: 8 * fem), // Ajustez cet espace selon vos besoins
-                                          Image.asset(
-                                            'assets/page-1/images/sun-rn7.png',
-                                            width: 35 * fem,
-                                            height: 40 * fem,
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        '30°C',
-                                        style: TextStyle(
-                                          fontSize: 30 * fem,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0xff000000),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-
-
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    StreamBuilder<String>(
+                      stream: locationBloc.locationStream,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Text('Chargement de la localisation...',
+                              style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white));
+                        } else if (snapshot.hasError) {
+                          return Text('Erreur de localisation: ${snapshot.error}',
+                              style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white));
+                        } else if (snapshot.hasData) {
+                          return Text(snapshot.data ?? 'Localisation non disponible',
+                              style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white));
+                        } else {
+                          return Text('Localisation non disponible',
+                              style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white));
+                        }
+                      },
+                    ),
+                    SizedBox(height: 10 * fem),
+                    Text(
+                      formattedTime,
+                      style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white, fontSize: 40),
+                    ),
+                    Text(
+                      formattedDate,
+                      style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white, fontSize: 18),
+                    ),
+                    SizedBox(height: 30 * fem),
+                    SousSectionTemperature(),
+                    SizedBox(height: screenWidth * 0.05),
+                    SousSectionLuminosite(),
+                  ],
                 ),
-              ],
+              ),
             ),
             bottomNavigationBar: BottomNavigationBar(
               items: const <BottomNavigationBarItem>[
@@ -425,16 +123,15 @@ class _DiscoverState extends State<Discover> {
                   label: 'Profile',
                 ),
               ],
-              currentIndex: _selectedIndex, // No item is selected
+              currentIndex: _selectedIndex,
               selectedItemColor: Colors.amber[800],
               unselectedItemColor: Colors.black,
               onTap: _onItemTapped,
             ),
-
-
           ),
         ),
       ),
     );
   }
+
 }

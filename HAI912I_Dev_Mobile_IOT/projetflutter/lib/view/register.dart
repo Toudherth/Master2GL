@@ -1,26 +1,49 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Pour SystemUiOverlayStyle
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:projetflutter/service/database_helper.dart';
+import 'package:projetflutter/models/user.dart';
+import 'package:projetflutter/service/registation_log_service.dart';
+import 'package:projetflutter/view/discover.dart';
 
 class Register extends StatelessWidget {
+  final User? user; // Remove the late keyword if user can be null
+
+  // Add a constructor that accepts a User object
+  Register({Key? key, this.user}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+
+    // data base
+    final usernameController = TextEditingController();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+
+    if(user != null ){
+      usernameController.text = user!.username;
+      emailController.text= user!.email;
+      passwordController.text=user!.password;
+    }
+
+
+
+
     double baseWidth = 375;
     double fem = MediaQuery.of(context).size.width / baseWidth;
 
     return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: EdgeInsets.only(left: 10), // Ajustez le padding gauche si nécessaire
-          child: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () {
-              Navigator.of(context).pop(); // Action pour retourner en arrière
-            },
-          ),
+      appBar: CupertinoNavigationBar(
+        leading: CupertinoNavigationBarBackButton(
+          onPressed: () => Navigator.of(context).pop(),
         ),
-        backgroundColor: Colors.white,
-        systemOverlayStyle: SystemUiOverlayStyle.dark, // Icônes de barre de statut foncées
+        middle: Text('Register'),
+        backgroundColor: CupertinoColors.white,
       ),
+
+
+
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16.0),
@@ -40,9 +63,10 @@ class Register extends StatelessWidget {
 
               // Champ de saisie pour le nom d'utilisateur
               TextField(
+                controller: usernameController,
                 decoration: InputDecoration(
-                  labelText: 'User name',
-                  prefixIcon: Icon(Icons.person),
+                  labelText: 'User name' ,
+                  prefixIcon: Icon(CupertinoIcons.person_alt_circle_fill),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black),
                     borderRadius: BorderRadius.circular(10),
@@ -52,9 +76,10 @@ class Register extends StatelessWidget {
               SizedBox(height: 16), // Espace entre les champs de saisie
               // Champ de saisie pour l'adresse e-mail
               TextField(
+                controller: emailController,
                 decoration: InputDecoration(
                   labelText: 'Email address',
-                  prefixIcon: Icon(Icons.email),
+                  prefixIcon: Icon(CupertinoIcons.mail_solid),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black),
                     borderRadius: BorderRadius.circular(10),
@@ -64,9 +89,10 @@ class Register extends StatelessWidget {
               SizedBox(height: 16), // Espace entre les champs de saisie
               // Champ de saisie pour le mot de passe
               TextField(
+                controller: passwordController,
                 decoration: InputDecoration(
                   labelText: 'Create password',
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: Icon(CupertinoIcons.lock_circle_fill),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black),
                     borderRadius: BorderRadius.circular(10),
@@ -76,31 +102,75 @@ class Register extends StatelessWidget {
               ),
               SizedBox(height: 65), // Espace avant le bouton
               // Bouton pour continuer
+
+
+
               Container(
                 width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Logique pour passer à l'écran suivant
-                  },
+                height: 60.0, // Hauteur du bouton
+                child: CupertinoButton(
                   child: Text('NEXT'),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    onPrimary: Colors.white,
-                    textStyle: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    padding: EdgeInsets.symmetric(vertical: 20), // Ajuster le padding vertical du bouton
-                  ),
+                  color: Colors.black,
+
+                    onPressed: () async{
+                      final username = usernameController.value.text;
+                      final email = emailController.value.text;
+                      final password = passwordController.value.text;
+
+                      if(username.isEmpty || email.isEmpty || password.isEmpty){
+
+                        Fluttertoast.showToast(
+                            msg: "Remplissez les champs",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0
+                        );
+                        return;  // Assurez-vous que cette ligne est à l'intérieur du bloc if
+                      }
+
+                      final User model = User(username: username, email: email, password: password, id: user?.id);
+
+
+                      if(user == null){
+                        // bool success = await RegistrationService.addUser(model);
+
+                        int rowsAffected = await RegistrationService.addUser(model);
+                        bool success = rowsAffected > 0;
+                        if(success){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Discover()),
+                          );
+                        }
+                      } else {
+                        Fluttertoast.showToast(
+                            msg: "Ceci est un toast",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0
+                        );
+
+                      }
+                      // Logique pour passer à l'écran suivant
+                    },
                 ),
               ),
+
+
+
             ],
           ),
         ),
       ),
     );
+
+
+
+
   }
 }

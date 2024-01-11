@@ -1,0 +1,10 @@
+Le rendu est composé d'un seul projet qui contient a la fois le programme spoon et programme de backend, 
+une fois spoon executer il instrumente le projet backend il modifier la classe ProductController, 
+et il rajoute des traces de logging dans ce controlleur.
+
+pour la recuperation des profiles utilisateur, vous devez vous rendez sur le lien suivant : 
+http://localhost:8080/profiles
+
+
+
+

@@ -1,9 +1,48 @@
 import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'register.dart';
 import 'login.dart';
 
-class Scene extends StatelessWidget {
+
+class MyButtonWidget extends StatefulWidget {
+  @override
+  _MyButtonWidgetState createState() => _MyButtonWidgetState();
+}
+
+class _MyButtonWidgetState extends State<MyButtonWidget> {
+  double _widthLogin = 150; // Taille initiale pour le bouton LOG IN
+  double _heightLogin = 50;
+  double _widthRegister = 150; // Taille initiale pour le bouton REGISTER
+  double _heightRegister = 50;
+
+  void _animateLoginButton() {
+    setState(() {
+      _widthLogin = 200; // Nouvelle taille
+      _heightLogin = 60;
+    });
+    Future.delayed(Duration(milliseconds: 200), () {
+      setState(() {
+        _widthLogin = 150; // Revenir à la taille initiale
+        _heightLogin = 50;
+      });
+    });
+  }
+
+  void _animateRegisterButton() {
+    setState(() {
+      _widthRegister = 200; // Nouvelle taille
+      _heightRegister = 60;
+    });
+    Future.delayed(Duration(milliseconds: 200), () {
+      setState(() {
+        _widthRegister = 150; // Revenir à la taille initiale
+        _heightRegister = 50;
+      });
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
@@ -59,7 +98,6 @@ class Scene extends StatelessWidget {
           // Boutons LOG IN et REGISTER
 
 
-
           Positioned(
             bottom: 30,
             left: 20,
@@ -67,56 +105,49 @@ class Scene extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Login()),
-                      );
-                    },
-                    child: Text(
-                      'LOG IN',
-                      style: TextStyle(fontSize: 15), // Augmenter la taille du texte du bouton
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      onPrimary: Colors.black,
-                      side: BorderSide(color: Colors.black),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 200),
+                    height: 50, // Hauteur du bouton
+                    child: CupertinoButton(
+                      color: Colors.white,
+                      child: Text(
+                        'LOG IN',
+                        style: TextStyle(fontSize: 15, color: Colors.black),
                       ),
-                      padding: EdgeInsets.symmetric(vertical: 15), // Augmenter le padding pour un bouton plus grand
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Login()),
+                        );
+                      },
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
                 SizedBox(width: 10),
                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Register()),
-                      );
-                    },
-                    child: Text(
-                      'REGISTER',
-                      style: TextStyle(fontSize: 15), // Augmenter la taille du texte du bouton
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
-                      onPrimary: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 200),
+                    height: 50, // Hauteur du bouton
+                    child: CupertinoButton(
+                      color: Colors.black,
+                      child: Text(
+                        'SIGN IN',
+                        style: TextStyle(fontSize: 15, color: Colors.white),
                       ),
-                      padding: EdgeInsets.symmetric(vertical: 15), // Augmenter le padding pour un bouton plus grand
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Register()),
+                        );
+                      },
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
               ],
             ),
           ),
-
-
 
 
 

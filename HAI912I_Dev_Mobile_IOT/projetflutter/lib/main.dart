@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           // ... autres styles ...
         ),
       ),
-      home: Scene(), // Assurez-vous que la classe Scene est définie quelque part dans votre projet
+      home: MyButtonWidget(), // Assurez-vous que la classe Scene est définie quelque part dans votre projet
     );
   }
 }

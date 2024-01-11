@@ -1,8 +1,30 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
+import 'package:projetflutter/bloc/location_bloc.dart';
+import 'package:projetflutter/models/locationstate.dart';
 
 
-class HeaderSection extends StatelessWidget {
+
+
+class HeaderSection extends StatefulWidget {
+  @override
+  _HeaderSectionState createState() => _HeaderSectionState();
+}
+
+class _HeaderSectionState extends State<HeaderSection> {
+  final LocationBloc locationBloc = LocationBloc();
+
+  @override
+  void initState() {
+    super.initState();
+    locationBloc.determinePosition();
+  }
+
+  @override
+  void dispose() {
+    locationBloc.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -11,16 +33,32 @@ class HeaderSection extends StatelessWidget {
         left: 25,
         right: 25,
       ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 50),
+          StreamBuilder<String>(
+            stream: locationBloc.locationStream,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Text('Chargement de la localisation...',
+                    style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white));
+              } else if (snapshot.hasError) {
+                return Text('Erreur de localisation: ${snapshot.error}',
+                    style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white));
+              } else if (snapshot.hasData) {
+                return Text(snapshot.data ?? 'Localisation non disponible',
+                    style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white));
+              } else {
+                return Text('Localisation non disponible',
+                    style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white));
+              }
+            },
+          ),
+          // Reste du code...
 
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 70),
-              Text(
-                'Montpellier',
-                style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white),
-              ),
-              SizedBox(height: 30),
+          SizedBox(height: 30),
+
               Text(
                 '30°',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white, fontSize: 40),
@@ -51,7 +89,7 @@ class HeaderSection extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 190),
+              SizedBox(height: 150),
             ],
           ),
         );

@@ -1,41 +1,24 @@
-
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
-  static final DatabaseHelper instance = DatabaseHelper._init();
-  static Database? _database;
+  static const int _version = 1;
+  static const String _dbName = "temperaturesdb.db";
 
-  DatabaseHelper._init();
-
-  Future<Database> get database async {
-    if (_database != null) return _database!;
-
-    _database = await _initDB('temperature.db');
-    return _database!;
+  static Future<Database> getDB() async {
+    return openDatabase(
+        join(await getDatabasesPath(), _dbName),
+        onCreate: (db, version) async {
+          await db.execute(
+              "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL);"
+          );
+        },
+        version: _version
+    );
   }
 
-  Future<Database> _initDB(String filePath) async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, filePath);
-
-    return await openDatabase(path, version: 1, onCreate: _createDB);
-  }
-
-  Future _createDB(Database db, int version) async {
-    await db.execute('''
-CREATE TABLE temperatureData ( 
-  id INTEGER PRIMARY KEY AUTOINCREMENT, 
-  temperature REAL NOT NULL,
-  minTemperature REAL NOT NULL,
-  maxTemperature REAL NOT NULL,
-  date TEXT NOT NULL
-  )
-''');
-  }
-
-  Future close() async {
-    final db = await instance.database;
-    db.close();
+  static Future<void> close() async {
+    final db = await getDB();
+    await db.close();
   }
 }

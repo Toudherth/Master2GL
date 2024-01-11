@@ -1,28 +1,46 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:projetflutter/models/user.dart';
+import 'package:projetflutter/service/registation_log_service.dart';
 import 'package:projetflutter/view/discover.dart';
 
 
 class Login extends StatelessWidget {
+  final User? user; // Remove the late keyword if user can be null
+
+  // Add a constructor that accepts a User object
+  Login({Key? key, this.user}) : super(key: key);
+
+
   @override
   Widget build(BuildContext context) {
+
+    // data base
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+
+    if(user != null ){
+      emailController.text= user!.email;
+      passwordController.text=user!.password;
+    }
     // Utilisation de MediaQuery pour obtenir la largeur de l'appareil
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: EdgeInsets.only(left: 10), // Ajustez le padding gauche si nécessaire
-          child: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () {
-              Navigator.of(context).pop(); // Action pour retourner en arrière
-            },
-          ),
+      appBar: CupertinoNavigationBar(
+        leading: CupertinoNavigationBarBackButton(
+          onPressed: () => Navigator.of(context).pop(),
         ),
-        backgroundColor: Colors.white,
-        systemOverlayStyle: SystemUiOverlayStyle.dark, // Icônes de barre de statut foncées
+        middle: Text('Login'),
+        backgroundColor: CupertinoColors.white,
       ),
+
+
+
+
+
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05), // 5% de padding horizontal
         child: Column(
@@ -38,53 +56,89 @@ class Login extends StatelessWidget {
               ),
             ),
             SizedBox(height: screenWidth * 0.1),
-            TextFormField(
+            TextField(
+              controller: emailController,
               decoration: InputDecoration(
                 labelText: 'Email address',
-                prefixIcon: Icon(Icons.email),
-                border: OutlineInputBorder(),
+                prefixIcon: Icon(CupertinoIcons.mail_solid),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black),
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
               keyboardType: TextInputType.emailAddress,
             ),
-            SizedBox(height: screenWidth * 0.05),
-            TextFormField(
+            SizedBox(height: 16), // Espace entre les champs de saisie
+            // Champ de saisie pour le mot de passe
+            TextField(
+              controller: passwordController,
               decoration: InputDecoration(
                 labelText: 'Password',
-                prefixIcon: Icon(Icons.lock),
-                border: OutlineInputBorder(),
+                prefixIcon: Icon(CupertinoIcons.lock_circle_fill),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black),
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
-              obscureText: true,
+              obscureText: true, // Cacher le texte pour la sécurité du mot de passe
             ),
+
+
             SizedBox(height: 65), // Espace avant le bouton
             // Bouton pour continuer
+
+
             Container(
               width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Naviguer vers l'interface Register lorsque le bouton est pressé
-                  Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Discover()),
-                  );
-                  // Logique de connexion
-                },
+              height: 60.0, // Hauteur du bouton
+              child: CupertinoButton(
                 child: Text('Log in'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.black,
-                  onPrimary: Colors.white,
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  padding: EdgeInsets.symmetric(vertical: 20), // Ajuster le padding vertical du bouton
-                ),
+                color: Colors.black,
+
+                onPressed: () async {
+                  final email = emailController.value.text;
+                  final password = passwordController.value.text;
+
+                  if (email.isEmpty || password.isEmpty) {
+                    Fluttertoast.showToast(
+                        msg: "Remplissez les champs",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        backgroundColor: Colors.grey,
+                        textColor: Colors.black,
+                        fontSize: 16.0
+                    );
+                    return;
+                  }
+
+                  // Supposons que 'user' est correctement défini ici
+                  if (user == null) {
+                    User? success = await RegistrationService.signIn(email, password);
+                    if (success != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Discover()),
+                      );
+                    } else {
+                      Fluttertoast.showToast(
+                          msg: "Utilisateur introuvable ou mot de passe incorrect",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          backgroundColor: Colors.grey,
+                          textColor: Colors.black,
+                          fontSize: 16.0
+                      );
+                    }
+                  }
+                },
+
+
               ),
             ),
 
-        //Spacer(), // Utilisez Spacer pour pousser le bouton vers le bas
+
+
+            //Spacer(), // Utilisez Spacer pour pousser le bouton vers le bas
             Center( // Centrer le texte sur l'écran
               child: TextButton(
                 onPressed: () {

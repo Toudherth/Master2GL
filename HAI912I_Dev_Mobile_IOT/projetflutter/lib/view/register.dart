@@ -2,38 +2,51 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-//import 'package:projetflutter/service/database_helper.dart';
 import 'package:projetflutter/models/user.dart';
 import 'package:projetflutter/service/registation_log_service.dart';
 import 'package:projetflutter/view/discover.dart';
 
-class Register extends StatelessWidget {
-  final User? user; // Remove the late keyword if user can be null
+// Le StatefulWidget
+class Register extends StatefulWidget {
+  final User? user; // Conserver le même constructeur pour passer l'objet User
 
-  // Add a constructor that accepts a User object
   Register({Key? key, this.user}) : super(key: key);
 
   @override
+  _RegisterState createState() => _RegisterState();
+}
+
+// La classe State correspondante
+class _RegisterState extends State<Register> {
+  late TextEditingController usernameController;
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialisation des contrôleurs avec les données de l'utilisateur si elles existent
+    usernameController = TextEditingController(text: widget.user?.username);
+    emailController = TextEditingController(text: widget.user?.email);
+    passwordController = TextEditingController(text: widget.user?.password);
+  }
+
+  @override
+  void dispose() {
+    // N'oubliez pas de nettoyer les contrôleurs lorsque le State est détruit
+    usernameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-
-    // data base
-    final usernameController = TextEditingController();
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
-
-    if(user != null ){
-      usernameController.text = user!.username;
-      emailController.text= user!.email;
-      passwordController.text=user!.password;
-    }
-
-
-
-
     double baseWidth = 375;
     double fem = MediaQuery.of(context).size.width / baseWidth;
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: CupertinoNavigationBar(
         leading: CupertinoNavigationBarBackButton(
           onPressed: () => Navigator.of(context).pop(),
@@ -41,8 +54,6 @@ class Register extends StatelessWidget {
         middle: Text('Register'),
         backgroundColor: CupertinoColors.white,
       ),
-
-
 
       body: SingleChildScrollView(
         child: Padding(
@@ -130,10 +141,10 @@ class Register extends StatelessWidget {
                         return;  // Assurez-vous que cette ligne est à l'intérieur du bloc if
                       }
 
-                      final User model = User(username: username, email: email, password: password, id: user?.id);
+                      final User model = User(username: username, email: email, password: password, id: widget.user?.id);
 
 
-                      if(user == null){
+                      if(widget.user == null){
                         // bool success = await RegistrationService.addUser(model);
 
                         int rowsAffected = await RegistrationService.addUser(model);

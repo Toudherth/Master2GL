@@ -5,12 +5,12 @@ import 'register.dart';
 import 'login.dart';
 
 
-class MyButtonWidget extends StatefulWidget {
+class Home extends StatefulWidget {
   @override
-  _MyButtonWidgetState createState() => _MyButtonWidgetState();
+  _HomeState createState() => _HomeState();
 }
 
-class _MyButtonWidgetState extends State<MyButtonWidget> {
+class _HomeState extends State<Home> {
   double _widthLogin = 150; // Taille initiale pour le bouton LOG IN
   double _heightLogin = 50;
   double _widthRegister = 150; // Taille initiale pour le bouton REGISTER
@@ -82,7 +82,7 @@ class _MyButtonWidgetState extends State<MyButtonWidget> {
                   SizedBox(height: 20),
                   // Nom de l'application
                   Text(
-                    'Watter Sun', // Remplacez par le nom de votre application
+                    'Water Sun', // Remplacez par le nom de votre application
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,

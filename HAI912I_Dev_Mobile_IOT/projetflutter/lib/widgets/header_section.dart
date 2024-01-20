@@ -59,10 +59,14 @@ class _HeaderSectionState extends State<HeaderSection> {
 
           SizedBox(height: 30),
 
+              // ajouter une uri de temperature
               Text(
                 '30°',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white, fontSize: 40),
               ),
+
+
+
               SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

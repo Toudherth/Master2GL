@@ -12,7 +12,6 @@ class User {
   });
 
 
-
   Map<String, dynamic> toJson() =>
       {
         'id': id,
@@ -30,14 +29,6 @@ class User {
           password: json['password']
       );
 
- /* Map<String, dynamic> toMap() {
-    return {
-      'username': username,
-      'email': email,
-      'password': password, // Notez : Le mot de passe doit être haché
-    };
-  }
-*/
 }
 
 

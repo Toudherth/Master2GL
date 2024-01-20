@@ -75,6 +75,9 @@ class SousSectionTemperature extends StatelessWidget {
                 ],
               ),
               // Votre widget pour la colonne de droite
+
+
+
               Text(
                 '30°C',
                 style: TextStyle(
@@ -83,6 +86,9 @@ class SousSectionTemperature extends StatelessWidget {
                   color: Color(0xff000000),
                 ),
               ),
+
+
+
             ],
           ),
         ),

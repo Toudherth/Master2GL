@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:projetflutter/bloc/location_bloc.dart';
 import 'package:projetflutter/widgets/header_section.dart';
 import 'package:projetflutter/widgets/liste.dart';
-import 'package:intl/intl.dart';
+import 'package:http/http.dart';
 
 
 class Temperature extends StatefulWidget {

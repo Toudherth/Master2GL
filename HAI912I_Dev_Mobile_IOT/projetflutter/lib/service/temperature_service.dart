@@ -40,8 +40,6 @@ class ServiceTemperature {
     _temperatureController.close();
   }
 
-
-  // api of get temperature
   // api of get temperature
   Future<double> fetchTemperature() async {
     try {
@@ -61,10 +59,6 @@ class ServiceTemperature {
       throw Exception('Erreur: $e');
     }
   }
-
-
-  // add temperature in DBB
-
 
 // Méthode pour insérer une température
   static Future<void> insertTemperature(double temperature) async {

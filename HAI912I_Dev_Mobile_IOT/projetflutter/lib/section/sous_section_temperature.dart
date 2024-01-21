@@ -24,15 +24,21 @@ class _SousSectionTemperatureState extends State<SousSectionTemperature> {
 
   // loading min max temperature
   Future<void> loadMinMaxTemperatures() async {
-    print(" je suis ici ==========================================================");
-    double minTemp = await ServiceTemperature.getMinTemperature();
-    double maxTemp = await ServiceTemperature.getMaxTemperature();
-    print(minTemp.toString()+" ------- hey------------ "+maxTemp.toString());
-    setState(() {
-      minTemperature = minTemp;
-      maxTemperature = maxTemp;
-    });
+    try {
+      double minTemp = await ServiceTemperature.getMinTemperature();
+      double maxTemp = await ServiceTemperature.getMaxTemperature();
+      if (mounted) {
+        setState(() {
+          minTemperature = minTemp;
+          maxTemperature = maxTemp;
+        });
+      }
+    } catch (e) {
+      print("Erreur lors de la récupération des températures: $e");
+      // Vous pouvez choisir de définir les températures sur une valeur par défaut ou de gérer l'erreur comme vous le souhaitez
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +73,7 @@ class _SousSectionTemperatureState extends State<SousSectionTemperature> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Max | Min',
+                    'Max     |  Min',
                     style: TextStyle(
                       fontSize: 16 * fem,
                       fontWeight: FontWeight.w700,
@@ -76,10 +82,6 @@ class _SousSectionTemperatureState extends State<SousSectionTemperature> {
                   ),
                   SizedBox(height: 4 * fem),
 
-                  Text(
-                    '${maxTemperature.toStringAsFixed(1)}°',
-                    style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
-                  ),
                   Text(
                     ' ${maxTemperature.toStringAsFixed(2)}°| ${minTemperature.toStringAsFixed(1)}°',
                     style: TextStyle(

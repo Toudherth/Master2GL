@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:projetflutter/bloc/location_bloc.dart';
@@ -59,10 +60,11 @@ class _DiscoverState extends State<Discover> {
           child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.black),
+              leading: CupertinoNavigationBarBackButton(
                 onPressed: () => Navigator.of(context).pop(),
+                color: Colors.white, // Définit la couleur du bouton sur blanc
               ),
+
               backgroundColor: Colors.transparent,
               elevation: 0,
             ),

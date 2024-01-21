@@ -1,439 +1,215 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:projetflutter/view/temperature.dart';
+import 'package:projetflutter/bloc/location_bloc.dart';
+import 'package:projetflutter/helper/database_helper.dart';
+import 'package:projetflutter/service/temperature_service.dart';
 
-class Discover extends StatefulWidget {
+class HeaderSection extends StatefulWidget {
   @override
-  _DiscoverState createState() => _DiscoverState();
+  _HeaderSectionState createState() => _HeaderSectionState();
 }
 
-class _DiscoverState extends State<Discover> {
-  int _selectedIndex = 0;
+class _HeaderSectionState extends State<HeaderSection> {
+  final LocationBloc locationBloc = LocationBloc();
+  final ServiceTemperature serviceTemperature = ServiceTemperature();
+  double minTemperature = 0.0;
+  double maxTemperature = 0.0;
 
-  void _onItemTapped(int index) {
+  @override
+  void initState() {
+    super.initState();
+    locationBloc.determinePosition();
+    loadMinMaxTemperatures();
+    serviceTemperature.temperatureUpdates.listen((temp) {
+      ServiceTemperature.insertTemperature(temp);
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    locationBloc.dispose();
+    serviceTemperature.dispose();
+    super.dispose();
+  }
+
+  Future<void> loadMinMaxTemperatures() async {
+    double minTemp = await ServiceTemperature.getMinTemperature();
+    double maxTemp = await ServiceTemperature.getMaxTemperature();
     setState(() {
-      _selectedIndex = index;
+      minTemperature = minTemp;
+      maxTemperature = maxTemp;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    double baseWidth = 375;
-    double screenWidth = MediaQuery.of(context).size.width;
-    double fem = screenWidth / baseWidth;
-
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/page-1/images/pexels-photo-105002-1-9GP.png'),
-          fit: BoxFit.cover,
-        ),
+    return Padding(
+      padding: EdgeInsets.only(
+        top: MediaQuery.of(context).padding.top,
+        left: 25,
+        right: 25,
       ),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-
-        child: Container(
-          color: Colors.black.withOpacity(0.4),
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.black),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-            ),
-
-
-            body: Stack(
-              children: [
-
-
-                Padding(
-                  padding: EdgeInsets.only(
-
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Montpellier',
-                        style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white),
-                      ),
-                      SizedBox(height: 10 * fem),
-                      Expanded(
-                        child: Center(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                '22:30',
-                                style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white, fontSize: 40),
-                              ),
-
-                              Text(
-                                  '01/01/2024',
-                                style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white, fontSize: 18),
-                              ),
-
-                              SizedBox(height: 30 * fem), // Ajustez cet espace selon vos besoins
-
-
-                              /** Etape 1 */
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => Temperature()), // Remplacer par votre page de destination
-                                  );
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 16 * fem, horizontal: 25 * fem),
-                                  margin: EdgeInsets.only(left: 10 * fem, right: 10 * fem),
-                                  decoration: BoxDecoration(
-                                    color: Color(0x91ffffff),
-                                    borderRadius: BorderRadius.circular(30 * fem),
-                                  ),
-
-
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Max | Min',
-                                            style: TextStyle(
-                                              fontSize: 16 * fem,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff000000),
-                                            ),
-                                          ),
-                                          SizedBox(height: 4 * fem), // Ajustez cet espace selon vos besoins
-                                          Text(
-                                            '24° | 12°',
-                                            style: TextStyle(
-                                              fontSize: 16 * fem,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff000000),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'TEMPERATURE',
-                                            style: TextStyle(
-                                              fontSize: 14 * fem,
-                                              fontWeight: FontWeight.w900,
-                                              color: Color(0xff736f6f),
-                                            ),
-                                          ),
-                                          SizedBox(height: 8 * fem), // Ajustez cet espace selon vos besoins
-                                          Image.asset(
-                                            'assets/page-1/images/sun-rn7.png',
-                                            width: 35 * fem,
-                                            height: 40 * fem,
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        '30°C',
-                                        style: TextStyle(
-                                          fontSize: 30 * fem,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0xff000000),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-
-                                ),
-                              ),
-
-
-                              SizedBox(height: screenWidth * 0.05),
-
-                              /** Etape 2 */
-
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => Temperature()), // Remplacer par votre page de destination
-                                  );
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 16 * fem, horizontal: 25 * fem),
-                                  margin: EdgeInsets.only(left: 10 * fem, right: 10 * fem),
-                                  decoration: BoxDecoration(
-                                    color: Color(0x91ffffff),
-                                    borderRadius: BorderRadius.circular(30 * fem),
-                                  ),
-
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Luminosité',
-                                            style: TextStyle(
-                                              fontSize: 16 * fem,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff000000),
-                                            ),
-                                          ),
-                                          SizedBox(height: 4 * fem), // Ajustez cet espace selon vos besoins
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                'assets/page-1/images/moon-symbol.png',// Remplacez avec le chemin vers votre icône de lune
-                                                width: 20 * fem, // Ajustez la taille selon vos besoins
-                                                height: 20 * fem,
-                                              ),
-                                              SizedBox(width: 4 * fem),
-                                              Image.asset(
-                                                'assets/page-1/images/sun-fj1.png',// Remplacez avec le chemin vers votre icône de soleil
-                                                width: 20 * fem, // Ajustez la taille selon vos besoins
-                                                height: 20 * fem,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Lumière',
-                                            style: TextStyle(
-                                              fontSize: 14 * fem,
-                                              fontWeight: FontWeight.w900,
-                                              color: Color(0xff736f6f),
-                                            ),
-                                          ),
-                                          SizedBox(height: 8 * fem), // Ajustez cet espace selon vos besoins
-                                          Row(
-                                            children: [
-                                              Icon(Icons.lightbulb_outline, size: 20 * fem), // Icone de la lumière
-                                              SizedBox(width: 4 * fem),
-                                              Text(
-                                                '80%', // Pourcentage de luminosité
-                                                style: TextStyle(
-                                                  fontSize: 14 * fem,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Color(0xff000000),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-
-                                    ],
-                                  ),
-                                ),
-                              ),
-
-
-
-                              SizedBox(height: screenWidth * 0.05),
-
-
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => Temperature()), // Remplacer par votre page de destination
-                                  );
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 16 * fem, horizontal: 25 * fem),
-                                  margin: EdgeInsets.only(left: 10 * fem, right: 10 * fem),
-                                  decoration: BoxDecoration(
-                                    color: Color(0x91ffffff),
-                                    borderRadius: BorderRadius.circular(30 * fem),
-                                  ),
-
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Max | Min',
-                                            style: TextStyle(
-                                              fontSize: 16 * fem,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff000000),
-                                            ),
-                                          ),
-                                          SizedBox(height: 4 * fem), // Ajustez cet espace selon vos besoins
-                                          Text(
-                                            '24° | 12°',
-                                            style: TextStyle(
-                                              fontSize: 16 * fem,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff000000),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'TEMPERATURE',
-                                            style: TextStyle(
-                                              fontSize: 14 * fem,
-                                              fontWeight: FontWeight.w900,
-                                              color: Color(0xff736f6f),
-                                            ),
-                                          ),
-                                          SizedBox(height: 8 * fem), // Ajustez cet espace selon vos besoins
-                                          Image.asset(
-                                            'assets/page-1/images/sun-rn7.png',
-                                            width: 35 * fem,
-                                            height: 40 * fem,
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        '30°C',
-                                        style: TextStyle(
-                                          fontSize: 30 * fem,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0xff000000),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-
-                              SizedBox(height: screenWidth * 0.05),
-
-                              /** Etape 4 */
-
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => Temperature()), // Remplacer par votre page de destination
-                                  );
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 16 * fem, horizontal: 25 * fem),
-                                  margin: EdgeInsets.only(left: 10 * fem, right: 10 * fem),
-                                  decoration: BoxDecoration(
-                                    color: Color(0x91ffffff),
-                                    borderRadius: BorderRadius.circular(30 * fem),
-                                  ),
-
-
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Max | Min',
-                                            style: TextStyle(
-                                              fontSize: 16 * fem,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff000000),
-                                            ),
-                                          ),
-                                          SizedBox(height: 4 * fem), // Ajustez cet espace selon vos besoins
-                                          Text(
-                                            '24° | 12°',
-                                            style: TextStyle(
-                                              fontSize: 16 * fem,
-                                              fontWeight: FontWeight.w700,
-                                              color: Color(0xff000000),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'TEMPERATURE',
-                                            style: TextStyle(
-                                              fontSize: 14 * fem,
-                                              fontWeight: FontWeight.w900,
-                                              color: Color(0xff736f6f),
-                                            ),
-                                          ),
-                                          SizedBox(height: 8 * fem), // Ajustez cet espace selon vos besoins
-                                          Image.asset(
-                                            'assets/page-1/images/sun-rn7.png',
-                                            width: 35 * fem,
-                                            height: 40 * fem,
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        '30°C',
-                                        style: TextStyle(
-                                          fontSize: 30 * fem,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0xff000000),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-
-
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // ... Autres widgets ...
+          StreamBuilder<double>(
+            stream: serviceTemperature.temperatureUpdates,
+            builder: (context, snapshot) {
+              String temperature = 'Chargement...';
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                temperature = 'Chargement...';
+              } else if (snapshot.hasError) {
+                temperature = 'Erreur: ${snapshot.error}';
+              } else if (snapshot.hasData) {
+                temperature = '${snapshot.data!.toStringAsFixed(2)}°C';
+              }
+              return Text(
+                temperature,
+                style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
                 ),
-              ],
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.settings),
-                  label: 'Settings',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  label: 'Profile',
-                ),
-              ],
-              currentIndex: _selectedIndex, // No item is selected
-              selectedItemColor: Colors.amber[800],
-              unselectedItemColor: Colors.black,
-              onTap: _onItemTapped,
-            ),
-
-
+              );
+            },
           ),
-        ),
+          SizedBox(height: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Min | Max',
+                    style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
+                  ),
+                  Text(
+                    '${minTemperature.toStringAsFixed(1)}° | ${maxTemperature.toStringAsFixed(1)}°',
+                    style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
+                  ),
+                ],
+              ),
+              Spacer(),
+              Image.asset(
+                'assets/page-1/images/sun-Y1q.png',
+                width: 100,
+                height: 100,
+              ),
+            ],
+          ),
+          SizedBox(height: 150),
+
+
+        ],
+      ),
+
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import 'package:flutter/material.dart';
+import 'package:projetflutter/bloc/location_bloc.dart';
+import 'package:projetflutter/service/temperature_service.dart';
+
+class HeaderSection extends StatefulWidget {
+  @override
+  _HeaderSectionState createState() => _HeaderSectionState();
+}
+
+class _HeaderSectionState extends State<HeaderSection> {
+  final LocationBloc locationBloc = LocationBloc();
+  final ServiceTemperature serviceTemperature = ServiceTemperature();
+
+  @override
+  void initState() {
+    super.initState();
+    locationBloc.determinePosition();
+  }
+
+  @override
+  void dispose() {
+    locationBloc.dispose();
+    serviceTemperature.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        top: MediaQuery.of(context).padding.top,
+        left: 25,
+        right: 25,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // ... Autres widgets ...
+
+          StreamBuilder<double>(
+            stream: serviceTemperature.temperatureUpdates,
+            builder: (context, snapshot) {
+              String temperature = 'Chargement...';
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                temperature = 'Chargement...';
+              } else if (snapshot.hasError) {
+                temperature = 'Erreur: ${snapshot.error}';
+              } else if (snapshot.hasData) {
+                temperature = '${snapshot.data!.toStringAsFixed(2)}°C';
+              }
+              return Text(
+                temperature,
+                style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                ),
+              );
+            },
+          ),
+
+          // ... Reste du code ...
+        ],
       ),
     );
   }

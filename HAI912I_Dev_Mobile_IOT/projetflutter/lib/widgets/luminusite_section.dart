@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
-import 'dart:ui';
-
-
-
-import 'package:flutter/material.dart';
 import 'package:projetflutter/view/luminusite_screen.dart';
 import 'dart:ui';
 import 'package:projetflutter/view/temperature_screen.dart'; // Assurez-vous que ce chemin est correct

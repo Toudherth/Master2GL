@@ -1,120 +1,190 @@
-import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projetflutter/bloc/location_bloc.dart';
-import 'package:projetflutter/widgets/luminusite_section.dart';
-
+import 'package:flutter/services.dart';
+import 'package:projetflutter/service/luminosity_service.dart';
 
 class Lumenusite extends StatefulWidget {
   @override
-  _LumenusiteState createState() => _LumenusiteState();
+  _LuminositeState createState() => _LuminositeState();
 }
 
-class _LumenusiteState extends State<Lumenusite> {
+class _LuminositeState extends State<Lumenusite> {
   int _selectedIndex = 0;
+  final LuminosityService luminosityService = LuminosityService();
 
-  final LocationBloc locationBloc = LocationBloc(); // Création de l'instance de LocationBloc
+  // initialisation de seuil
+  double _currentThreshold = 1000;
 
   @override
   void initState() {
     super.initState();
-   // locationBloc.determinePosition(); // Obtenez la position dès l'initialisation
+    // Ici, vous pouvez initialiser le service de luminosité si nécessaire.
   }
+
 
   @override
-  void dispose() {
-    //locationBloc.dispose(); // Disposez du bloc pour éviter les fuites de mémoire
-    super.dispose();
+  Widget build(BuildContext context) {
+    return StreamBuilder<double>(
+      stream: luminosityService.luminosityUpdates,
+      builder: (context, snapshot) {
+        bool isDarkMode = snapshot.hasData && snapshot.data! < 50;
+
+
+        // Choisissez votre thème en fonction de la luminosité.
+        var themeData = isDarkMode ? ThemeData.dark() : ThemeData.light();
+
+        SystemUiOverlayStyle statusBarStyle = isDarkMode
+            ? SystemUiOverlayStyle.light.copyWith(
+          statusBarColor: Colors.black, // pour le mode sombre
+          statusBarIconBrightness: Brightness.light, // Icônes claires
+        )
+            : SystemUiOverlayStyle.dark.copyWith(
+          statusBarColor: Colors.white, // pour le mode clair
+          statusBarIconBrightness: Brightness.dark, // Icônes sombres
+        );
+
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: statusBarStyle,
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              // Configurez le reste de votre thème ici
+              appBarTheme: AppBarTheme(
+                systemOverlayStyle: statusBarStyle, // Utilisé par l'AppBar
+              ),
+            ),
+            home: Scaffold(
+              appBar: AppBar(
+                //title: Text(isDarkMode ? 'Mode Sombre' : 'Mode Clair'),
+                backgroundColor: isDarkMode ? Colors.grey[900] : Colors.transparent,
+                leading: CupertinoNavigationBarBackButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                elevation: 0,
+              ),
+
+
+              body: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center, // Centre le contenu verticalement
+                    children: [
+                      Text(
+                        'Mode ${isDarkMode ? "Sombre" : "Clair"}',
+                        style: themeData.textTheme.headline6?.copyWith(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: isDarkMode ? Colors.white : Colors.black,
+                        ),
+                      ),
+                      //SizedBox(height: 20), // Un espace pour aérer le contenu
+                      Image.asset(
+                        'assets/page-1/images/sun-qJs.png', // Assurez-vous que le chemin de l'asset est correct
+                        width: 300, // Ajustez la largeur comme nécessaire
+                        height: 300, // Ajustez la hauteur comme nécessaire
+                      ),
+                      SizedBox(height: 30),
+                      Text(
+                        'Seuil de luminosité (${_currentThreshold.round()}):',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: isDarkMode ? Colors.white : Colors.black,
+                        ),
+                      ),
+                      Slider(
+                        value: _currentThreshold,
+                        min: 500,
+                        max: 4000,
+                        //divisions: 35, // Pour avoir des étapes de 100 entre 500 et 4000
+                        label: _currentThreshold.round().toString(),
+                        onChanged: (double value) {
+                          setState(() {
+                            _currentThreshold = value;
+                          });
+                        },
+                      ),
+
+                      SizedBox(height: 30),
+
+                    /*  ElevatedButton(
+                        onPressed: () {
+                          // Envoyez le seuil au backend
+                        },
+                        child: Text('Valider le seuil'),
+                      ),
+*/
+                      ElevatedButton(
+                        onPressed: () {
+                          // Envoyez le seuil au backend
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                                (Set<MaterialState> states) {
+                              if (isDarkMode) {
+                                return Colors.white; // Bouton blanc en mode sombre
+                              }
+                              return Colors.black; // Bouton noir en mode clair
+                            },
+                          ),
+                          foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                                (Set<MaterialState> states) {
+                              if (isDarkMode) {
+                                return Colors.black; // Texte noir en mode sombre
+                              }
+                              return Colors.white; // Texte blanc en mode clair
+                            },
+                          ),
+                        ),
+                        child: Text('Valider le seuil'),
+                      ),
+
+
+
+                    ],
+                  ),
+                ),
+              ),
+
+// ... Votre code suivant ...
+
+              bottomNavigationBar: BottomNavigationBar(
+                items: const <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: 'Home',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.settings),
+                    label: 'Settings',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                    label: 'Profile',
+                  ),
+                ],
+                currentIndex: _selectedIndex,
+                selectedItemColor: Colors.amber[800],
+                onTap: _onItemTapped,
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
+
+ @override
+  void dispose() {
+    luminosityService.dispose(); // Assurez-vous de disposer le service si nécessaire.
+    super.dispose();
+  }
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/page-1/images/pexels-photo-105002-1-9GP.png'),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-        child: Container(
-          color: Colors.black.withOpacity(0.4),
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.black),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-            ),
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                //  HeaderSection(),
-                 /// ListeSection(),
-                  // Ajoutez d'autres sections si nécessaire
-
-
-                  /** la logique de luminusité*/
-                  /***
-                   *  uon va utiliser une boucle for pour deduire si le parametre de luminusité est grand ou pas et on va definir un sueil sur quoi ion decide si on est dans le sombre ou dans le claire
-                   * */
-
-                  Center( // Centrer le texte sur l'écran
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SousSectionSombre()),
-                        );
-                        // TODO: Implémenter la fonctionnalité de mot de passe oublié
-                      },
-                      child: Text(
-                        'FORGET PASSWORD',
-                        style: TextStyle(
-                          color: Colors.black, // Couleur du texte
-                          fontWeight: FontWeight.bold, // Gras
-                        ),
-                      ),
-                    ),
-                  ),
-
-
-
-                ],
-              ),
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.settings),
-                  label: 'Settings',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  label: 'Profile',
-                ),
-              ],
-              currentIndex: _selectedIndex,
-              selectedItemColor: Colors.amber[800],
-              onTap: _onItemTapped,
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }

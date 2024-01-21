@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:projetflutter/bloc/location_bloc.dart';
 import 'package:projetflutter/widgets/header_section.dart';
-import 'package:projetflutter/widgets/liste.dart';
+import 'package:projetflutter/widgets/liste_section.dart';
 import 'package:http/http.dart';
 
 
@@ -19,12 +19,12 @@ class _TemperatureState extends State<Temperature> {
   @override
   void initState() {
     super.initState();
-    locationBloc.determinePosition(); // Obtenez la position dès l'initialisation
+   // locationBloc.determinePosition(); // Obtenez la position dès l'initialisation
   }
 
   @override
   void dispose() {
-    locationBloc.dispose(); // Disposez du bloc pour éviter les fuites de mémoire
+ //   locationBloc.dispose(); // Disposez du bloc pour éviter les fuites de mémoire
     super.dispose();
   }
 

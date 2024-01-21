@@ -17,12 +17,12 @@ class _LumenusiteState extends State<Lumenusite> {
   @override
   void initState() {
     super.initState();
-    locationBloc.determinePosition(); // Obtenez la position dès l'initialisation
+   // locationBloc.determinePosition(); // Obtenez la position dès l'initialisation
   }
 
   @override
   void dispose() {
-    locationBloc.dispose(); // Disposez du bloc pour éviter les fuites de mémoire
+    //locationBloc.dispose(); // Disposez du bloc pour éviter les fuites de mémoire
     super.dispose();
   }
 

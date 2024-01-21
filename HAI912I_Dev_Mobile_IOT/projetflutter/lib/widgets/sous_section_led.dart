@@ -5,8 +5,8 @@ import 'dart:ui';
 import 'package:projetflutter/view/temperature.dart'; // Assurez-vous que ce chemin est correct
 
 
+class SousSectionLED extends StatelessWidget {
 
-class SousSectionLuminosite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double fem = MediaQuery.of(context).size.width / 375;
@@ -22,7 +22,8 @@ class SousSectionLuminosite extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Lumenusite()),
+            // MaterialPageRoute(builder: (context) => Lumenusite()),
+            MaterialPageRoute(builder: (context) => ColorMixer()),
           );
         },
         child: Container(
@@ -41,7 +42,7 @@ class SousSectionLuminosite extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Luminosité',
+                    'Controle de la LED',
                     style: TextStyle(
                       fontSize: 16 * fem,
                       fontWeight: FontWeight.w700,

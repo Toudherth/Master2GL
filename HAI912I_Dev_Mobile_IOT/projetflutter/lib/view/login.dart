@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:projetflutter/models/user.dart';
-import 'package:projetflutter/service/registation_log_service.dart';
+import 'package:projetflutter/service/registation_service.dart';
 import 'package:projetflutter/view/discover.dart';
 
 

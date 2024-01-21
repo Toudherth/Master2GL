@@ -1,35 +1,18 @@
-class TemperatureData {
+
+
+class Temperature {
   final int id;
-  final double temperature;
-  final double minTemperature;
-  final double maxTemperature;
-  final DateTime date;
+  final double value;
+  final DateTime timestamp;
 
-  TemperatureData({
-    required this.id,
-    required this.temperature,
-    required this.minTemperature,
-    required this.maxTemperature,
-    required this.date,
-  });
+  Temperature({required this.id, required this.value, required this.timestamp});
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'temperature': temperature,
-      'minTemperature': minTemperature,
-      'maxTemperature': maxTemperature,
-      'date': date.toIso8601String(),
-    };
-  }
-
-  static TemperatureData fromMap(Map<String, dynamic> map) {
-    return TemperatureData(
+  // Convertir une Map en un objet Temperature
+  factory Temperature.fromMap(Map<String, dynamic> map) {
+    return Temperature(
       id: map['id'],
-      temperature: map['temperature'],
-      minTemperature: map['minTemperature'],
-      maxTemperature: map['maxTemperature'],
-      date: DateTime.parse(map['date']),
+      value: map['value'],
+      timestamp: DateTime.parse(map['timestamp']),
     );
   }
 }

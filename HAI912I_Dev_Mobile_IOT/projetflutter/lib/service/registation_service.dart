@@ -1,6 +1,6 @@
 import 'package:projetflutter/models/user.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:projetflutter/helper//database_helper1.dart'; // Import DatabaseHelper
+import 'package:projetflutter/helper//database_helper.dart'; // Import DatabaseHelper
 
 
 class RegistrationService {

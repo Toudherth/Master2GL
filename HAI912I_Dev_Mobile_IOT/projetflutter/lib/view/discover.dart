@@ -4,6 +4,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:intl/intl.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:projetflutter/bloc/location_bloc.dart';
+import 'package:projetflutter/widgets/sous_section_led.dart';
 import 'package:projetflutter/widgets/sous_section_luminosite.dart';
 import 'package:projetflutter/widgets/sous_section_temperature.dart';
 
@@ -71,26 +72,52 @@ class _DiscoverState extends State<Discover> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
-
                     StreamBuilder<String>(
-                      stream: locationBloc.locationStream,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return Text('Chargement de la localisation...',
-                              style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white));
-                        } else if (snapshot.hasError) {
-                          return Text('Erreur de localisation: ${snapshot.error}',
-                              style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white));
-                        } else if (snapshot.hasData) {
-                          return Text(snapshot.data ?? 'Localisation non disponible',
-                              style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white));
-                        } else {
-                          return Text('Localisation non disponible',
-                              style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white));
+                        stream: locationBloc.locationStream,
+
+
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return Text(
+                              'Chargement de la localisation...',
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .headline3
+                                  ?.copyWith(color: Colors.white),
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text(
+                              'Erreur de localisation: ${snapshot.error}',
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .headline3
+                                  ?.copyWith(color: Colors.white),
+                            );
+                          } else if (snapshot.hasData) {
+                            return Text(
+                              '📍 ${snapshot.data}',
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .headline3
+                                  ?.copyWith(color: Colors.white),
+                            );
+                          } else {
+                            return Text(
+                              'Localisation non disponible',
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .headline3
+                                  ?.copyWith(color: Colors.white),
+                            );
+                          }
                         }
-                      },
                     ),
+
+
                     SizedBox(height: 10 * fem),
                     Text(
                       formattedTime,
@@ -104,6 +131,8 @@ class _DiscoverState extends State<Discover> {
                     SousSectionTemperature(),
                     SizedBox(height: screenWidth * 0.05),
                     SousSectionLuminosite(),
+                    SizedBox(height: screenWidth * 0.05),
+                    SousSectionLED(),
                   ],
                 ),
               ),

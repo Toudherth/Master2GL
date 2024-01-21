@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'register.dart';
-import 'login.dart';
+import 'register_screen.dart';
+import 'login_screen.dart';
 
 
 class Home extends StatefulWidget {

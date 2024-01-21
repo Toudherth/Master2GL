@@ -22,8 +22,8 @@ class _ListeSectionState extends State<ListeSection> {
   }
 
   Future<void> _loadTemperatures() async {
-    temperaturesFuture = (await ServiceTemperature.getTemperatures()) as Future<List<Map<String, dynamic>>>;
-    setState(() {}); // Mise à jour de l'UI
+    temperatures = await ServiceTemperature.getTemperatures();
+    setState(() {}); // Mise à jour de l'UI avec les nouvelles données
   }
 
 

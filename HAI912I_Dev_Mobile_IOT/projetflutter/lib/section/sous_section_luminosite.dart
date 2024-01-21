@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:projetflutter/view/led_controler.dart';
-import 'package:projetflutter/view/luminusite.dart';
+import 'package:projetflutter/view/control_led_screen.dart';
+import 'package:projetflutter/view/luminusite_screen.dart';
 import 'dart:ui';
-import 'package:projetflutter/view/temperature.dart'; // Assurez-vous que ce chemin est correct
+import 'package:projetflutter/view/temperature_screen.dart'; // Assurez-vous que ce chemin est correct
 
 
-class SousSectionLED extends StatelessWidget {
 
+class SousSectionLuminosite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double fem = MediaQuery.of(context).size.width / 375;
@@ -22,8 +22,7 @@ class SousSectionLED extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            // MaterialPageRoute(builder: (context) => Lumenusite()),
-            MaterialPageRoute(builder: (context) => ColorMixer()),
+            MaterialPageRoute(builder: (context) => Lumenusite()),
           );
         },
         child: Container(
@@ -42,7 +41,7 @@ class SousSectionLED extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Controle de la LED',
+                    'Night /Light',
                     style: TextStyle(
                       fontSize: 16 * fem,
                       fontWeight: FontWeight.w700,
@@ -53,21 +52,29 @@ class SousSectionLED extends StatelessWidget {
                   Row(
                     children: [
                       Image.asset(
-                        'assets/page-1/images/moon-symbol.png',
-                        width: 20 * fem,
-                        height: 20 * fem,
+                        'assets/page-1/images2/12.png',
+                        width: 35 * fem,
+                        height: 35 * fem,
                       ),
                       SizedBox(width: 4 * fem),
                       Image.asset(
-                        'assets/page-1/images/sun-fj1.png',
-                        width: 20 * fem,
-                        height: 20 * fem,
+                        'assets/page-1/images2/6.png',
+                        width: 35 * fem,
+                        height: 35 * fem,
                       ),
                     ],
                   ),
                 ],
               ),
-              // Vos widgets pour la colonne du milieu
+
+              Text(
+                'LUMINOSITE',
+                style: TextStyle(
+                  fontSize: 14 * fem,
+                  fontWeight: FontWeight.w900,
+                  color: Color(0xFF736f6f),
+                ),
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -76,7 +83,7 @@ class SousSectionLED extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14 * fem,
                       fontWeight: FontWeight.w900,
-                      color: Color(0xff736f6f),
+                      color: Color(0xff000000),
                     ),
                   ),
                   SizedBox(height: 8 * fem),

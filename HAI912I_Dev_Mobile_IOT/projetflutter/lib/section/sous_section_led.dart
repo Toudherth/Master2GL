@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:projetflutter/view/control_led_screen.dart';
+import 'package:projetflutter/view/luminusite_screen.dart';
 import 'dart:ui';
-import 'package:projetflutter/view/temperature.dart'; // Assurez-vous que ce chemin est correct
+import 'package:projetflutter/view/temperature_screen.dart'; // Assurez-vous que ce chemin est correct
 
-class SousSectionTemperature extends StatelessWidget {
+
+class SousSectionLED extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     double fem = MediaQuery.of(context).size.width / 375;
@@ -12,12 +16,14 @@ class SousSectionTemperature extends StatelessWidget {
         top: MediaQuery.of(context).padding.top,
         left: 3,
         right: 3,
+        bottom: MediaQuery.of(context).size.width * 0.05, // Espacement en bas
       ),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Temperature()),
+            // MaterialPageRoute(builder: (context) => Lumenusite()),
+            MaterialPageRoute(builder: (context) => ColorMixer()),
           );
         },
         child: Container(
@@ -36,7 +42,7 @@ class SousSectionTemperature extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Max | Min',
+                    'Controle de la LED',
                     style: TextStyle(
                       fontSize: 16 * fem,
                       fontWeight: FontWeight.w700,
@@ -44,13 +50,20 @@ class SousSectionTemperature extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 4 * fem),
-                  Text(
-                    '24° | 12°',
-                    style: TextStyle(
-                      fontSize: 16 * fem,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff000000),
-                    ),
+                  Row(
+                    children: [
+                      Image.asset(
+                        'assets/page-1/images/moon-symbol.png',
+                        width: 20 * fem,
+                        height: 20 * fem,
+                      ),
+                      SizedBox(width: 4 * fem),
+                      Image.asset(
+                        'assets/page-1/images/sun-fj1.png',
+                        width: 20 * fem,
+                        height: 20 * fem,
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -59,7 +72,7 @@ class SousSectionTemperature extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'TEMPERATURE',
+                    'Lumière',
                     style: TextStyle(
                       fontSize: 14 * fem,
                       fontWeight: FontWeight.w900,
@@ -67,28 +80,22 @@ class SousSectionTemperature extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 8 * fem),
-                  Image.asset(
-                    'assets/page-1/images/sun-rn7.png',
-                    width: 35 * fem,
-                    height: 40 * fem,
+                  Row(
+                    children: [
+                      Icon(Icons.lightbulb_outline, size: 20 * fem),
+                      SizedBox(width: 4 * fem),
+                      Text(
+                        '80%',
+                        style: TextStyle(
+                          fontSize: 14 * fem,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xff000000),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-              // Votre widget pour la colonne de droite
-
-
-
-              Text(
-                '30°C',
-                style: TextStyle(
-                  fontSize: 30 * fem,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xff000000),
-                ),
-              ),
-
-
-
             ],
           ),
         ),

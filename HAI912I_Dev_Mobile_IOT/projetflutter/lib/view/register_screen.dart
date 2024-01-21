@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:projetflutter/models/user.dart';
 import 'package:projetflutter/service/registation_service.dart';
-import 'package:projetflutter/view/discover.dart';
+import 'package:projetflutter/view/accueil_screen.dart';
 
 // Le StatefulWidget
 class Register extends StatefulWidget {

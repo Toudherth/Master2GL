@@ -1,7 +1,7 @@
 // main.dart
 
 import 'package:flutter/material.dart';
-import 'package:projetflutter/view/logged_out.dart';
+import 'package:projetflutter/view/home_screen.dart';
 
 void main() {
   runApp(MyApp());

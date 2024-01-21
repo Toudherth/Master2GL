@@ -3,7 +3,7 @@
 class Temperature {
   final int id;
   final double value;
-  final DateTime timestamp;
+  final DateTime timestamp ;
 
   Temperature({required this.id, required this.value, required this.timestamp});
 
@@ -13,6 +13,8 @@ class Temperature {
       id: map['id'],
       value: map['value'],
       timestamp: DateTime.parse(map['timestamp']),
+
     );
   }
+
 }

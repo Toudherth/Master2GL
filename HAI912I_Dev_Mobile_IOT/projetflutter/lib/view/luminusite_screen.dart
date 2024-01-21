@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:projetflutter/bloc/location_bloc.dart';
-import 'package:projetflutter/widgets/sous_section_sombre.dart';
+import 'package:projetflutter/widgets/luminusite_section.dart';
 
 
 class Lumenusite extends StatefulWidget {

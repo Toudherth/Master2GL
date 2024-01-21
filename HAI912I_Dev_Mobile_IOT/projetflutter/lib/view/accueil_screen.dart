@@ -1,12 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:intl/intl.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:projetflutter/bloc/location_bloc.dart';
-import 'package:projetflutter/widgets/sous_section_led.dart';
-import 'package:projetflutter/widgets/sous_section_luminosite.dart';
-import 'package:projetflutter/widgets/sous_section_temperature.dart';
+import 'package:projetflutter/section/sous_section_led.dart';
+import 'package:projetflutter/section/sous_section_luminosite.dart';
+import 'package:projetflutter/section/sous_section_temperature.dart';
 
 class Discover extends StatefulWidget {
   @override
@@ -38,6 +36,8 @@ class _DiscoverState extends State<Discover> {
       _selectedIndex = index;
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,7 @@ class _DiscoverState extends State<Discover> {
                               style: Theme
                                   .of(context)
                                   .textTheme
-                                  .headline3
+                                  .headline5
                                   ?.copyWith(color: Colors.white),
                             );
                           } else if (snapshot.hasError) {
@@ -92,7 +92,7 @@ class _DiscoverState extends State<Discover> {
                               style: Theme
                                   .of(context)
                                   .textTheme
-                                  .headline3
+                                  .headline5
                                   ?.copyWith(color: Colors.white),
                             );
                           } else if (snapshot.hasData) {
@@ -101,7 +101,7 @@ class _DiscoverState extends State<Discover> {
                               style: Theme
                                   .of(context)
                                   .textTheme
-                                  .headline3
+                                  .headline4
                                   ?.copyWith(color: Colors.white),
                             );
                           } else {
@@ -110,7 +110,7 @@ class _DiscoverState extends State<Discover> {
                               style: Theme
                                   .of(context)
                                   .textTheme
-                                  .headline3
+                                  .headline5
                                   ?.copyWith(color: Colors.white),
                             );
                           }
@@ -118,20 +118,20 @@ class _DiscoverState extends State<Discover> {
                     ),
 
 
-                    SizedBox(height: 10 * fem),
+                    SizedBox(height: 30 * fem),
                     Text(
                       formattedTime,
-                      style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white, fontSize: 40),
+                      style: Theme.of(context).textTheme.headline1?.copyWith(color: Colors.white, fontSize: 40),
                     ),
                     Text(
                       formattedDate,
                       style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white, fontSize: 18),
                     ),
-                    SizedBox(height: 30 * fem),
+                    SizedBox(height: 50 * fem),
                     SousSectionTemperature(),
                     SizedBox(height: screenWidth * 0.05),
                     SousSectionLuminosite(),
-                    SizedBox(height: screenWidth * 0.05),
+                    SizedBox(height: screenWidth * 0.01),
                     SousSectionLED(),
                   ],
                 ),

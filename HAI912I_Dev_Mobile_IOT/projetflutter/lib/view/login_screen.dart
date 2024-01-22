@@ -46,11 +46,8 @@ class _LoginState extends State<Login> {
 
     return Scaffold(
       appBar: CupertinoNavigationBar(
-        leading: CupertinoNavigationBarBackButton(
-          onPressed: () => Navigator.of(context).pop(),
-        ),
         middle: Text('Login'),
-        backgroundColor: CupertinoColors.white,
+        //backgroundColor: CupertinoColors.white,
       ),
 
 
@@ -133,7 +130,7 @@ class _LoginState extends State<Login> {
                       if (success != null) {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Discover()),
+                          MaterialPageRoute(builder: (context) => Accueil()),
                         );
                       } else {
                         Fluttertoast.showToast(

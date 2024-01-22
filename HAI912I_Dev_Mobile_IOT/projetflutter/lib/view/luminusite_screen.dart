@@ -180,7 +180,7 @@ class _LuminositeState extends State<Lumenusite> {
 
  @override
   void dispose() {
-    //_luminosityService.dispose(); // Assurez-vous de disposer le service si nécessaire.
+    //_luminosityService.dispose();
     super.dispose();
   }
 
@@ -188,5 +188,15 @@ class _LuminositeState extends State<Lumenusite> {
     setState(() {
       _selectedIndex = index;
     });
+    if (index == 0) {
+      Navigator.pushNamed(context, '/home');
+    }
+    if (index == 1) {
+      Navigator.pushNamed(context, '/parametre');
+    }
+    if (index == 2) {
+      Navigator.pushNamed(context, '/profile');
+    }
+
   }
 }

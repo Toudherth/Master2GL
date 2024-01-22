@@ -152,7 +152,7 @@ class _RegisterState extends State<Register> {
                         if(success){
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Discover()),
+                            MaterialPageRoute(builder: (context) => Accueil()),
                           );
                         }
                       } else {

@@ -1,7 +1,11 @@
 // main.dart
 
 import 'package:flutter/material.dart';
+import 'package:projetflutter/view/accueil_screen.dart';
 import 'package:projetflutter/view/home_screen.dart';
+import 'package:projetflutter/view/login_screen.dart';
+import 'package:projetflutter/view/profile_screen.dart';
+import 'package:projetflutter/view/settings_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,11 +20,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        // Utilisez un TextTheme standard ou définissez le vôtre sans GoogleFonts
+
         textTheme: TextTheme(
-          bodyText1: TextStyle(fontFamily: 'Roboto'), // Remplacez 'VotrePolice' par votre police
+          bodyText1: TextStyle(fontFamily: 'Roboto'),
         ),
       ),
+      routes: {
+        '/home': (context) => Accueil(),
+        '/profile': (context) => ProfileScreen(),
+        '/parametre': (context) => SettingsScreen(),
+        '/login': (context) => Login(),
+
+      },
       home: Home(),
     );
   }

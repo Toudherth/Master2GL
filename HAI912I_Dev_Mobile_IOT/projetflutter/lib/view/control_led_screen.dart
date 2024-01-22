@@ -111,7 +111,7 @@ class _ColorMixerState extends State<ColorMixer> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.black,
         onTap: _onItemTapped,
       ),
     );
@@ -142,5 +142,15 @@ class _ColorMixerState extends State<ColorMixer> {
     setState(() {
       _selectedIndex = index;
     });
+    if (index == 0) {
+      Navigator.pushNamed(context, '/home');
+    }
+    if (index == 1) {
+      Navigator.pushNamed(context, '/parametre');
+    }
+    if (index == 2) {
+      Navigator.pushNamed(context, '/profile');
+    }
+
   }
 }

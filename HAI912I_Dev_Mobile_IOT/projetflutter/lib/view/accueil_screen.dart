@@ -8,12 +8,12 @@ import 'package:projetflutter/section/sous_section_luminosite.dart';
 import 'package:projetflutter/section/sous_section_statistique.dart';
 import 'package:projetflutter/section/sous_section_temperature.dart';
 
-class Discover extends StatefulWidget {
+class Accueil extends StatefulWidget {
   @override
   _DiscoverState createState() => _DiscoverState();
 }
 
-class _DiscoverState extends State<Discover> {
+class _DiscoverState extends State<Accueil> {
 
   final LocationBloc locationBloc = LocationBloc();
 
@@ -32,13 +32,6 @@ class _DiscoverState extends State<Discover> {
 
   String formattedTime = DateFormat('HH:mm').format(DateTime.now());
   String formattedDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
 
 
   @override
@@ -121,7 +114,7 @@ class _DiscoverState extends State<Discover> {
                     ),
 
 
-                    SizedBox(height: 30 * fem),
+                    SizedBox(height: 20 * fem),
                     Text(
                       formattedTime,
                       style: Theme.of(context).textTheme.headline1?.copyWith(color: Colors.white, fontSize: 40),
@@ -132,7 +125,7 @@ class _DiscoverState extends State<Discover> {
                     ),
                     SizedBox(height: 30 * fem),
                     SousSectionTemperature(),
-                    SizedBox(height: screenWidth * 0.05),
+                    SizedBox(height: screenWidth * 0.01),
                     SousSectionLuminosite(),
                     SizedBox(height: screenWidth * 0.01),
                     SousSectionLED(),
@@ -158,7 +151,7 @@ class _DiscoverState extends State<Discover> {
                 ),
               ],
               currentIndex: _selectedIndex,
-              selectedItemColor: Colors.amber[800],
+              selectedItemColor: Colors.amber[900],
               unselectedItemColor: Colors.black,
               onTap: _onItemTapped,
             ),
@@ -173,4 +166,20 @@ class _DiscoverState extends State<Discover> {
     );
   }
 
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    if (index == 0) {
+      Navigator.pushNamed(context, '/home');
+    }
+    if (index == 1) {
+      Navigator.pushNamed(context, '/parametre');
+    }
+    if (index == 2) {
+      Navigator.pushNamed(context, '/profile');
+    }
+
+  }
 }

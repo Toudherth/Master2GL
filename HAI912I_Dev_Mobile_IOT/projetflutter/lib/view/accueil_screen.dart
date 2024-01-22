@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:projetflutter/bloc/location_bloc.dart';
 import 'package:projetflutter/section/sous_section_led.dart';
 import 'package:projetflutter/section/sous_section_luminosite.dart';
+import 'package:projetflutter/section/sous_section_statistique.dart';
 import 'package:projetflutter/section/sous_section_temperature.dart';
 
 class Discover extends StatefulWidget {
@@ -129,12 +130,14 @@ class _DiscoverState extends State<Discover> {
                       formattedDate,
                       style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white, fontSize: 18),
                     ),
-                    SizedBox(height: 50 * fem),
+                    SizedBox(height: 30 * fem),
                     SousSectionTemperature(),
                     SizedBox(height: screenWidth * 0.05),
                     SousSectionLuminosite(),
                     SizedBox(height: screenWidth * 0.01),
                     SousSectionLED(),
+                    SizedBox(height: screenWidth * 0.01),
+                    SousSectionStatistique(),
                   ],
                 ),
               ),
@@ -159,6 +162,11 @@ class _DiscoverState extends State<Discover> {
               unselectedItemColor: Colors.black,
               onTap: _onItemTapped,
             ),
+
+
+
+
+
           ),
         ),
       ),

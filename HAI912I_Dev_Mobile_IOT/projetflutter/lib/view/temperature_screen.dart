@@ -30,11 +30,7 @@ class _TemperatureState extends State<Temperature> {
   }
 
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -92,5 +88,10 @@ class _TemperatureState extends State<Temperature> {
         ),
       ),
     );
+  }
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 }

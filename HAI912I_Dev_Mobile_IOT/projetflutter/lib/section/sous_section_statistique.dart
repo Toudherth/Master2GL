@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:projetflutter/view/control_led_screen.dart';
 import 'package:projetflutter/view/luminusite_screen.dart';
+import 'package:projetflutter/view/profile_screen.dart';
+import 'package:projetflutter/view/statique_screen.dart';
 import 'dart:ui';
 import 'package:projetflutter/view/temperature_screen.dart'; // Assurez-vous que ce chemin est correct
 
 
+class SousSectionStatistique extends StatelessWidget {
 
-class SousSectionLuminosite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double fem = MediaQuery.of(context).size.width / 375;
@@ -22,7 +24,8 @@ class SousSectionLuminosite extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Lumenusite()),
+             MaterialPageRoute(builder: (context) => ProfileScreen()),
+           // MaterialPageRoute(builder: (context) => LineChartPage()),
           );
         },
         child: Container(
@@ -41,39 +44,40 @@ class SousSectionLuminosite extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Luminosité',
+                    'Statistiques ',
                     style: TextStyle(
-                      fontSize: 18 * fem,
+                      fontSize: 16 * fem,
                       fontWeight: FontWeight.w700,
                       color: Color(0xff000000),
                     ),
                   ),
-
+                  SizedBox(height: 4 * fem),
                   Row(
                     children: [
                       Image.asset(
-                        'assets/page-1/images2/12.png',
-                        width: 45 * fem,
-                        height: 40 * fem,
+                        'assets/page-1/images2/i_rgb-histogram.png',
+                        width: 35 * fem,
+                        height: 35 * fem,
                       ),
-                      SizedBox(width: 25 * fem),
+                      SizedBox(width: 40 * fem),
                       Image.asset(
-                        'assets/page-1/images2/6.png',
-                        width: 45 * fem,
-                        height: 40 * fem,
+                        'assets/page-1/images2/i_statistics.png',
+                        width: 35 * fem,
+                        height: 35 * fem,
                       ),
                     ],
                   ),
                 ],
               ),
-
+              // Vos widgets pour la colonne du milieu
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
 
+                  SizedBox(height: 8 * fem),
                   Row(
                     children: [
-                      Icon(Icons.lightbulb_outlined, size: 35 * fem),
+                      Icon(Icons.score_outlined, size: 30 * fem),
                       SizedBox(width: 4 * fem),
 
                     ],

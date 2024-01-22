@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:projetflutter/service/luminosity_service.dart';
 
 
 
@@ -8,17 +10,22 @@ class ColorMixer extends StatefulWidget {
 }
 
 class _ColorMixerState extends State<ColorMixer> {
+  final LuminosityService _luminosityService = LuminosityService();
+  int _selectedIndex = 0;
+
   double cyan = 100;
   double magenta = 100;
   double yellow = 100;
 
   Color getColorFromCMY(double cyan, double magenta, double yellow) {
-    // Conversion de CMY (0-100) en RGB (0-255)
-    final red = (1.0 - cyan / 100) * 255;
-    final green = (1.0 - magenta / 100) * 255;
-    final blue = (1.0 - yellow / 100) * 255;
+    // Conversion de CMY (0-255) en RGB (0-255)
+    final red = 255 - cyan;
+    final green = 255 - magenta;
+    final blue = 255 - yellow;
     return Color.fromRGBO(red.toInt(), green.toInt(), blue.toInt(), 1);
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,27 +33,37 @@ class _ColorMixerState extends State<ColorMixer> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Controle de la LED'),
+        //title: Text('Controle de la LED'),
+        leading: CupertinoNavigationBarBackButton(
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        elevation: 0,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          Text(
+            'Contrôle de la LED',
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: Colors.black
+            ),
+          ),
           Container(
             margin: EdgeInsets.all(5),
             padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0), // Grand padding vertical
-
-            // Ce Container est juste pour la couleur
             child: Container(
-              height: 200, // Hauteur fixe pour la boîte de couleur
+              height: 200,
               color: displayColor,
             ),
           ),
-          SizedBox(height: 30),
+          SizedBox(height: 10),
           Text(
             'CMY(${cyan.toStringAsFixed(0)}, ${magenta.toStringAsFixed(0)}, ${yellow.toStringAsFixed(0)})',
-            style: TextStyle(fontSize: 24, color: Colors.black),
+            style: TextStyle(fontSize: 21, color: Colors.black, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 100),
+          SizedBox(height: 30),
           sliderWithTitle('Cyan', cyan, Colors.cyan, (newValue) {
             setState(() => cyan = newValue);
           }),
@@ -56,7 +73,46 @@ class _ColorMixerState extends State<ColorMixer> {
           sliderWithTitle('Yellow', yellow, Colors.yellow.shade600, (newValue) {
             setState(() => yellow = newValue);
           }),
+
+          SizedBox(height: 10),
+          CupertinoButton(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(10),
+            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+            child: Text(
+              'Contrôler la LED',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+              ),
+            ),
+            onPressed: () {
+              print("${cyan.toInt()}  ${magenta.toInt()}  ${yellow.toInt()}");
+              _luminosityService.controlLED(cyan.toInt(), magenta.toInt(), yellow.toInt());
+            },
+          )
+
+
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
     );
 
@@ -80,5 +136,11 @@ class _ColorMixerState extends State<ColorMixer> {
         ),
       ],
     );
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 }

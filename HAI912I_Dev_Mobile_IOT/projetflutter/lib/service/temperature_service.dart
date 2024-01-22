@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:projetflutter/helper/database_helper.dart';
 import 'dart:async';
 
+import 'package:projetflutter/models/Temperature.dart';
+
 
 class ServiceTemperature {
   final StreamController<double> _temperatureController = StreamController.broadcast();
@@ -38,6 +40,14 @@ class ServiceTemperature {
 
   void dispose() {
     _temperatureController.close();
+  }
+
+  Future<List<Temperature>> fetchTemperatures() async {
+    final db = await DatabaseHelper.getDB();
+    final List<Map<String, dynamic>> maps = await db.query('temperatures');
+    return List.generate(maps.length, (i) {
+      return Temperature.fromMap(maps[i]);
+    });
   }
 
   // api of get temperature

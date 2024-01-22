@@ -1,8 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'dart:async';
-import 'package:flutter/material.dart';
-
 import 'dart:async';
 
 class LuminosityService {
@@ -10,70 +9,111 @@ class LuminosityService {
 
   Stream<double> get luminosityUpdates => _luminosityController.stream;
 
-  void updateLuminosity(double luminosity) {
-    _luminosityController.add(luminosity);
+  LuminosityService() {
+    startFetchingLuminosity();
   }
 
-
-
-  Future<double> fetchLuminosity() async {
-    // Remplacez avec l'adresse IP et le port de votre serveur Arduino
-    var url = Uri.parse('http://192.168.137.78/light');
-
-    try {
-      final response = await http.get(url);
-
-      if (response.statusCode == 200) {
-        var jsonResponse = jsonDecode(response.body);
-        // Assurez-vous que votre Arduino renvoie une réponse JSON avec une clé 'value'
-        double lightValue = jsonResponse['value'].toDouble();
-        return lightValue;
-      } else {
-        // Gérez le cas où le serveur ne renvoie pas une réponse 200 OK
-        throw Exception('Failed to load luminosity');
+  void startFetchingLuminosity() {
+    Timer.periodic(Duration(seconds: 5), (timer) async {
+      try {
+        print("Chargement... ");
+        int luminosityValue = await _fetchLuminosity();
+        print("Value lumiere :  "+luminosityValue.toString());
+        _luminosityController.add(luminosityValue.toDouble());
+      } catch (e) {
+        print("Erreur lors de la récupération de la luminosité: $e");
       }
-    } on Exception catch (e) {
-      // Gérer les exceptions lors de la connexion au serveur ou lors de la conversion des données
-      print(e.toString());
-      throw Exception('Failed to connect to the Arduino server');
-    }
+    });
   }
 
 
-  Future<double> fetchLuminosijty() async {
+  Future<int> _fetchLuminosity() async {
+    final response = await http.get(Uri.parse('http://192.168.43.10/light'));
+    final Map<String, dynamic> body = json.decode(response.body);
+    int luminosityValue = (body['value'] as num).toInt();
+    return luminosityValue;
+  }
+
+
+  // modifier le sueil
+  Future<void> setThreshold(double threshold) async {
     try {
-      final response = await http.get(Uri.parse('http://192.168.43.10/hight'));
+      final response = await http.post(
+        Uri.parse('http://192.168.43.10/nightModeThreshold'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+
+        body: jsonEncode(<String, dynamic>{
+          'threshold': threshold,
+        }),
+      );
+      print("response "+ response.toString());
 
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        // Extraction de la valeur de la température
-        double temperatureValue = data['value'];
-        print("Les données sont la ______________ "+temperatureValue.toString());
-        return temperatureValue; // Retourner directement la valeur double
+        print("Seuil défini avec succès.");
       } else {
-        print("les données ne sont pas recuperer ______________");
-        throw Exception('Erreur de chargement');
+        print("Erreur lors de la définition du seuil: ${response.body}");
       }
     } catch (e) {
-      throw Exception('Erreur: $e');
+      print("Erreur lors de la définition du seuil: $e");
     }
   }
 
-  void dispose() {
-    _luminosityController.close();
+
+  // Controle de LED
+  Future<void> controlLED(int cyan, int magenta, int yellow) async {
+    // Construire l'URI avec les paramètres de requête
+    final uri = Uri.parse('http://192.168.43.10/led')
+        .replace(queryParameters: {
+      'magenta': magenta.toString(),
+      'cyan': cyan.toString(),
+      'yellow': yellow.toString(),
+    });
+
+    try {
+      // Afficher l'URL complète (pour la vérification)
+      print('URL de la requête: $uri');
+
+      // Envoyer la requête POST
+      final response = await http.post(uri);
+
+      if (response.statusCode == 200) {
+        // Afficher le toast avec la réponse du backend
+        Fluttertoast.showToast(
+            msg: "LED contrôlée avec succès: ${response.body}",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      } else {
+        // Afficher le toast en cas d'erreur
+        Fluttertoast.showToast(
+            msg: "Erreur lors du contrôle de la LED: ${response.body}",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      }
+
+
+    } catch (e) {
+      print("Erreur lors du contrôle de la LED: $e");
+    }
   }
 
+
+
+
+
+
+/*void dispose() {
+    _luminosityController.close();
+  }*/
 }
-
-
-
-
-final ThemeData darkTheme = ThemeData(
-  brightness: Brightness.dark,
-  // other dark theme properties...
-);
-
-final ThemeData lightTheme = ThemeData(
-  brightness: Brightness.light,
-  // other light theme properties...
-);

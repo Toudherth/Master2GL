@@ -10,53 +10,59 @@ class Lumenusite extends StatefulWidget {
 
 class _LuminositeState extends State<Lumenusite> {
   int _selectedIndex = 0;
-  final LuminosityService luminosityService = LuminosityService();
+  final LuminosityService _luminosityService = LuminosityService();
 
   // initialisation de seuil
   double _currentThreshold = 1000;
+  bool _isNightMode = false;
+
 
   @override
   void initState() {
     super.initState();
-    // Ici, vous pouvez initialiser le service de luminosité si nécessaire.
+    _luminosityService.luminosityUpdates.listen((luminosityValue) {
+      setState(() {
+        _isNightMode = luminosityValue < _currentThreshold;
+        print("is Dark mode ? " +_isNightMode.toString());
+      });
+    });
   }
 
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<double>(
-      stream: luminosityService.luminosityUpdates,
+      stream: _luminosityService.luminosityUpdates,
       builder: (context, snapshot) {
-        bool isDarkMode = snapshot.hasData && snapshot.data! < 50;
+        //TODO: declaration de dark and white mode
+        var themeData = _isNightMode ? ThemeData.dark() : ThemeData.light();
+
+        //  l'image en fonction du mode
+        String imagePath = _isNightMode
+            ? 'assets/page-1/images2/12.png' // Image du mode sombre
+            : 'assets/page-1/images/sun-qJs.png'; // Image du mode clair
 
 
-        // Choisissez votre thème en fonction de la luminosité.
-        var themeData = isDarkMode ? ThemeData.dark() : ThemeData.light();
-
-        SystemUiOverlayStyle statusBarStyle = isDarkMode
+        // Configurez le style de la barre de statut
+        SystemUiOverlayStyle statusBarStyle = _isNightMode
             ? SystemUiOverlayStyle.light.copyWith(
-          statusBarColor: Colors.black, // pour le mode sombre
-          statusBarIconBrightness: Brightness.light, // Icônes claires
+          statusBarColor: Colors.black,
+          statusBarIconBrightness: Brightness.light,
         )
             : SystemUiOverlayStyle.dark.copyWith(
-          statusBarColor: Colors.white, // pour le mode clair
-          statusBarIconBrightness: Brightness.dark, // Icônes sombres
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
         );
+
 
         return AnnotatedRegion<SystemUiOverlayStyle>(
           value: statusBarStyle,
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              // Configurez le reste de votre thème ici
-              appBarTheme: AppBarTheme(
-                systemOverlayStyle: statusBarStyle, // Utilisé par l'AppBar
-              ),
-            ),
+            theme: themeData,
             home: Scaffold(
               appBar: AppBar(
-                //title: Text(isDarkMode ? 'Mode Sombre' : 'Mode Clair'),
-                backgroundColor: isDarkMode ? Colors.grey[900] : Colors.transparent,
+                backgroundColor: _isNightMode ? Colors.grey[900] : Colors.white,
                 leading: CupertinoNavigationBarBackButton(
                   onPressed: () => Navigator.of(context).pop(),
                 ),
@@ -64,25 +70,25 @@ class _LuminositeState extends State<Lumenusite> {
               ),
 
 
+
               body: Center(
                 child: SingleChildScrollView(
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center, // Centre le contenu verticalement
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Mode ${isDarkMode ? "Sombre" : "Clair"}',
+                        'Mode ${_isNightMode ? "Sombre" : "Clair"}',
                         style: themeData.textTheme.headline6?.copyWith(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: isDarkMode ? Colors.white : Colors.black,
+                          color: _isNightMode ? Colors.white : Colors.black,
                         ),
                       ),
-                      //SizedBox(height: 20), // Un espace pour aérer le contenu
+
                       Image.asset(
-                        'assets/page-1/images/sun-qJs.png', // Assurez-vous que le chemin de l'asset est correct
-                        width: 300, // Ajustez la largeur comme nécessaire
-                        height: 300, // Ajustez la hauteur comme nécessaire
+                        imagePath,
+                        width: 300,
+                        height: 300,
                       ),
                       SizedBox(height: 30),
                       Text(
@@ -90,66 +96,60 @@ class _LuminositeState extends State<Lumenusite> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: isDarkMode ? Colors.white : Colors.black,
+                          color: _isNightMode ? Colors.white : Colors.black,
                         ),
                       ),
-                      Slider(
-                        value: _currentThreshold,
-                        min: 500,
-                        max: 4000,
-                        //divisions: 35, // Pour avoir des étapes de 100 entre 500 et 4000
-                        label: _currentThreshold.round().toString(),
-                        onChanged: (double value) {
-                          setState(() {
-                            _currentThreshold = value;
-                          });
-                        },
+
+                      // slider pour le seuil
+                      SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: _isNightMode ? Colors.indigo.shade700 : Colors.amber.shade700,
+                          inactiveTrackColor: _isNightMode ? Colors.indigo[200] : Colors.amber[200],
+                          thumbColor: _isNightMode ? Colors.indigo.shade900 : Colors.amber.shade900,
+                          overlayColor: _isNightMode ? Colors.white.withAlpha(32) : Colors.amber.withAlpha(32),
+                          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
+                          overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
+                        ),
+                        child: Slider(
+                          value: _currentThreshold,
+                          min: 500,
+                          max: 4000,
+                          label: _currentThreshold.round().toString(),
+                          onChanged: (double value) {
+                            setState(() {
+                              _currentThreshold = value.roundToDouble(); // un double esr arrondi à l'entier le plus proche
+                              print("Seuil: ${_currentThreshold.toInt()}");
+                            });
+                          },
+                        ),
                       ),
 
                       SizedBox(height: 30),
-
-                    /*  ElevatedButton(
-                        onPressed: () {
-                          // Envoyez le seuil au backend
-                        },
-                        child: Text('Valider le seuil'),
-                      ),
-*/
-                      ElevatedButton(
-                        onPressed: () {
-                          // Envoyez le seuil au backend
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                                (Set<MaterialState> states) {
-                              if (isDarkMode) {
-                                return Colors.white; // Bouton blanc en mode sombre
-                              }
-                              return Colors.black; // Bouton noir en mode clair
-                            },
-                          ),
-                          foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                                (Set<MaterialState> states) {
-                              if (isDarkMode) {
-                                return Colors.black; // Texte noir en mode sombre
-                              }
-                              return Colors.white; // Texte blanc en mode clair
-                            },
+                      CupertinoButton(
+                        color: _isNightMode ? Colors.white : Colors.black, // Couleur du fond en fonction du mode
+                        borderRadius: BorderRadius.circular(10), // Bordure arrondie
+                        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15), // Padding interne du bouton
+                        child: Text(
+                          'Valider le seuil',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: _isNightMode ? Colors.black : Colors.white, // Couleur du texte en fonction du mode
                           ),
                         ),
-                        child: Text('Valider le seuil'),
-                      ),
-
+                        onPressed: () {
+                          // Logique pour envoyer le seuil au service
+                          _luminosityService.setThreshold(_currentThreshold);
+                        },
+                      )
 
 
                     ],
                   ),
                 ),
               ),
-
-// ... Votre code suivant ...
-
+              // bottom bar
               bottomNavigationBar: BottomNavigationBar(
+                backgroundColor: _isNightMode ? Colors.black87 : Colors.white, // Couleur de fond
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
                     icon: Icon(Icons.home),
@@ -165,9 +165,11 @@ class _LuminositeState extends State<Lumenusite> {
                   ),
                 ],
                 currentIndex: _selectedIndex,
-                selectedItemColor: Colors.amber[800],
+                selectedItemColor: _isNightMode ? Colors.indigo.shade700 : Colors.amber.shade700, // Couleur de l'icône active
+                unselectedItemColor: _isNightMode ? Colors.indigo[200] : Colors.amber[200], // Couleur des icônes inactives
                 onTap: _onItemTapped,
               ),
+
             ),
           ),
         );
@@ -178,7 +180,7 @@ class _LuminositeState extends State<Lumenusite> {
 
  @override
   void dispose() {
-    luminosityService.dispose(); // Assurez-vous de disposer le service si nécessaire.
+    //_luminosityService.dispose(); // Assurez-vous de disposer le service si nécessaire.
     super.dispose();
   }
 

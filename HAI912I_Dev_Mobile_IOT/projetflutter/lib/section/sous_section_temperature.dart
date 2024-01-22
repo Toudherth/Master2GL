@@ -73,9 +73,9 @@ class _SousSectionTemperatureState extends State<SousSectionTemperature> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Max     |  Min',
+                    'Temperature',
                     style: TextStyle(
-                      fontSize: 16 * fem,
+                      fontSize: 18 * fem,
                       fontWeight: FontWeight.w700,
                       color: Color(0xFF000000),
                     ),
@@ -83,7 +83,7 @@ class _SousSectionTemperatureState extends State<SousSectionTemperature> {
                   SizedBox(height: 4 * fem),
 
                   Text(
-                    ' ${maxTemperature.toStringAsFixed(2)}°| ${minTemperature.toStringAsFixed(1)}°',
+                    ' ${maxTemperature.toStringAsFixed(2)}°   |    ${minTemperature.toStringAsFixed(1)}°',
                     style: TextStyle(
                       fontSize: 16 * fem,
                       fontWeight: FontWeight.w700,
@@ -92,21 +92,7 @@ class _SousSectionTemperatureState extends State<SousSectionTemperature> {
                   ),
                 ],
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'TEMPERATURE',
-                    style: TextStyle(
-                      fontSize: 14 * fem,
-                      fontWeight: FontWeight.w900,
-                      color: Color(0xFF736f6f),
-                    ),
-                  ),
-                  SizedBox(height: 8 * fem),
-                  // L'icône de température sera affichée ici
-                ],
-              ),
+
               StreamBuilder<double>(
                 stream: serviceTemperature.temperatureUpdates,
                 builder: (context, snapshot) {
@@ -120,7 +106,7 @@ class _SousSectionTemperatureState extends State<SousSectionTemperature> {
                   } else if (snapshot.hasError) {
                     temperatureText = 'Erreur';
                     // Utiliser un widget Text pour l'icône en cas d'erreur
-                    iconWidget = Icon(Icons.error, size: 20 * fem, color: Colors.red);
+                    iconWidget = Icon(Icons.sunny, size: 20 * fem, color: Colors.red);
                   } else if (snapshot.hasData) {
                     final currentTemperature = snapshot.data!;
                     temperatureText = '${currentTemperature.toStringAsFixed(2)}°C';

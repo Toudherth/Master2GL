@@ -1,217 +1,163 @@
 import 'package:flutter/material.dart';
-import 'package:projetflutter/bloc/location_bloc.dart';
-import 'package:projetflutter/helper/database_helper.dart';
-import 'package:projetflutter/service/temperature_service.dart';
+import 'package:projetflutter/service/luminosity_service.dart';
 
-class HeaderSection extends StatefulWidget {
+
+
+class ColorMixer extends StatefulWidget {
   @override
-  _HeaderSectionState createState() => _HeaderSectionState();
+  _ColorMixerState createState() => _ColorMixerState();
 }
 
-class _HeaderSectionState extends State<HeaderSection> {
-  final LocationBloc locationBloc = LocationBloc();
-  final ServiceTemperature serviceTemperature = ServiceTemperature();
-  double minTemperature = 0.0;
-  double maxTemperature = 0.0;
+class _ColorMixerState extends State<ColorMixer> {
 
-  @override
-  void initState() {
-    super.initState();
-    locationBloc.determinePosition();
-    loadMinMaxTemperatures();
-    serviceTemperature.temperatureUpdates.listen((temp) {
-      ServiceTemperature.insertTemperature(temp);
-      setState(() {});
-    });
+  final LuminosityService _luminosityService = LuminosityService();
+
+
+  double cyan = 100;
+  double magenta = 100;
+  double yellow = 100;
+
+  Color getColorFromCMY(double cyan, double magenta, double yellow) {
+    // Conversion de CMY (0-255) en RGB (0-255)
+    final red = 255 - cyan;
+    final green = 255 - magenta;
+    final blue = 255 - yellow;
+    return Color.fromRGBO(red.toInt(), green.toInt(), blue.toInt(), 1);
   }
 
-  @override
-  void dispose() {
-    locationBloc.dispose();
-    serviceTemperature.dispose();
-    super.dispose();
-  }
-
-  Future<void> loadMinMaxTemperatures() async {
-    double minTemp = await ServiceTemperature.getMinTemperature();
-    double maxTemp = await ServiceTemperature.getMaxTemperature();
-    setState(() {
-      minTemperature = minTemp;
-      maxTemperature = maxTemp;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: MediaQuery.of(context).padding.top,
-        left: 25,
-        right: 25,
+    Color displayColor = getColorFromCMY(cyan, magenta, yellow);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Controle de la LED'),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // ... Autres widgets ...
-          StreamBuilder<double>(
-            stream: serviceTemperature.temperatureUpdates,
-            builder: (context, snapshot) {
-              String temperature = 'Chargement...';
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                temperature = 'Chargement...';
-              } else if (snapshot.hasError) {
-                temperature = 'Erreur: ${snapshot.error}';
-              } else if (snapshot.hasData) {
-                temperature = '${snapshot.data!.toStringAsFixed(2)}°C';
-              }
-              return Text(
-                temperature,
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
-                ),
-              );
-            },
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.all(5),
+            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0), // Grand padding vertical
+
+            // Ce Container est juste pour la couleur
+            child: Container(
+              height: 200, // Hauteur fixe pour la boîte de couleur
+              color: displayColor,
+            ),
           ),
           SizedBox(height: 30),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Min | Max',
-                    style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
-                  ),
-                  Text(
-                    '${minTemperature.toStringAsFixed(1)}° | ${maxTemperature.toStringAsFixed(1)}°',
-                    style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
-                  ),
-                ],
-              ),
-              Spacer(),
-              Image.asset(
-                'assets/page-1/images/sun-Y1q.png',
-                width: 100,
-                height: 100,
-              ),
-            ],
+          Text(
+            'CMY(${cyan.toStringAsFixed(0)}, ${magenta.toStringAsFixed(0)}, ${yellow.toStringAsFixed(0)})',
+            style: TextStyle(fontSize: 24, color: Colors.black),
           ),
-          SizedBox(height: 150),
+          SizedBox(height: 100),
+          sliderWithTitle('Cyan', cyan, Colors.cyan, (newValue) {
+            setState(() => cyan = newValue);
+          }),
+          sliderWithTitle('Magenta', magenta, Color(0xFFFF00FF), (newValue) {
+            setState(() => magenta = newValue);
+          }),
+          sliderWithTitle('Yellow', yellow, Colors.yellow.shade600, (newValue) {
+            setState(() => yellow = newValue);
+          }),
 
-
-        ],
-      ),
-
-    );
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import 'package:flutter/material.dart';
-import 'package:projetflutter/bloc/location_bloc.dart';
-import 'package:projetflutter/service/temperature_service.dart';
-
-class HeaderSection extends StatefulWidget {
-  @override
-  _HeaderSectionState createState() => _HeaderSectionState();
-}
-
-class _HeaderSectionState extends State<HeaderSection> {
-  final LocationBloc locationBloc = LocationBloc();
-  final ServiceTemperature serviceTemperature = ServiceTemperature();
-
-  @override
-  void initState() {
-    super.initState();
-    locationBloc.determinePosition();
-  }
-
-  @override
-  void dispose() {
-    locationBloc.dispose();
-    serviceTemperature.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: MediaQuery.of(context).padding.top,
-        left: 25,
-        right: 25,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // ... Autres widgets ...
-
-          StreamBuilder<double>(
-            stream: serviceTemperature.temperatureUpdates,
-            builder: (context, snapshot) {
-              String temperature = 'Chargement...';
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                temperature = 'Chargement...';
-              } else if (snapshot.hasError) {
-                temperature = 'Erreur: ${snapshot.error}';
-              } else if (snapshot.hasData) {
-                temperature = '${snapshot.data!.toStringAsFixed(2)}°C';
-              }
-              return Text(
-                temperature,
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
-                ),
-              );
+          ElevatedButton(
+            onPressed: () {
+              print(cyan.toInt().toString()+"  "+ magenta.toInt().toString()+"  "+ yellow.toInt().toString());
+              _luminosityService.controlLED(cyan.toInt(), magenta.toInt(), yellow.toInt());
             },
-          ),
+            child: Text('Contrôler la LED'),
+          )
 
-          // ... Reste du code ...
         ],
       ),
     );
+
+    // app bar
+
+  }
+
+
+  Widget sliderWithTitle(String title, double value, Color color, ValueChanged<double> onChanged) {
+    return Column(
+      children: [
+        Text(title, style: TextStyle(fontSize: 20)),
+        Slider(
+          value: value,
+          min: 0,
+          max: 255,
+          divisions: 255,
+          label: value.round().toString(),
+          activeColor: color,
+          onChanged: onChanged,
+        ),
+      ],
+    );
   }
 }
+
+
+fluttertoast: ^8.2.4
+
+
+
+Future<void> controlLED(int cyan, int magenta, int yellow) async {
+  // ... votre code pour la requête HTTP ...
+
+  if (response.statusCode == 200) {
+    // Afficher le toast avec la réponse du backend
+    Fluttertoast.showToast(
+      msg: "LED contrôlée avec succès: ${response.body}",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.green,
+      textColor: Colors.white,
+      fontSize: 16.0
+    );
+  } else {
+    // Afficher le toast en cas d'erreur
+    Fluttertoast.showToast(
+      msg: "Erreur lors du contrôle de la LED: ${response.body}",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0
+    );
+  }
+}
+
+
+
+  // Controle de LED
+
+  Future<void> controlLED(int cyan, int magenta, int yellow) async {
+    try {
+      print("LED --------------");
+      final response = await http.post(
+        Uri.parse('http://192.168.43.10/led'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          'cyan': cyan,
+          'magenta': magenta,
+          'yellow': yellow,
+        }),
+      );
+      print(" la reponse de LED "+response.toString());
+
+      if (response.statusCode == 200) {
+        print("LED contrôlée avec succès.");
+      } else {
+        print("Erreur lors du contrôle de la LED: ${response.body}");
+      }
+    } catch (e) {
+      print("Erreur lors du contrôle de la LED: $e");
+    }
+  }
 

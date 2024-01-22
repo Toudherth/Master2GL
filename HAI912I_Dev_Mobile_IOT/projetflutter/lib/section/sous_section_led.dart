@@ -53,15 +53,15 @@ class SousSectionLED extends StatelessWidget {
                   Row(
                     children: [
                       Image.asset(
-                        'assets/page-1/images/moon-symbol.png',
-                        width: 20 * fem,
-                        height: 20 * fem,
+                        'assets/page-1/images2/icons8-rgb-64.png',
+                        width: 40 * fem,
+                        height: 40 * fem,
                       ),
-                      SizedBox(width: 4 * fem),
+                      SizedBox(width: 40 * fem),
                       Image.asset(
-                        'assets/page-1/images/sun-fj1.png',
-                        width: 20 * fem,
-                        height: 20 * fem,
+                        'assets/page-1/images2/icons8-rgb-48.png',
+                        width: 30 * fem,
+                        height: 30 * fem,
                       ),
                     ],
                   ),
@@ -71,27 +71,12 @@ class SousSectionLED extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Lumière',
-                    style: TextStyle(
-                      fontSize: 14 * fem,
-                      fontWeight: FontWeight.w900,
-                      color: Color(0xff736f6f),
-                    ),
-                  ),
+
                   SizedBox(height: 8 * fem),
                   Row(
                     children: [
-                      Icon(Icons.lightbulb_outline, size: 20 * fem),
-                      SizedBox(width: 4 * fem),
-                      Text(
-                        '80%',
-                        style: TextStyle(
-                          fontSize: 14 * fem,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff000000),
-                        ),
-                      ),
+                      Icon(Icons.ac_unit, size: 30 * fem),
+
                     ],
                   ),
                 ],

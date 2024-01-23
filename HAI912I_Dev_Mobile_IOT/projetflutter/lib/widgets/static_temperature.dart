@@ -1,43 +1,28 @@
+
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:d_chart/d_chart.dart';
 import 'package:projetflutter/models/Temperature.dart';
 import 'package:projetflutter/service/temperature_service.dart';
-import 'package:projetflutter/widgets/static_luminosity.dart';
-import 'package:projetflutter/widgets/static_temperature.dart';
 
-class StatistiqueScreen extends StatefulWidget {
+class StaticTemperature extends StatefulWidget {
+  final Future<List<Temperature>> temperatureDataFuture;
+
+  StaticTemperature({Key? key, required this.temperatureDataFuture}) : super(key: key);
+
   @override
-  _StatistiqueScreenState createState() => _StatistiqueScreenState();
+  _StaticTemperatureState createState() => _StaticTemperatureState();
 }
 
-class _StatistiqueScreenState extends State<StatistiqueScreen> {
-  ServiceTemperature serviceTemperature = ServiceTemperature();
-  late Future<List<Temperature>> temperatureDataFuture;
-
-  int _selectedIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    temperatureDataFuture = serviceTemperature.fetchTemperatures();
-  }
-
-
+class _StaticTemperatureState extends State<StaticTemperature> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: CupertinoNavigationBarBackButton(
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
-      body: FutureBuilder<List<Temperature>>(
+    return FutureBuilder<List<Temperature>>(
+      future: widget.temperatureDataFuture, // Access the future from the widget
+      builder: (context, snapshot) {
 
-
-        future: temperatureDataFuture,
-        builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator(color: Colors.deepPurple));
           } else if (snapshot.hasError) {
@@ -47,7 +32,7 @@ class _StatistiqueScreenState extends State<StatistiqueScreen> {
           } else {
 
             List<NumericData> chartData = snapshot.data!
-                .where((temperature) => temperature.timestamp.minute % 10 == 0)
+                .where((temperature) => temperature.timestamp.second % 10 == 0)
                 .map((temperature) => NumericData(
               domain: temperature.timestamp.second.toDouble(),
               measure: temperature.value,
@@ -131,104 +116,60 @@ class _StatistiqueScreenState extends State<StatistiqueScreen> {
 
 
 
-
-
-
-
-            return SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Column(
-
-                  children: [
-                    Text(
-                      'Statistiques',
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black
-                      ),
-                    ),
-
-                    SizedBox(height: 30),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            spreadRadius: 1,
-                            blurRadius: 10,
-                          ),
-                        ],
-                      ),
-                      padding: EdgeInsets.all(16),
-                      child: StaticTemperature(temperatureDataFuture: temperatureDataFuture)
-
-
-
-                    ),
-                    SizedBox(height: 20), // Espace entre les deux sections
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            spreadRadius: 1,
-                            blurRadius: 10,
-                          ),
-                        ],
-                      ),
-                      padding: EdgeInsets.all(16),
-                      child: StaticLumenusite()
-
-                    ),
-                  ],
+            return Column(
+              children: [
+                Text(
+                  'Température',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
+                Container(
+                  height: 300,
+                  width: 350,
+                  child: DChartLineN(
+                    groupList: numericGroupList,
+                    fillColor: (lineData, index, id) =>
+                        Colors.deepPurple.withOpacity(0.5),
+                    areaColor: (lineData, index, id) => Colors.deepPurple,
+                    animationDuration: Duration(seconds: 1),
+                    animate: true,
+                  ),
+                ),
+                Text(
+                  'Graphe Température par minute',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 20),
+                Container(
+                  height: 200,
+                  child: DChartPieO(
+                    data: pieData,
+                    animationDuration: Duration(seconds: 1),
+                    animate: true,
+                    customLabel: (pieData, index) {
+                      final domain = pieData.domain;
+                      final measure = pieData.measure.toString();
+                      return '$domain: $measure';
+                    },
+                  ),
+                ),
+                Text(
+                  'Graphe de Répartition des températures',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             );
           }
-        },
-      ),
-
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        onTap: _onItemTapped,
-      ),
+      },
     );
   }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    if (index == 0) {
-      Navigator.pushNamed(context, '/home');
-    }
-    if (index == 1) {
-      Navigator.pushNamed(context, '/parametre');
-    }
-    if (index == 2) {
-      Navigator.pushNamed(context, '/profile');
-    }
-
-  }
 }
+

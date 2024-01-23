@@ -38,9 +38,6 @@ class ServiceTemperature {
     }
   }
 
-  void dispose() {
-    _temperatureController.close();
-  }
 
   Future<List<Temperature>> fetchTemperatures() async {
     final db = await DatabaseHelper.getDB();
@@ -114,6 +111,9 @@ class ServiceTemperature {
 
 
 
+  void dispose() {
+    _temperatureController.close();
+  }
 
 }
 

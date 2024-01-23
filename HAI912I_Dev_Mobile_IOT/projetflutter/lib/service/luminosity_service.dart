@@ -4,6 +4,10 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
+import 'package:projetflutter/helper/database_helper.dart';
+import 'package:projetflutter/models/lumiere.dart';
+import 'package:sqflite/sqflite.dart';
+
 class LuminosityService {
   final StreamController<double> _luminosityController = StreamController.broadcast();
 
@@ -13,7 +17,7 @@ class LuminosityService {
     startFetchingLuminosity();
   }
 
-  void startFetchingLuminosity() {
+  void startFetchingLuminosityA() {
     Timer.periodic(Duration(seconds: 5), (timer) async {
       try {
         print("Chargement... ");
@@ -26,12 +30,63 @@ class LuminosityService {
     });
   }
 
+  void startFetchingLuminosity() {
+    Timer.periodic(Duration(seconds: 5), (timer) async {
+      try {
+        print("Chargement... ");
+        int luminosityValue = await _fetchLuminosity();
+        print("Value lumiere :  "+luminosityValue.toString());
+        _luminosityController.add(luminosityValue.toDouble());
+        print("Insection des données de luminosity ... ");
+        await insertLuminosity(luminosityValue.toDouble()); // Insérer dans la base de données
+        print("Inserer avec succes ");
+      } catch (e) {
+        _luminosityController.addError(e);
+      }
+    });
+  }
+
+
 
   Future<int> _fetchLuminosity() async {
     final response = await http.get(Uri.parse('http://192.168.43.10/light'));
     final Map<String, dynamic> body = json.decode(response.body);
     int luminosityValue = (body['value'] as num).toInt();
     return luminosityValue;
+  }
+
+  Future<void> insertLuminosity(double value) async {
+    final db = await DatabaseHelper.getDB();
+    await db.insert(
+      'luminosity',
+      {'value': value},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  // pour afficher le graphe
+  Future<List<Luminosity>> getLuminosityData() async {
+    final db = await DatabaseHelper.getDB();
+    final List<Map<String, dynamic>> maps = await db.query('luminosity');
+
+    return List.generate(maps.length, (i) {
+      return Luminosity.fromMap(maps[i]);
+    });
+  }
+
+
+  // Méthode pour insérer une température
+  static Future<void> insertLuminosite(double luminosite) async {
+    final db = await DatabaseHelper.getDB();
+    print("Tentative d'ajout dans la BDD");
+    int id = await db.insert('luminosity', {'value': luminosite});
+
+    print("La date de l'ajout " +DateTime.timestamp().toString());
+    if (id > 0) {
+      print("Insertion réussie avec l'ID: $id");
+    } else {
+      print("Échec de l'insertion");
+    }
   }
 
 
@@ -111,7 +166,7 @@ class LuminosityService {
 
 
 
-/*void dispose() {
+void dispose() {
     _luminosityController.close();
-  }*/
+  }
 }

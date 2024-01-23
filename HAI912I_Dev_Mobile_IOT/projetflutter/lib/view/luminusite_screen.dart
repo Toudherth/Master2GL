@@ -125,7 +125,7 @@ class _LuminositeState extends State<Lumenusite> {
                       ),
 
                       SizedBox(height: 30),
-                      CupertinoButton(
+                      /*CupertinoButton(
                         color: _isNightMode ? Colors.white : Colors.black, // Couleur du fond en fonction du mode
                         borderRadius: BorderRadius.circular(10), // Bordure arrondie
                         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15), // Padding interne du bouton
@@ -141,7 +141,7 @@ class _LuminositeState extends State<Lumenusite> {
                           _luminosityService.setThreshold(_currentThreshold);
                         },
                       )
-
+*/
 
                     ],
                   ),
@@ -180,7 +180,7 @@ class _LuminositeState extends State<Lumenusite> {
 
  @override
   void dispose() {
-    //_luminosityService.dispose();
+    _luminosityService.dispose();
     super.dispose();
   }
 

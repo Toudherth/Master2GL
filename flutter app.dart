@@ -1,3 +1,17 @@
+non je ne veux pas cette approche, je veux une approche plus simple et sur, car  cette approche nas pas marcher, je veux faire comme j'ai fais avec temperature, donc genere moi du code comme celui de temperature pour luminosité , voici le code de temperature 
+
+
+
+
+
+
+
+
+
+
+
+
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;

@@ -1,84 +1,132 @@
-import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:projetflutter/models/Temperature.dart';
-import 'package:projetflutter/service/temperature_service.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
+
+import 'package:projetflutter/helper/database_helper.dart';
+import 'package:sqflite/sqflite.dart';
+
+class LuminosityService {
+  final StreamController<double> _luminosityController = StreamController.broadcast();
+
+  Stream<double> get luminosityUpdates => _luminosityController.stream;
+
+  LuminosityService() {
+    startFetchingLuminosity();
+  }
+
+  void startFetchingLuminosity() {
+    Timer.periodic(Duration(minutes:1 ), (timer) async {
+      try {
+        print("Chargement... ");
+        int luminosityValue = await _fetchLuminosity();
+        print("Value lumiere :  "+luminosityValue.toString());
+        _luminosityController.add(luminosityValue.toDouble());
+      //  await insertLuminosity(luminosityValue.toDouble());
+      } catch (e) {
+        print("Erreur lors de la récupération de la luminosité: $e");
+      }
+    });
+  }
 
 
-class StatistiqueScreen extends StatefulWidget {
-  @override
-  _StatistiqueScreenState createState() => _StatistiqueScreenState();
-}
+  Future<int> _fetchLuminosity() async {
+    final response = await http.get(Uri.parse('http://192.168.43.10/light'));
+    final Map<String, dynamic> body = json.decode(response.body);
+    int luminosityValue = (body['value'] as num).toInt();
+    return luminosityValue;
+  }
 
-class _StatistiqueScreenState extends State<StatistiqueScreen> {
-  ServiceTemperature serviceTemperature = ServiceTemperature(); // Create an instance
-
-  late Future<List<Map<String, dynamic>>> temperatureData;
-
-  List<Map<String, dynamic>> temData =[
-    {'year': 2021, 'percent':8},
-    {'year': 2022, 'percent':20},
-    {'year': 2023, 'percent':40},
-    {'year': 2024, 'percent':50},
-    {'year': 2025, 'percent':70},
-  ];
-  
-  late Future<List<Temperature>> temperatureDataFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    temperatureDataFuture = serviceTemperature.fetchTemperatures(); // Use the instance to call the method
+  Future<void> insertLuminosity(double luminosityValue) async {
+    final db = await DatabaseHelper.getDB();
+    await db.insert(
+      'luminosity',
+      {'value': luminosityValue},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
 
 
+  // modifier le sueil
+  Future<void> setThreshold(double threshold) async {
+    try {
+      final response = await http.post(
+        Uri.parse('http://192.168.43.10/nightModeThreshold'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
 
-
-  @override
-  Widget build(BuildContext context) {
-
-    List<NumericData> numericDataList = temData.map((data) {
-      return NumericData(
-          domain: data['year']-2020.toDouble(),
-          measure: data['percent'].toDouble());
-    }).toList();
-
-
-
-    final numericGroupList = [
-      NumericGroup(
-        id: 'Line',
-        data: numericDataList,
-      ),
-
-    ];
-
-
-    return Scaffold(
-        appBar: AppBar(title: Text("Statistique")),
-
-
-        body: ListView(
-          padding: EdgeInsets.all(16),
-
-          children: [
-            AspectRatio(
-
-              aspectRatio: 16 / 9,
-
-              child: DChartLineN(
-
-                groupList: numericGroupList,
-
-              ),
-
-            ),
-          ],
-        ),
+        body: jsonEncode(<String, dynamic>{
+          'threshold': threshold,
+        }),
       );
+      print("response "+ response.toString());
 
-
+      if (response.statusCode == 200) {
+        print("Seuil défini avec succès.");
+      } else {
+        print("Erreur lors de la définition du seuil: ${response.body}");
+      }
+    } catch (e) {
+      print("Erreur lors de la définition du seuil: $e");
+    }
   }
-}
 
+
+  // Controle de LED
+  Future<void> controlLED(int cyan, int magenta, int yellow) async {
+    // Construire l'URI avec les paramètres de requête
+    final uri = Uri.parse('http://192.168.43.10/led')
+        .replace(queryParameters: {
+      'magenta': magenta.toString(),
+      'cyan': cyan.toString(),
+      'yellow': yellow.toString(),
+    });
+
+    try {
+      print('URL de la requête: $uri');
+      // Envoyer la requête POST
+      final response = await http.post(uri);
+
+      if (response.statusCode == 200) {
+        // Afficher le toast avec la réponse du backend
+        Fluttertoast.showToast(
+            msg: "LED contrôlée avec succès: ${response.body}",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      } else {
+        // Afficher le toast en cas d'erreur
+        Fluttertoast.showToast(
+            msg: "Erreur lors du contrôle de la LED: ${response.body}",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      }
+
+
+    } catch (e) {
+      print("Erreur lors du contrôle de la LED: $e");
+    }
+  }
+
+
+
+
+
+
+/*void dispose() {
+    _luminosityController.close();
+  }*/
+}
 

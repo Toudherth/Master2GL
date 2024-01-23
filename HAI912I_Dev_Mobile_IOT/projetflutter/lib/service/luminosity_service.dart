@@ -72,9 +72,7 @@ class LuminosityService {
     });
 
     try {
-      // Afficher l'URL complète (pour la vérification)
       print('URL de la requête: $uri');
-
       // Envoyer la requête POST
       final response = await http.post(uri);
 

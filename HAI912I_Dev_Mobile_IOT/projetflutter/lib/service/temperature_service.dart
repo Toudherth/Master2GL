@@ -16,7 +16,7 @@ class ServiceTemperature {
   Stream<double> get temperatureUpdates => _temperatureController.stream;
 
   void _initiateTemperatureUpdates() {
-    Timer.periodic(Duration(seconds: 10), (timer) async {
+    Timer.periodic(Duration(seconds:5 ), (timer) async {
       try {
         final temperature = await _fetchTemperatureFromAPI();
         _temperatureController.add(temperature);
@@ -59,10 +59,8 @@ class ServiceTemperature {
         final data = jsonDecode(response.body);
         // Extraction de la valeur de la température
         double temperatureValue = data['value'];
-        print("Les données sont la ______________ "+temperatureValue.toString());
         return temperatureValue; // Retourner directement la valeur double
       } else {
-        print("les données ne sont pas recuperer ______________");
         throw Exception('Erreur de chargement');
       }
     } catch (e) {

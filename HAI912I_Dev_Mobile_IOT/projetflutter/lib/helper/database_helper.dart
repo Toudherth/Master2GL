@@ -19,6 +19,9 @@ class DatabaseHelper {
           await db.execute(
               "CREATE TABLE temperatures (id INTEGER PRIMARY KEY AUTOINCREMENT, value REAL NOT NULL, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);"
           );
+          await db.execute(
+              "CREATE TABLE luminosity (id INTEGER PRIMARY KEY AUTOINCREMENT, value REAL NOT NULL, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);"
+          );
         },
         version: _version
     );

@@ -23,7 +23,7 @@ dependencies:
   equatable: ^2.0.5
   http: ^1.2.0
   shared_preferences: ^2.2.2
-  d_chart: ^2.6.7
+  d_chart: ^2.6.0
 
 
 
@@ -153,4 +153,5 @@ flutter:
     - assets/page-1/images2/i_rgb-histogram.png
     - assets/page-1/images2/i_statistics.png
     - assets/page-1/images/ellipse-bg.png
+    - assets/page-1/images2/plan.png
 

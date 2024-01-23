@@ -43,7 +43,7 @@ class _DiscoverState extends State<Accueil> {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/page-1/images/pexels-photo-105002-1-9GP.png'),
+          image: AssetImage('assets/page-1/images2/plan.png'),
           fit: BoxFit.cover,
         ),
       ),

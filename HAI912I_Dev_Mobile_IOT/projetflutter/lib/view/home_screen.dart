@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
           // Image d'arrière-plan avec flou
           Positioned.fill(
             child: Image.asset(
-              'assets/page-1/images/pexels-photo-105002-1-9GP.png',
+              'assets/page-1/images2/plan.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -130,10 +130,10 @@ class _HomeState extends State<Home> {
                     duration: Duration(milliseconds: 200),
                     height: 50, // Hauteur du bouton
                     child: CupertinoButton(
-                      color: Colors.black,
+                      color: Colors.white,
                       child: Text(
                         'SIGN IN',
-                        style: TextStyle(fontSize: 15, color: Colors.white),
+                        style: TextStyle(fontSize: 15, color: Colors.black),
                       ),
                       onPressed: () {
                         Navigator.push(

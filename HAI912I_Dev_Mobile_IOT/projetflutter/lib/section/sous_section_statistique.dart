@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projetflutter/view/control_led_screen.dart';
 import 'package:projetflutter/view/luminusite_screen.dart';
 import 'package:projetflutter/view/profile_screen.dart';
-import 'package:projetflutter/view/statique_screen.dart';
+import 'package:projetflutter/view/statistique_screen.dart';
 import 'dart:ui';
 import 'package:projetflutter/view/temperature_screen.dart'; // Assurez-vous que ce chemin est correct
 
@@ -25,7 +25,7 @@ class SousSectionStatistique extends StatelessWidget {
           Navigator.push(
             context,
              //MaterialPageRoute(builder: (context) => ProfileScreen()),
-              MaterialPageRoute(builder: (context) => LineChartPage()),
+              MaterialPageRoute(builder: (context) => StatistiqueScreen()),
           );
         },
         child: Container(

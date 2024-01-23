@@ -84,7 +84,7 @@ class _DiscoverState extends State<Accueil> {
                             );
                           } else if (snapshot.hasError) {
                             return Text(
-                              'Erreur de localisation: ${snapshot.error}',
+                              'Erreur de localisation',
                               style: Theme
                                   .of(context)
                                   .textTheme

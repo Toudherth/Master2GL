@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:projetflutter/text_style.dart';
 import 'register_screen.dart';
 import 'login_screen.dart';
 
@@ -83,14 +84,9 @@ class _HomeState extends State<Home> {
                   // Nom de l'application
                   Text(
                     'Water Sun', // Remplacez par le nom de votre application
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                    style: AppTextStyles.titleStylesun(screenWidth),
                   ),
                   SizedBox(height: 100), // Espace supplémentaire avant les boutons
-                  // Ajoutez d'autres widgets si nécessaire
                 ],
               ),
             ),
@@ -111,8 +107,8 @@ class _HomeState extends State<Home> {
                     child: CupertinoButton(
                       color: Colors.white,
                       child: Text(
-                        'LOG IN',
-                        style: TextStyle(fontSize: 15, color: Colors.black),
+                        'CONNECTER',
+                        style: AppTextStyles.basicTextStyle,
                       ),
                       onPressed: () {
                         Navigator.push(
@@ -128,12 +124,14 @@ class _HomeState extends State<Home> {
                 Expanded(
                   child: AnimatedContainer(
                     duration: Duration(milliseconds: 200),
-                    height: 50, // Hauteur du bouton
+                    //height: 50,
+                    width: _widthRegister,
+                    height: _heightRegister,// Hauteur du bouton
                     child: CupertinoButton(
                       color: Colors.white,
                       child: Text(
-                        'SIGN IN',
-                        style: TextStyle(fontSize: 15, color: Colors.black),
+                        'REGISTRER',
+                        style: AppTextStyles.basicTextStyle,
                       ),
                       onPressed: () {
                         Navigator.push(

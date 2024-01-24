@@ -12,23 +12,14 @@ class LuminosityService {
   final StreamController<double> _luminosityController = StreamController.broadcast();
 
   Stream<double> get luminosityUpdates => _luminosityController.stream;
+  static const String  _uri_lumenosity = 'http://192.168.43.10/light';
+  static const String  _uri_sueil = 'http://192.168.43.10/nightModeThreshold';
+  static const String  _uri_led = 'http://192.168.43.10/led';
 
   LuminosityService() {
     startFetchingLuminosity();
   }
 
-  void startFetchingLuminosityA() {
-    Timer.periodic(Duration(seconds: 5), (timer) async {
-      try {
-        print("Chargement... ");
-        int luminosityValue = await _fetchLuminosity();
-        print("Value lumiere :  "+luminosityValue.toString());
-        _luminosityController.add(luminosityValue.toDouble());
-      } catch (e) {
-        print("Erreur lors de la récupération de la luminosité: $e");
-      }
-    });
-  }
 
   void startFetchingLuminosity() {
     Timer.periodic(Duration(seconds: 5), (timer) async {
@@ -37,6 +28,7 @@ class LuminosityService {
         int luminosityValue = await _fetchLuminosity();
         print("Value lumiere :  "+luminosityValue.toString());
         _luminosityController.add(luminosityValue.toDouble());
+        print("URI lominosity :"+_uri_lumenosity.toString());
         print("Insection des données de luminosity ... ");
         await insertLuminosity(luminosityValue.toDouble()); // Insérer dans la base de données
         print("Inserer avec succes ");
@@ -49,7 +41,7 @@ class LuminosityService {
 
 
   Future<int> _fetchLuminosity() async {
-    final response = await http.get(Uri.parse('http://192.168.43.10/light'));
+    final response = await http.get(Uri.parse(_uri_lumenosity));
     final Map<String, dynamic> body = json.decode(response.body);
     int luminosityValue = (body['value'] as num).toInt();
     return luminosityValue;
@@ -80,7 +72,7 @@ class LuminosityService {
     final db = await DatabaseHelper.getDB();
     print("Tentative d'ajout dans la BDD");
     int id = await db.insert('luminosity', {'value': luminosite});
-
+    //print("URI lominosity :"+_uri_lumenosity.toString());
     print("La date de l'ajout " +DateTime.timestamp().toString());
     if (id > 0) {
       print("Insertion réussie avec l'ID: $id");
@@ -94,7 +86,7 @@ class LuminosityService {
   Future<void> setThreshold(double threshold) async {
     try {
       final response = await http.post(
-        Uri.parse('http://192.168.43.10/nightModeThreshold'),
+        Uri.parse(_uri_sueil),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -119,7 +111,7 @@ class LuminosityService {
   // Controle de LED
   Future<void> controlLED(int cyan, int magenta, int yellow) async {
     // Construire l'URI avec les paramètres de requête
-    final uri = Uri.parse('http://192.168.43.10/led')
+    final uri = Uri.parse(_uri_led)
         .replace(queryParameters: {
       'magenta': magenta.toString(),
       'cyan': cyan.toString(),
@@ -137,7 +129,7 @@ class LuminosityService {
             msg: "LED contrôlée avec succès: ${response.body}",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
+            timeInSecForIosWeb: 5,
             backgroundColor: Colors.green,
             textColor: Colors.white,
             fontSize: 16.0

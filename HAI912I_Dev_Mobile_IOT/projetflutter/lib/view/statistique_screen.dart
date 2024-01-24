@@ -20,7 +20,7 @@ class _StatistiqueScreenState extends State<StatistiqueScreen> {
   @override
   void initState() {
     super.initState();
-    temperatureDataFuture = serviceTemperature.fetchTemperatures();
+    temperatureDataFuture = ServiceTemperature.fetchTemperatures();
   }
 
 

@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
           bodyText1: TextStyle(fontFamily: 'Roboto'),
         ),
       ),
+
       routes: {
         '/home': (context) => Accueil(),
         '/profile': (context) => ProfileScreen(),

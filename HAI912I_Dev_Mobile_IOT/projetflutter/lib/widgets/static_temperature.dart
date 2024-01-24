@@ -1,11 +1,7 @@
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:d_chart/d_chart.dart';
 import 'package:projetflutter/models/Temperature.dart';
-import 'package:projetflutter/service/temperature_service.dart';
 
 class StaticTemperature extends StatefulWidget {
   final Future<List<Temperature>> temperatureDataFuture;

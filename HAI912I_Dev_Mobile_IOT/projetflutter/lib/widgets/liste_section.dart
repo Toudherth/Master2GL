@@ -76,7 +76,7 @@ class _ListeSectionState extends State<ListeSection> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'History',
+                'Historique',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 25,

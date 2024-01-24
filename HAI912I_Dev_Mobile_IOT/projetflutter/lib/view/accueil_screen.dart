@@ -13,21 +13,45 @@ class Accueil extends StatefulWidget {
   _DiscoverState createState() => _DiscoverState();
 }
 
-class _DiscoverState extends State<Accueil> {
+class _DiscoverState extends State<Accueil>  with TickerProviderStateMixin {
 
   final LocationBloc locationBloc = LocationBloc();
+
+
+
+ late  AnimationController _animationController;
+  late Animation<double> _opacityTemp;
+  late Animation<double> _opacityLuminosite;
+  late Animation<double> _opacityLED;
+  late Animation<double> _opacityStatistique;
 
   @override
   void initState() {
     super.initState();
     locationBloc.determinePosition();
+
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+
+    // Les animations commencent avec une opacité de 0 et finissent avec une opacité de 1
+    _opacityTemp = Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
+    _opacityLuminosite = Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
+    _opacityLED = Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
+    _opacityStatistique = Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
+
+    _animationController.forward();
   }
 
   @override
   void dispose() {
+    _animationController.dispose();
     locationBloc.dispose();
     super.dispose();
   }
+
+
   int _selectedIndex = 0;
 
   String formattedTime = DateFormat('HH:mm').format(DateTime.now());
@@ -123,14 +147,14 @@ class _DiscoverState extends State<Accueil> {
                       formattedDate,
                       style: Theme.of(context).textTheme.headline3?.copyWith(color: Colors.white, fontSize: 18),
                     ),
-                    SizedBox(height: 30 * fem),
-                    SousSectionTemperature(),
+                    buildAnimatedSection(SousSectionTemperature(), _opacityTemp),
                     SizedBox(height: screenWidth * 0.01),
-                    SousSectionLuminosite(),
+                    buildAnimatedSection(SousSectionLuminosite(), _opacityLuminosite),
                     SizedBox(height: screenWidth * 0.01),
-                    SousSectionLED(),
+                    buildAnimatedSection(SousSectionLED(), _opacityLED),
                     SizedBox(height: screenWidth * 0.01),
-                    SousSectionStatistique(),
+                    buildAnimatedSection(SousSectionStatistique(), _opacityStatistique),
+
                   ],
                 ),
               ),
@@ -182,4 +206,19 @@ class _DiscoverState extends State<Accueil> {
     }
 
   }
+
+  Widget buildAnimatedSection(Widget child, Animation<double> animation) {
+    // Cette fonction construit un widget animé qui utilise la valeur de l'animation fournie
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) {
+        return Opacity(
+          opacity: animation.value,
+          child: child,
+        );
+      },
+      child: child, // Le widget enfant qui doit être animé
+    );
+  }
 }
+

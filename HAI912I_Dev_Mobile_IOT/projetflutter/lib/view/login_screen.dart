@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:projetflutter/models/user.dart';
 import 'package:projetflutter/service/registation_service.dart';
+import 'package:projetflutter/text_style.dart';
 import 'package:projetflutter/view/accueil_screen.dart';
 
 
@@ -46,11 +47,9 @@ class _LoginState extends State<Login> {
 
     return Scaffold(
       appBar: CupertinoNavigationBar(
-        middle: Text('Login'),
-        //backgroundColor: CupertinoColors.white,
+        middle: Text('Connexion'),
+        backgroundColor: CupertinoColors.white,
       ),
-
-
 
       body: SingleChildScrollView( // Ajoutez un SingleChildScrollView
         child: Padding(
@@ -61,7 +60,7 @@ class _LoginState extends State<Login> {
 
               SizedBox(height: screenWidth * 0.1), // Espacement basé sur la largeur de l'écran
               Text(
-                'Log in',
+                'Connexion',
                 style: TextStyle(
                   fontSize: screenWidth * 0.08, // Taille de police dynamique basée sur la largeur de l'écran
                   fontWeight: FontWeight.bold,
@@ -72,7 +71,7 @@ class _LoginState extends State<Login> {
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
-                  labelText: 'Email address',
+                  labelText: 'Address email',
                   prefixIcon: Icon(CupertinoIcons.mail_solid),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black),
@@ -86,7 +85,7 @@ class _LoginState extends State<Login> {
               TextField(
                 controller: passwordController,
                 decoration: InputDecoration(
-                  labelText: 'Password',
+                  labelText: 'Mot de passe',
                   prefixIcon: Icon(CupertinoIcons.lock_circle_fill),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black),
@@ -105,7 +104,7 @@ class _LoginState extends State<Login> {
                 width: double.infinity,
                 height: 60.0, // Hauteur du bouton
                 child: CupertinoButton(
-                  child: Text('Log in'),
+                  child: Text('SE CONNECTER'),
                   color: Colors.black,
 
                   onPressed: () async {
@@ -119,7 +118,7 @@ class _LoginState extends State<Login> {
                           gravity: ToastGravity.CENTER,
                           backgroundColor: Colors.grey,
                           textColor: Colors.black,
-                          fontSize: 16.0
+                          fontSize: 14.0
                       );
                       return;
                     }
@@ -156,11 +155,8 @@ class _LoginState extends State<Login> {
                     // TODO: Implémenter la fonctionnalité de mot de passe oublié
                   },
                   child: Text(
-                    'FORGET PASSWORD',
-                    style: TextStyle(
-                      color: Colors.black, // Couleur du texte
-                      fontWeight: FontWeight.bold, // Gras
-                    ),
+                    'MOT DE PASSE OUBLIE',
+                    style:  AppTextStyles.globalTextStyle,
                   ),
                 ),
               ),

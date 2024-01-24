@@ -63,7 +63,7 @@ class _RegisterState extends State<Register> {
             children: [
               SizedBox(height: 52), // Espace après le titre
               Text(
-                'Register',
+                'Enregistrer',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w600,
@@ -76,7 +76,7 @@ class _RegisterState extends State<Register> {
               TextField(
                 controller: usernameController,
                 decoration: InputDecoration(
-                  labelText: 'User name' ,
+                  labelText: 'Nom utilisateur' ,
                   prefixIcon: Icon(CupertinoIcons.person_alt_circle_fill),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black),
@@ -89,7 +89,7 @@ class _RegisterState extends State<Register> {
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
-                  labelText: 'Email address',
+                  labelText: 'Address email',
                   prefixIcon: Icon(CupertinoIcons.mail_solid),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black),
@@ -102,7 +102,7 @@ class _RegisterState extends State<Register> {
               TextField(
                 controller: passwordController,
                 decoration: InputDecoration(
-                  labelText: 'Create password',
+                  labelText: 'Ajouter mot de passe',
                   prefixIcon: Icon(CupertinoIcons.lock_circle_fill),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black),
@@ -120,7 +120,7 @@ class _RegisterState extends State<Register> {
                 width: double.infinity,
                 height: 60.0, // Hauteur du bouton
                 child: CupertinoButton(
-                  child: Text('NEXT'),
+                  child: Text('SUIVANT'),
                   color: Colors.black,
 
                     onPressed: () async{
